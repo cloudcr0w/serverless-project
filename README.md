@@ -26,19 +26,22 @@ A concise serverless web application (e.g., task manager or notes app) built on 
    ```bash
    git clone https://github.com/your-username/serverless-project.git
    cd serverless-project
+   ```
 2. **Deploy Infrastructure**
    Using Terraform:
    ```bash
     terraform init
     terraform plan
     terraform apply
-   
+   ```
     Using CloudFormation:
     ```bash
     aws cloudformation deploy \
-  --template-file template.yaml \
-  --stack-name serverless-stack
+     --template-file template.yaml \
+     --stack-name serverless-stack 
+     ```
+ 
 3. **Build & Upload the front-end to your S3 bucket.**
     Verify:
     API Endpoints via API Gateway
-    Lambda Logs in CloudWatc
+    Lambda Logs in CloudWatch
