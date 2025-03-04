@@ -77,3 +77,41 @@ resource "aws_iam_policy_attachment" "lambda_logs" {
   roles      = [aws_iam_role.lambda_role.name]
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+#  Create an AWS Lambda function
+resource "aws_lambda_function" "backend_lambda" {
+  function_name    = "serverless-backend"
+  runtime         = "python3.9"  # Change to "nodejs18.x" if using Node.js
+  handler         = "lambda_function.lambda_handler"
+  role            = aws_iam_role.lambda_role.arn
+  filename        = "lambda.zip"
+
+  source_code_hash = filebase64sha256("lambda.zip")
+}
+
+# API Gateway setup
+resource "aws_apigatewayv2_api" "api_gateway" {
+  name          = "serverless-api"
+  protocol_type = "HTTP"
+}
+
+#  Create API Gateway integration with Lambda
+resource "aws_apigatewayv2_integration" "lambda_integration" {
+  api_id           = aws_apigatewayv2_api.api_gateway.id
+  integration_type = "AWS_PROXY"
+  integration_uri  = aws_lambda_function.backend_lambda.invoke_arn
+}
+
+#  Define a route for API Gateway (e.g., GET /hello)
+resource "aws_apigatewayv2_route" "hello_route" {
+  api_id    = aws_apigatewayv2_api.api_gateway.id
+  route_key = "GET /hello"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+#  Deploy the API Gateway
+resource "aws_apigatewayv2_stage" "api_stage" {
+  api_id      = aws_apigatewayv2_api.api_gateway.id
+  name        = "dev"
+  auto_deploy = true
+}
