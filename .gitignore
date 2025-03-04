@@ -1,0 +1,9 @@
+# Ignore Terraform state files and cache
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Ignore system and editor files
+.DS_Store
+*.swp
