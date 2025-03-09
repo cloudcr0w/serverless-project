@@ -1,4 +1,4 @@
-const API_GATEWAY_URL = "https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev";
+const API_GATEWAY_URL = "https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev/hello";
 
 async function fetchData() {
     try {
