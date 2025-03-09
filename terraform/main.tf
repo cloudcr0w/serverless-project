@@ -115,3 +115,4 @@ resource "aws_apigatewayv2_stage" "api_stage" {
   name        = "dev"
   auto_deploy = true
 }
+
