@@ -151,6 +151,11 @@ resource "aws_apigatewayv2_route" "get_tasks_route" {
   route_key = "GET /tasks"
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
+resource "aws_apigatewayv2_route" "delete_task_route" {
+  api_id    = aws_apigatewayv2_api.api_gateway.id
+  route_key = "DELETE /tasks/{task_id}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
 
 # Deploy the API Gateway
 resource "aws_apigatewayv2_stage" "api_stage" {
