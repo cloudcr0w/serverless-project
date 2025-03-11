@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serverless App</title>
+    <title>Serverless Task Manager</title>
 </head>
 <body>
     <h1>Serverless Task Manager</h1>
-    <button onclick="fetchData()">Fetch API Data</button>
-    <p id="api-response">Click the button to get a response from AWS Lambda.</p>
+
+    <h2>Add a new task</h2>
+    <input type="text" id="task-title" placeholder="Enter task title">
+    <button onclick="createTask()">Add Task</button>
+
+    <h2>Task List</h2>
+    <ul id="task-list">
+        <li>Loading tasks...</li>
+    </ul>
 
     <script src="app.js"></script>
 </body>
