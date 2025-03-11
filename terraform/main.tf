@@ -80,14 +80,14 @@ resource "aws_iam_policy_attachment" "lambda_dynamodb_attach" {
 # Policy for Lambda to access DynamoDB
 resource "aws_iam_policy" "lambda_dynamodb_policy" {
   name        = "LambdaDynamoDBAccess"
-  description = "Allow Lambda to read/write to DynamoDB"
+  description = "Allow Lambda to read/write/delete to DynamoDB"
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
         Effect   = "Allow"
-        Action   = ["dynamodb:PutItem", "dynamodb:Scan"]
+        Action   = ["dynamodb:PutItem", "dynamodb:Scan", "dynamodb:DeleteItem"]
         Resource = aws_dynamodb_table.tasks_table.arn
       }
     ]
@@ -121,7 +121,7 @@ resource "aws_apigatewayv2_api" "api_gateway" {
 
   cors_configuration {
     allow_origins = ["*"]
-    allow_methods = ["GET", "POST"]
+    allow_methods = ["GET", "POST","DELETE"]
     allow_headers = ["Content-Type"]
   }
 }
