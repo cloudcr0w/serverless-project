@@ -9,8 +9,7 @@ def lambda_handler(event, context):
     """ Main handler for AWS Lambda triggered by API Gateway """
     print("Received event:", json.dumps(event))  # Logowanie eventu do CloudWatch
 
-    # Poprawiona obsługa metody HTTP
-    method = event.get("httpMethod")  # HTTP API Gateway używa `httpMethod`
+    method = event.get("httpMethod")  # Obsługa metod API Gateway
 
     if not method:
         return {
@@ -22,6 +21,8 @@ def lambda_handler(event, context):
         return create_task(event)
     elif method == "GET":
         return get_tasks()
+    elif method == "DELETE":
+        return delete_task(event)
     else:
         return {
             "statusCode": 400,
@@ -67,4 +68,22 @@ def get_tasks():
         return {
             "statusCode": 500,
             "body": json.dumps({"error": "Failed to fetch tasks"})
+        }
+
+def delete_task(event):
+    """ Deletes a task from DynamoDB """
+    try:
+        task_id = event["pathParameters"]["task_id"]  # Pobieramy ID z URL
+
+        table.delete_item(Key={"task_id": task_id})
+
+        return {
+            "statusCode": 200,
+            "body": json.dumps({"message": f"Task {task_id} deleted"})
+        }
+    except Exception as e:
+        print("Error deleting task:", str(e))
+        return {
+            "statusCode": 500,
+            "body": json.dumps({"error": "Failed to delete task"})
         }
