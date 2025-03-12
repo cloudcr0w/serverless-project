@@ -12,8 +12,8 @@ A concise serverless web application (e.g., task manager or notes app) built on 
 ---
 
 ## **Key Technologies**
-- **Terraform / AWS CloudFormation** (Infrastructure as Code)  
-- **AWS CodePipeline / GitHub Actions / Jenkins** (CI/CD)  
+- **Terraform** (Infrastructure as Code)  
+- **GitHub Actions** (CI/CD)  
 - **AWS IAM** (Least privilege IAM roles)  
 - **Encryption**: S3 SSE-KMS, DynamoDB SSE-KMS, TLS for data in transit  
 - **Monitoring & Logging**: **Amazon CloudWatch**, **CloudTrail**, **X-Ray**  
