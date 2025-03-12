@@ -13,11 +13,11 @@ A concise serverless web application (e.g., task manager or notes app) built on 
 
 ## **Key Technologies**
 - **Terraform** (Infrastructure as Code)  
-- **GitHub Actions** (CI/CD)  
+- **GitHub Actions** (CI/CD pipeline for Terraform deployment)  
 - **AWS IAM** (Least privilege IAM roles)  
-- **Encryption**: S3 SSE-KMS, DynamoDB SSE-KMS, TLS for data in transit  
-- **Monitoring & Logging**: **Amazon CloudWatch**, **CloudTrail**, **X-Ray**  
-- **Security**: **AWS WAF**, **Shield Standard**, **GuardDuty**, **Security Hub**  
+- **Encryption**: S3 SSE-KMS, DynamoDB SSE-KMS,  
+- **Amazon CloudWatch** , **CloudTrail**: (for infrastructure visibility)
+- **Security**: **AWS WAF**, **Shield Standard** 
 
 ---
 
