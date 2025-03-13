@@ -54,9 +54,38 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          aws-secret-access-key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          aws-access-key-id: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
           aws-region: us-east-1
 
       - name: Upload frontend to S3
         run: aws s3 sync . s3://adamwrona-serverless-frontend/ --acl public-read --exclude "terraform/*"
+
+  deploy-lambda:
+    name: Deploy AWS Lambda
+    needs: [terraform] 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Package Lambda
+        run: |
+          cd terraform
+          zip lambda.zip lambda_function.py
+
+      - name: Deploy Lambda
+        run: |
+          aws lambda update-function-code --function-name serverless-backend --zip-file fileb://terraform/lambda.zip
+
+      - name: Verify API after deployment
+        run: |
+          sleep 5  # Czekamy chwilę na propagację zmian
+          curl -X GET https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev/tasks || exit 1
