@@ -6,11 +6,11 @@ terraform {
       version = "~> 5.0"
     }
   }
-  backend "local" {}  # Using local backend for state management (for now)
+  backend "local" {} # Using local backend for state management (for now)
 }
 
 provider "aws" {
-  region = "us-east-1"  # Change to your preferred AWS region
+  region = "us-east-1" # Change to your preferred AWS region
 }
 
 # 2️⃣ S3 Bucket for frontend
@@ -76,7 +76,6 @@ resource "aws_iam_policy_attachment" "lambda_dynamodb_attach" {
   policy_arn = aws_iam_policy.lambda_dynamodb_policy.arn
 }
 
-
 # Policy for Lambda to access DynamoDB
 resource "aws_iam_policy" "lambda_dynamodb_policy" {
   name        = "LambdaDynamoDBAccess"
@@ -121,7 +120,7 @@ resource "aws_apigatewayv2_api" "api_gateway" {
 
   cors_configuration {
     allow_origins = ["*"]
-    allow_methods = ["GET", "POST","DELETE"]
+    allow_methods = ["GET", "POST", "DELETE"]
     allow_headers = ["Content-Type"]
   }
 }
