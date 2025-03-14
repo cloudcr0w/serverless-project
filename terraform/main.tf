@@ -1,13 +1,13 @@
 # 1️⃣ Terraform configuration and AWS provider
 terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
+  backend "s3" {
+    bucket         = "adamwrona-terraform-state"
+    key            = "serverless-project/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
   }
-  backend "local" {} # Using local backend for state management (for now)
 }
+
 
 provider "aws" {
   region = "us-east-1" # Change to your preferred AWS region
