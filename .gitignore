@@ -4,8 +4,10 @@
 .terraform/
 .terraform.lock.hcl
 
+# Ignore temporary files
+response.json
+tfplan
+
 # Ignore system and editor files
 .DS_Store
 *.swp
-# Ignore response.json
-echo "terraform/response.json" >> .gitignore
