@@ -17,6 +17,10 @@ provider "aws" {
 resource "aws_s3_bucket" "frontend_bucket" {
   bucket        = "adamwrona-serverless-frontend"
   force_destroy = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_website_configuration" "frontend_website" {
@@ -44,6 +48,10 @@ resource "aws_dynamodb_table" "tasks_table" {
   server_side_encryption {
     enabled = true
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # 4️⃣ IAM Role for Lambda
@@ -60,23 +68,13 @@ resource "aws_iam_role" "lambda_role" {
       }
     }]
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
-# Attach CloudWatch Logs policy to Lambda role
-resource "aws_iam_policy_attachment" "lambda_logs" {
-  name       = "lambda-logs-policy"
-  roles      = [aws_iam_role.lambda_role.name]
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-}
-
-# Attach DynamoDB access policy to Lambda role
-resource "aws_iam_policy_attachment" "lambda_dynamodb_attach" {
-  name       = "lambda-dynamodb-policy-attachment"
-  roles      = [aws_iam_role.lambda_role.name]
-  policy_arn = aws_iam_policy.lambda_dynamodb_policy.arn
-}
-
-# Policy for Lambda to access DynamoDB
+# IAM Policy for Lambda to access DynamoDB
 resource "aws_iam_policy" "lambda_dynamodb_policy" {
   name        = "LambdaDynamoDBAccess"
   description = "Allow Lambda to read/write/delete to DynamoDB"
@@ -93,6 +91,19 @@ resource "aws_iam_policy" "lambda_dynamodb_policy" {
   })
 }
 
+# Attach policies to Lambda Role
+resource "aws_iam_policy_attachment" "lambda_dynamodb_attach" {
+  name       = "lambda-dynamodb-policy-attachment"
+  roles      = [aws_iam_role.lambda_role.name]
+  policy_arn = aws_iam_policy.lambda_dynamodb_policy.arn
+}
+
+resource "aws_iam_policy_attachment" "lambda_logs" {
+  name       = "lambda-logs-policy"
+  roles      = [aws_iam_role.lambda_role.name]
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 # 5️⃣ Lambda function
 resource "aws_lambda_function" "backend_lambda" {
   function_name = "serverless-backend"
@@ -102,6 +113,10 @@ resource "aws_lambda_function" "backend_lambda" {
   filename      = "lambda.zip"
 
   source_code_hash = filebase64sha256("lambda.zip")
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # Allow API Gateway to invoke Lambda
@@ -123,6 +138,10 @@ resource "aws_apigatewayv2_api" "api_gateway" {
     allow_methods = ["GET", "POST", "DELETE"]
     allow_headers = ["Content-Type"]
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # API Gateway integration with Lambda
@@ -132,7 +151,7 @@ resource "aws_apigatewayv2_integration" "lambda_integration" {
   integration_uri  = aws_lambda_function.backend_lambda.invoke_arn
 }
 
-# Routes (Now in correct order)
+# API Gateway routes
 resource "aws_apigatewayv2_route" "hello_route" {
   api_id    = aws_apigatewayv2_api.api_gateway.id
   route_key = "GET /hello"
@@ -150,6 +169,7 @@ resource "aws_apigatewayv2_route" "get_tasks_route" {
   route_key = "GET /tasks"
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
+
 resource "aws_apigatewayv2_route" "delete_task_route" {
   api_id    = aws_apigatewayv2_api.api_gateway.id
   route_key = "DELETE /tasks/{task_id}"
@@ -162,3 +182,4 @@ resource "aws_apigatewayv2_stage" "api_stage" {
   name        = "dev"
   auto_deploy = true
 }
+
