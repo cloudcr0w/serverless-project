@@ -1,10 +1,10 @@
 # 1️⃣ Terraform configuration and AWS provider
 terraform {
   backend "s3" {
-    bucket         = "adamwrona-terraform-state"
-    key            = "serverless-project/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
+    bucket  = "adamwrona-terraform-state"
+    key     = "serverless-project/terraform.tfstate"
+    region  = "us-east-1"
+    encrypt = true
   }
 }
 
