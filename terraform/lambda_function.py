@@ -7,9 +7,10 @@ table = dynamodb.Table("serverless-tasks")
 
 def lambda_handler(event, context):
     """ Main handler for AWS Lambda triggered by API Gateway """
-    print("Received event:", json.dumps(event))  # Logowanie eventu do CloudWatch
+    print("Received event:", json.dumps(event))  
 
-    method = event.get("httpMethod")  # Obsługa metod API Gateway
+    method = event.get("httpMethod", event.get("requestContext", {}).get("http", {}).get("method"))                          
+
 
     if not method:
         return {
