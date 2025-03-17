@@ -82,6 +82,44 @@ async function deleteTask(taskId) {
         console.error("Error deleting task:", error);
     }
 }
+// Function to show alert messages
+function showAlert(message, type) {
+    const alertContainer = document.getElementById("alert-container");
+    alertContainer.innerHTML = `
+        <div class="alert alert-${type} fade-in" role="alert">
+            ${message}
+        </div>
+    `;
+    setTimeout(() => alertContainer.innerHTML = "", 3000); // Auto-hide after 3s
+}
+
+// Modify createTask function to use alerts
+async function createTask() {
+    const taskTitle = document.getElementById("task-title").value.trim();
+
+    if (taskTitle === "") {
+        showAlert("Task title cannot be empty!", "danger");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_GATEWAY_URL}/tasks`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title: taskTitle })
+        });
+
+        if (!response.ok) throw new Error("Failed to create task");
+
+        document.getElementById("task-title").value = "";
+        fetchTasks();
+        showAlert("Task added successfully!", "success");
+    } catch (error) {
+        showAlert("Error creating task!", "danger");
+    }
+}
+
+
 //error loading
 async function fetchTasks() {
     try {

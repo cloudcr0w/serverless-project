@@ -1,89 +1,26 @@
-/* Reset default styles */
+/* Gradient Background */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #56263daa; /* Dark burgundy background */
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-}
-
-/* Container for the application */
-.task-container {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 15px;
-    background: white;
-    color: black;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Headers */
-h1, h2 {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* Task list styling */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-.task {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: #ecebeb;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+    justify-content: center;
 }
 
-/* Hover effect on tasks */
-.task:hover {
-    transform: scale(1.02);
+/* Task Manager Card */
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    max-width: 500px;
+    margin: auto;
 }
 
-/* Button styling */
-button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s ease-in-out, transform 0.2s;
+/* Fade-in Effect */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-button:hover {
-    background: #0056b3;
-    transform: scale(1.05);
-}
-
-/* Delete button effect */
-.delete-btn {
-    background: #dc3545;
-}
-
-.delete-btn:hover {
-    background: #c82333;
-}
-
-/* Input field styling */
-input[type="text"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Fade-out animation */
-.task.removed {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
