@@ -23,6 +23,7 @@ Security: IAM roles with least privilege, S3 encryption
 
 
 🛠 How to Deploy (For Devs)
+
 1️⃣ Clone the Repo
 ```bash
 
