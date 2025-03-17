@@ -82,3 +82,22 @@ async function deleteTask(taskId) {
         console.error("Error deleting task:", error);
     }
 }
+//error loading
+async function fetchTasks() {
+    try {
+        const response = await fetch(`${API_GATEWAY_URL}/tasks`);
+        const responseBody = await response.text();  // Zmieniamy na text() zamiast json()
+        console.log("API Response:", responseBody); // Sprawdźmy, co zwraca API
+
+        const tasks = JSON.parse(responseBody); // Próbujemy parsować JSON ręcznie
+
+        if (!Array.isArray(tasks)) {
+            throw new Error("API response is not an array");
+        }
+
+        renderTasks(tasks);
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+        document.getElementById("task-list").innerHTML = "<li>Error loading tasks</li>";
+    }
+}
