@@ -62,8 +62,12 @@ def get_tasks():
 
         return {
             "statusCode": 200,
-            "body": json.dumps(tasks)
-        }
+            "headers": {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+                    },
+    "body": json.dumps(tasks)
+                }
     except Exception as e:
         print("Error fetching tasks:", str(e))
         return {
