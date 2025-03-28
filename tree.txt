@@ -1,0 +1,45 @@
+.
+├── .github
+│   └── workflows
+│       └── deploy.yml
+├── .gitignore
+├── README.md
+├── app.js
+├── index.html
+├── response.json
+├── styles.css
+├── terraform
+│   ├── .terraform.lock.hcl
+│   ├── lambda.zip
+│   ├── lambda_function.py
+│   ├── main.tf
+│   ├── modules
+│   │   ├── apigateway
+│   │   │   ├── main.tf
+│   │   │   ├── providers.tf
+│   │   │   └── variables.tf
+│   │   ├── dynamodb
+│   │   │   ├── main.tf
+│   │   │   ├── providers.tf
+│   │   │   └── variables.tf
+│   │   ├── iam
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── providers.tf
+│   │   │   └── variables.tf
+│   │   ├── lambda
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── providers.tf
+│   │   │   └── variables.tf
+│   │   └── s3
+│   │       ├── main.tf
+│   │       ├── providers.tf
+│   │       └── variables.tf
+│   ├── response.json
+│   ├── terraform.tfstate
+│   ├── terraform.tfstate.backup
+│   └── tfplan
+└── tree.txt
+
+9 directories, 33 files
