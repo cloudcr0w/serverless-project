@@ -1,16 +1,19 @@
 import json
 import boto3
 import uuid
+import logging
+
+# Logger setup
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table("serverless-tasks")
 
 def lambda_handler(event, context):
-    """ Main handler for AWS Lambda triggered by API Gateway """
-    print("Received event:", json.dumps(event))  
+    logger.info("Received event: %s", json.dumps(event))
 
-    method = event.get("httpMethod", event.get("requestContext", {}).get("http", {}).get("method"))                          
-
+    method = event.get("httpMethod", event.get("requestContext", {}).get("http", {}).get("method"))
 
     if not method:
         return {
@@ -31,10 +34,9 @@ def lambda_handler(event, context):
         }
 
 def create_task(event):
-    """ Creates a new task in DynamoDB """
     try:
         body = json.loads(event["body"])
-        task_id = str(uuid.uuid4())  # Generate a unique task ID
+        task_id = str(uuid.uuid4())
         task = {
             "task_id": task_id,
             "title": body["title"],
@@ -42,52 +44,52 @@ def create_task(event):
         }
 
         table.put_item(Item=task)
+        logger.info("Task created: %s", json.dumps(task))
 
         return {
             "statusCode": 201,
             "body": json.dumps({"message": "Task created", "task": task})
         }
     except Exception as e:
-        print("Error creating task:", str(e))
+        logger.error("Error creating task: %s", str(e), exc_info=True)
         return {
             "statusCode": 500,
             "body": json.dumps({"error": "Failed to create task"})
         }
 
 def get_tasks():
-    """ Fetches all tasks from DynamoDB """
     try:
         response = table.scan()
         tasks = response.get("Items", [])
+        logger.info("Fetched %d tasks", len(tasks))
 
         return {
             "statusCode": 200,
             "headers": {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-                    },
-    "body": json.dumps(tasks)
-                }
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            },
+            "body": json.dumps(tasks)
+        }
     except Exception as e:
-        print("Error fetching tasks:", str(e))
+        logger.error("Error fetching tasks: %s", str(e), exc_info=True)
         return {
             "statusCode": 500,
             "body": json.dumps({"error": "Failed to fetch tasks"})
         }
 
 def delete_task(event):
-    """ Deletes a task from DynamoDB """
     try:
-        task_id = event["pathParameters"]["task_id"]  # Pobieramy ID z URL
-
+        task_id = event["pathParameters"]["task_id"]
         table.delete_item(Key={"task_id": task_id})
+        logger.info("Deleted task: %s", task_id)
 
         return {
             "statusCode": 200,
             "body": json.dumps({"message": f"Task {task_id} deleted"})
         }
     except Exception as e:
-        print("Error deleting task:", str(e))
+        logger.error("Error deleting task: %s", str(e), exc_info=True)
         return {
             "statusCode": 500,
             "body": json.dumps({"error": "Failed to delete task"})
