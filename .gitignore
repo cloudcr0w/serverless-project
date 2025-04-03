@@ -3,6 +3,7 @@
 *.tfstate.backup
 .terraform/
 .terraform.lock.hcl
+.zip
 
 # Ignore temporary files
 response.json
@@ -11,3 +12,5 @@ tfplan
 # Ignore system and editor files
 .DS_Store
 *.swp
+
+lambda.zip
