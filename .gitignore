@@ -3,7 +3,7 @@
 *.tfstate.backup
 .terraform/
 .terraform.lock.hcl
-./terraform/lambda.zip
+terraform/lambda.zip
 
 # Ignore temporary files
 response.json
