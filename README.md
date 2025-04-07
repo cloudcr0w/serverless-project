@@ -3,6 +3,7 @@
 
 A serverless task manager app running entirely on AWS.  
 Automated CI/CD pipeline using GitHub Actions + Terraform.
+LIVE : https://adamwrona-serverless-frontend.s3.amazonaws.com/index.html
 
 ### 🏗 Architecture  
 
