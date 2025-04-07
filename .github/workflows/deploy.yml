@@ -50,6 +50,10 @@ jobs:
         run: terraform fmt -check
         working-directory: terraform
 
+      - name: Zip Lambda function
+        run: |
+          zip terraform/modules/lambda/lambda.zip terraform/lambda_function.py
+
       - name: Validate Terraform
         run: terraform validate
         working-directory: terraform
@@ -89,7 +93,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -98,13 +102,16 @@ jobs:
       - name: Package Lambda
         run: |
           cd terraform
-          zip -r lambda.zip lambda_function.py
+          zip -j modules/lambda/lambda.zip lambda_function.py
 
       - name: Deploy Lambda
         run: |
-          aws lambda update-function-code --function-name serverless-backend --zip-file fileb://terraform/lambda.zip
+          aws lambda update-function-code --function-name serverless-backend --zip-file fileb://modules/lambda/lambda.zip
 
       - name: Verify API after deployment
         run: |
           sleep 5  # Czekamy na propagację zmian
-          curl -X GET https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev/tasks || exit 1
+          curl -X GET https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev/tasks || {
+          echo "❌ API check failed!";
+           exit 1;
+          }
