@@ -11,4 +11,10 @@ resource "aws_lambda_function" "backend_lambda" {
   lifecycle {
     prevent_destroy = true
   }
+  tags = {
+  Project     = "Serverless Task Manager"
+  Environment = "Dev"
+  Owner       = "Adam Wrona"
+}
+
 }
