@@ -5,7 +5,8 @@ resource "aws_lambda_function" "backend_lambda" {
   role          = var.lambda_role_arn
   filename      = "lambda.zip"
 
-  source_code_hash = filebase64sha256("${path.root}/terraform/modules/lambda/lambda.zip")
+  source_code_hash = filebase64sha256("${path.module}/lambda.zip")
+
 
   lifecycle {
     prevent_destroy = true

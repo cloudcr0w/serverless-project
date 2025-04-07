@@ -52,7 +52,9 @@ jobs:
 
       - name: Zip Lambda function
         run: |
-          zip terraform/modules/lambda/lambda.zip terraform/lambda_function.py
+          zip modules/lambda/lambda.zip lambda_function.py
+        working-directory: terraform
+      
 
       - name: Validate Terraform
         run: terraform validate
