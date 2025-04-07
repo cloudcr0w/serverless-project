@@ -4,6 +4,8 @@
 .terraform/
 .terraform.lock.hcl
 terraform/lambda.zip
+terraform/modules/lambda/lambda.zip
+
 
 # Ignore temporary files
 response.json
