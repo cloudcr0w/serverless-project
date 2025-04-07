@@ -108,8 +108,8 @@ jobs:
 
       - name: Deploy Lambda
         run: |
-          aws lambda update-function-code --function-name serverless-backend --zip-file fileb://modules/lambda/lambda.zip
-
+          aws lambda update-function-code --function-name serverless-backend --zip-file fileb://terraform/modules/lambda/lambda.zip
+          
       - name: Verify API after deployment
         run: |
           sleep 5 
