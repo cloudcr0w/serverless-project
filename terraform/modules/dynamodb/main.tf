@@ -12,7 +12,7 @@ resource "aws_dynamodb_table" "tasks_table" {
     enabled = true
   }
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }

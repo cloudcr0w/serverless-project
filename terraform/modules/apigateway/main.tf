@@ -8,9 +8,9 @@ resource "aws_apigatewayv2_api" "api_gateway" {
     allow_headers = ["Content-Type"]
   }
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 resource "aws_apigatewayv2_integration" "lambda_integration" {

@@ -8,9 +8,9 @@ resource "aws_lambda_function" "backend_lambda" {
   source_code_hash = filebase64sha256("${path.module}/lambda.zip")
 
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
   tags = {
     Project     = "Serverless Task Manager"
     Environment = "Dev"

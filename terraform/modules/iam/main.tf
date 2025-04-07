@@ -12,9 +12,9 @@ resource "aws_iam_role" "lambda_role" {
     }]
   })
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 resource "aws_iam_policy" "lambda_dynamodb_policy" {
