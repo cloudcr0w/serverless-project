@@ -112,7 +112,7 @@ jobs:
 
       - name: Verify API after deployment
         run: |
-          sleep 5  # Czekamy na propagację zmian
+          sleep 5 
           curl -X GET https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev/tasks || {
           echo "❌ API check failed!";
            exit 1;
