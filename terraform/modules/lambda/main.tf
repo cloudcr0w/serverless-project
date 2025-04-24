@@ -1,9 +1,6 @@
 
-provider "aws" {
-  region = "us-east-1"
-}
 resource "aws_lambda_function" "backend_lambda" {
-  function_name = "serverless-task-backend"
+  function_name = "serverless-backend"
   role          = var.lambda_role_arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.9"
