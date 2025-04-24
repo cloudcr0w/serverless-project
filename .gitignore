@@ -14,3 +14,6 @@ tfplan
 # Ignore system and editor files
 .DS_Store
 *.swp
+
+# Ignore venv directory
+.venv/
