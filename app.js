@@ -1,19 +1,7 @@
-const API_GATEWAY_URL = "https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev";
+const API_GATEWAY_URL = "https://g0o9oadr06.execute-api.us-east-1.amazonaws.com/dev";
 
 // Fetch the list of tasks when the page loads
 document.addEventListener("DOMContentLoaded", fetchTasks);
-
-// Function to fetch tasks from the API
-async function fetchTasks() {
-    try {
-        const response = await fetch(`${API_GATEWAY_URL}/tasks`);
-        const tasks = await response.json();
-        renderTasks(tasks);
-    } catch (error) {
-        console.error("Error fetching tasks:", error);
-        document.getElementById("task-list").innerHTML = "<li>Error loading tasks</li>";
-    }
-}
 
 // Function to display tasks
 function renderTasks(tasks) {
@@ -37,34 +25,7 @@ function renderTasks(tasks) {
     });
 }
 
-// Function to create a new task
-async function createTask() {
-    const taskTitle = document.getElementById("task-title").value.trim();
 
-    if (taskTitle === "") {
-        alert("Task title cannot be empty.");
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_GATEWAY_URL}/tasks`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ title: taskTitle })
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to create task");
-        }
-
-        document.getElementById("task-title").value = ""; // Clear input field
-        fetchTasks(); // Refresh the task list
-    } catch (error) {
-        console.error("Error creating task:", error);
-    }
-}
 
 // Function to delete a task
 async function deleteTask(taskId) {
@@ -124,10 +85,7 @@ async function createTask() {
 async function fetchTasks() {
     try {
         const response = await fetch(`${API_GATEWAY_URL}/tasks`);
-        const responseBody = await response.text();  // Zmieniamy na text() zamiast json()
-        console.log("API Response:", responseBody); // Sprawdźmy, co zwraca API
-
-        const tasks = JSON.parse(responseBody); // Próbujemy parsować JSON ręcznie
+        const tasks = await response.json();
 
         if (!Array.isArray(tasks)) {
             throw new Error("API response is not an array");
@@ -139,3 +97,4 @@ async function fetchTasks() {
         document.getElementById("task-list").innerHTML = "<li>Error loading tasks</li>";
     }
 }
+
