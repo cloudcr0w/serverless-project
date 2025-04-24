@@ -16,12 +16,24 @@ resource "aws_apigatewayv2_api" "api_gateway" {
 resource "aws_apigatewayv2_integration" "lambda_integration" {
   api_id           = aws_apigatewayv2_api.api_gateway.id
   integration_type = "AWS_PROXY"
-  integration_uri  = var.lambda_function_arn
+  integration_uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.lambda_function_arn}/invocations"
+  payload_format_version = "2.0"
 }
 
 resource "aws_apigatewayv2_route" "get_tasks_route" {
   api_id    = aws_apigatewayv2_api.api_gateway.id
   route_key = "GET /tasks"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+resource "aws_apigatewayv2_route" "post_tasks_route" {
+  api_id    = aws_apigatewayv2_api.api_gateway.id
+  route_key = "POST /tasks"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "delete_task_route" {
+  api_id    = aws_apigatewayv2_api.api_gateway.id
+  route_key = "DELETE /tasks/{task_id}"
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
 
