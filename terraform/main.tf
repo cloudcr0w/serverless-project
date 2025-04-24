@@ -26,12 +26,13 @@ module "iam" {
   dynamodb_table_arn = module.dynamodb.dynamodb_table_arn
 }
 
-module "lambda" {
-  source          = "./modules/lambda"
-  lambda_role_arn = module.iam.lambda_role_arn
-}
-
 module "apigateway" {
   source              = "./modules/apigateway"
   lambda_function_arn = module.lambda.lambda_function_arn
+}
+
+module "lambda" {
+  source            = "./modules/lambda"
+  lambda_role_arn   = module.iam.lambda_role_arn
+  api_execution_arn = module.apigateway.api_execution_arn
 }
