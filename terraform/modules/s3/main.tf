@@ -35,12 +35,3 @@ resource "aws_s3_bucket_policy" "public_read" {
     ]
   })
 }
-module "apigateway" {
-  source = "./modules/apigateway"
-  lambda_function_arn = module.lambda.lambda_arn
-}
-
-module "lambda" {
-  source = "./modules/lambda"
-  apigateway = module.apigateway
-}
