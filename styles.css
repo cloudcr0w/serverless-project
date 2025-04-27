@@ -5,14 +5,55 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
 
 /* Task Manager Card */
 .card {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    max-width: 500px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    max-width: 600px;
     margin: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Form Input */
+input#task-title {
+    border-radius: 30px;
+    padding: 10px 20px;
+}
+
+/* Buttons */
+button.btn-success, button.btn-primary {
+    border-radius: 30px;
+    padding: 10px 20px;
+}
+
+
+
+/* Delete Button */
+.delete-btn {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* ciemniejszy czerwony przy hover */
+}
+
+
+/* Task List */
+#task-list li {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Fade-in Effect */
@@ -23,4 +64,9 @@ body {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+button.btn-primary .plus-icon {
+    color: #ffd700 !important;
+    font-size: 1.5em;
+    margin-right: 8px;
 }
