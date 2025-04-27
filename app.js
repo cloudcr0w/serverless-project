@@ -19,7 +19,7 @@ function renderTasks(tasks) {
         li.classList.add("task");
         li.innerHTML = `
             <span>${task.title}</span>
-            <button class="delete-btn" onclick="deleteTask('${task.task_id}')">X</button>
+            <button class="btn btn-danger btn-sm rounded-circle shadow-sm" onclick="deleteTask('${task.task_id}')">🗑️</button>
         `;
         taskList.appendChild(li);
     });
