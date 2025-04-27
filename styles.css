@@ -110,6 +110,15 @@ body {
     transform: translateX(-100px);
     transition: all 0.3s ease;
 }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.task-form button:hover {
+    animation: bounce 0.4s;
+}
+
 /* input focus effect */
 .task-form input:focus {
     border-color: #2684FF; 
