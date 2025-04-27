@@ -29,20 +29,27 @@ function renderTasks(tasks) {
 
 // Function to delete a task
 async function deleteTask(taskId) {
-    try {
-        const response = await fetch(`${API_GATEWAY_URL}/tasks/${taskId}`, {
-            method: "DELETE"
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to delete task");
-        }
-
-        fetchTasks(); // Refresh the task list after deletion
-    } catch (error) {
-        console.error("Error deleting task:", error);
+    const taskElement = document.getElementById(taskId);
+    if (taskElement) {
+        taskElement.classList.add('fade-out');
+        setTimeout(async () => {
+            try {
+                const response = await fetch(`${API_GATEWAY_URL}/tasks/${taskId}`, {
+                    method: "DELETE"
+                });
+        
+                if (!response.ok) {
+                    throw new Error("Failed to delete task");
+                }
+        
+                fetchTasks(); // Refresh after deletion
+            } catch (error) {
+                console.error("Error deleting task:", error);
+            }
+        }, 300); // Wait for fade-out animation
     }
 }
+
 // Function to show alert messages
 function showAlert(message, type) {
     const alertContainer = document.getElementById("alert-container");
