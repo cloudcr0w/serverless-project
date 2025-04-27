@@ -1,4 +1,4 @@
-/* Gradient Background */
+/* 🌌 Gradient Background */
 body {
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     min-height: 100vh;
@@ -8,7 +8,7 @@ body {
     padding: 20px;
 }
 
-/* Task Manager Card */
+/* 🧱 Card */
 .card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
@@ -17,21 +17,51 @@ body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-/* Form Input */
-input#task-title {
+/* 📋 Form input */
+.task-form {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Odstęp między inputem a przyciskiem */
+}
+
+.task-form input {
+    flex: 1;
     border-radius: 30px;
     padding: 10px 20px;
 }
 
-/* Buttons */
-button.btn-success, button.btn-primary {
-    border-radius: 30px;
-    padding: 10px 20px;
+/* 🔵 Button */
+.task-form button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
+/* Hover efekt na Button */
+.task-form button:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
 
+/* 🎯 Plus Icon */
+.task-form .plus-icon {
+    color: #ffd700;
+    font-size: 1.8rem;
+    transition: transform 0.5s ease;
+}
 
-/* Delete Button */
+/* Obrót Plusika */
+.task-form button:hover .plus-icon {
+    transform: rotate(360deg);
+}
+
+/* 🗑️ Delete Button */
 .delete-btn {
     background-color: #dc3545;
     border: none;
@@ -44,11 +74,10 @@ button.btn-success, button.btn-primary {
 }
 
 .delete-btn:hover {
-    background-color: #c82333; /* ciemniejszy czerwony przy hover */
+    background-color: #c82333;
 }
 
-
-/* Task List */
+/* 📜 Task List */
 #task-list li {
     margin: 5px 0;
     display: flex;
@@ -56,7 +85,7 @@ button.btn-success, button.btn-primary {
     align-items: center;
 }
 
-/* Fade-in Effect */
+/* ✨ Animacje */
 .fade-in {
     animation: fadeIn 0.5s ease-in-out;
 }
@@ -65,15 +94,7 @@ button.btn-success, button.btn-primary {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-button.btn-primary .plus-icon {
-    color: #ffd700 !important;
-    font-size: 1.5em;
-    margin-right: 8px;
-}
-.btn-primary:hover .bi-plus-circle {
-    transform: rotate(360deg);
-    transition: transform 0.5s ease;
-}
+
 .fade-out {
     opacity: 0;
     transform: translateX(-100px);
