@@ -1,4 +1,4 @@
-/* 🌌 Gradient Background */
+/* Gradient Background */
 body {
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     min-height: 100vh;
@@ -8,7 +8,7 @@ body {
     padding: 20px;
 }
 
-/* 🧱 Card */
+/*  Card */
 .card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
@@ -17,11 +17,11 @@ body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-/* 📋 Form input */
+/* Form input */
 .task-form {
     display: flex;
     align-items: center;
-    gap: 12px; /* Odstęp między inputem a przyciskiem */
+    gap: 12px; 
 }
 
 .task-form input {
@@ -30,7 +30,7 @@ body {
     padding: 10px 20px;
 }
 
-/* 🔵 Button */
+/* Button */
 .task-form button {
     display: flex;
     align-items: center;
@@ -49,19 +49,19 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* 🎯 Plus Icon */
+/* Plus Icon */
 .task-form .plus-icon {
     color: #ffd700;
     font-size: 1.8rem;
     transition: transform 0.5s ease;
 }
 
-/* Obrót Plusika */
+/* Plus rotation */
 .task-form button:hover .plus-icon {
     transform: rotate(360deg);
 }
 
-/* 🗑️ Delete Button */
+/*  Delete Button */
 .delete-btn {
     background-color: #dc3545;
     border: none;
@@ -77,15 +77,19 @@ body {
     background-color: #c82333;
 }
 
-/* 📜 Task List */
+/* Task List */
 #task-list li {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+#task-list li:hover {
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
+}
 
-/* ✨ Animacje */
+/*  Animations */
 .fade-in {
     animation: fadeIn 0.5s ease-in-out;
 }
@@ -99,4 +103,22 @@ body {
     opacity: 0;
     transform: translateX(-100px);
     transition: all 0.3s ease;
+}
+/* input focus effect */
+.task-form input:focus {
+    border-color: #2684FF; 
+    box-shadow: 0 0 0 4px rgba(38, 132, 255, 0.2); 
+    outline: none;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+/* Task List Header Styling */
+h4.text-secondary {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #343a40; 
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #6a11cb; 
+    display: inline-block;
+    padding-bottom: 5px;
 }
