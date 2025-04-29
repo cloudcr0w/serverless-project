@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", fetchTasks);
 // Function to display tasks
 function renderTasks(tasks) {
     const taskList = document.getElementById("task-list");
+    const taskCounter = document.getElementById("task-counter");
+    taskCounter.textContent = `Tasks: ${tasks.length}`;
+
     taskList.innerHTML = ""; // Clear the list before adding new elements
 
     if (tasks.length === 0) {
