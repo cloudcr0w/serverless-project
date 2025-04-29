@@ -105,3 +105,6 @@ async function fetchTasks() {
     }
 }
 
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
