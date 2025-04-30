@@ -110,8 +110,33 @@ async function fetchTasks() {
 }
 
 function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
+    const body = document.body;
+    const isDark = body.classList.toggle('dark-mode');
+    const toggleBtn = document.getElementById('darkModeToggle');
+
+    toggleBtn.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("darkModeToggle");
+
+    if (toggleBtn) {
+        const darkModeEnabled = localStorage.getItem("darkMode") === "enabled";
+        if (darkModeEnabled) {
+            document.body.classList.add("dark-mode");
+            toggleBtn.textContent = "☀️";
+        } else {
+            toggleBtn.textContent = "🌙";
+        }
+
+        toggleBtn.addEventListener("click", toggleDarkMode);
+    }
+
+    fetchTasks();
+});
+
+
 function addTaskToDOM(task) {
     const taskList = document.getElementById("task-list");
     const li = document.createElement("li");
@@ -131,11 +156,3 @@ function updateTaskCounter() {
     const tasks = taskList.querySelectorAll("li.task");
     taskCounter.textContent = `Tasks: ${tasks.length}`;
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('darkModeToggle').checked = true;
-    }
-    fetchTasks();
-});
