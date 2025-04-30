@@ -191,3 +191,9 @@ h4.text-secondary {
 .dark-mode #task-list li:hover {
     background-color: #444;
 }
+body,
+.card,
+input,
+button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
