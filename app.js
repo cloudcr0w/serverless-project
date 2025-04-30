@@ -83,8 +83,9 @@ async function createTask() {
         if (!response.ok) throw new Error("Failed to create task");
 
         document.getElementById("task-title").value = "";
-        fetchTasks();
-        showAlert("Task added successfully!", "success");
+        const newTask = await response.json();
+        addTaskToDOM(newTask);
+        showAlert("Task added successfully!", "success");        
     } catch (error) {
         showAlert("Error creating task!", "danger");
     }
@@ -111,3 +112,30 @@ async function fetchTasks() {
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
+function addTaskToDOM(task) {
+    const taskList = document.getElementById("task-list");
+    const li = document.createElement("li");
+    li.id = task.task_id;
+    li.classList.add("task", "fade-in");
+    li.innerHTML = `
+        <span>${task.title}</span>
+        <button class="btn btn-danger btn-sm rounded-circle shadow-sm" onclick="deleteTask('${task.task_id}')">🗑️</button>
+    `;
+    taskList.appendChild(li);
+
+    updateTaskCounter();
+}
+function updateTaskCounter() {
+    const taskList = document.getElementById("task-list");
+    const taskCounter = document.getElementById("task-counter");
+    const tasks = taskList.querySelectorAll("li.task");
+    taskCounter.textContent = `Tasks: ${tasks.length}`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+    }
+    fetchTasks();
+});
