@@ -83,8 +83,8 @@ async function createTask() {
         if (!response.ok) throw new Error("Failed to create task");
 
         document.getElementById("task-title").value = "";
-        const newTask = await response.json();
-        addTaskToDOM(newTask);
+        fetchTasks();
+
         showAlert("Task added successfully!", "success");        
     } catch (error) {
         showAlert("Error creating task!", "danger");
