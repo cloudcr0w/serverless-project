@@ -1,43 +1,73 @@
-/* Gradient Background */
+/* === Global === */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    transition: background 0.4s ease, color 0.3s ease;
 }
-/* Primary texy*/
+
+body:not(.dark-mode) {
+    color: #2c2c2c;
+}
+
+/* Typography */
+h1, h3, h4 {
+    color: #2c2c2c;
+}
+
 h3.text-primary {
-    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(90deg, #3a3a3a 0%, #0d6efd 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/*  Card */
+h4.text-secondary {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #6a11cb;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* === Card === */
 .card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     max-width: 600px;
     margin: auto;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    color: inherit;
 }
 
-/* Form input */
+/* === Form === */
 .task-form {
     display: flex;
     align-items: center;
-    gap: 12px; 
+    gap: 12px;
 }
 
 .task-form input {
     flex: 1;
     border-radius: 30px;
     padding: 10px 20px;
+    background-color: #ffffff;
+    color: #333;
 }
 
-/* Button */
+.task-form input:focus {
+    border-color: #2684FF;
+    box-shadow: 0 0 0 4px rgba(38, 132, 255, 0.2);
+    outline: none;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* === Button Add === */
 .task-form button {
     display: flex;
     align-items: center;
@@ -51,24 +81,22 @@ h3.text-primary {
     transition: all 0.3s ease;
 }
 
-/* Hover efekt na Button */
 .task-form button:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    animation: bounce 0.4s;
 }
 
-/* Plus Icon */
 .task-form .plus-icon {
     color: #ffd700;
     font-size: 1.8rem;
     transition: transform 0.5s ease;
 }
 
-/* Plus rotation */
 .task-form button:hover .plus-icon {
     transform: rotate(360deg);
 }
 
-/*  Delete Button */
+/* === Delete Button === */
 .delete-btn {
     background-color: #dc3545;
     border: none;
@@ -77,31 +105,32 @@ h3.text-primary {
     font-size: 1rem;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .delete-btn:hover {
     background-color: #c82333;
     transform: scale(1.1);
-    background-color: #c82333;
-    
 }
 
-/* Task List */
+/* === Task List === */
 #task-list li {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-#task-list li:hover {
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
 }
 
-/*  Animations */
+#task-list li:hover {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* === Animations === */
 .fade-in {
     animation: fadeIn 0.5s ease-in-out;
 }
@@ -116,34 +145,40 @@ h3.text-primary {
     transform: translateX(-100px);
     transition: all 0.3s ease;
 }
+
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
 }
 
-.task-form button:hover {
-    animation: bounce 0.4s;
+/* === Toggle Dark Mode Button === */
+.toggle-mode-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    background-color: #ffffff;
+    color: #f0b400;
+    border-radius: 12px; 
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease;
 }
 
-/* input focus effect */
-.task-form input:focus {
-    border-color: #2684FF; 
-    box-shadow: 0 0 0 4px rgba(38, 132, 255, 0.2); 
-    outline: none;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+.toggle-mode-btn:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.05);
 }
-/* Task List Header Styling */
-h4.text-secondary {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #343a40; 
-    margin-top: 20px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #6a11cb; 
-    display: inline-block;
-    padding-bottom: 5px;
-}
-/* 🌙 Dark Mode */
+
+
+/* === Dark Mode === */
 .dark-mode {
     background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
     color: #ffffff;
@@ -165,35 +200,92 @@ h4.text-secondary {
     color: #ccc;
 }
 
-.dark-mode .list-group-item {
-    background-color: #2c2c2c;
-    color: #fff;
-    border-color: #444;
-}
-#task-list li {
-    margin: 5px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    padding: 10px;
-    transition: background-color 0.3s ease;
-}
-
-#task-list li:hover {
-    background-color: rgba(255, 255, 255, 1);
-}
+.dark-mode .list-group-item,
 .dark-mode #task-list li {
     background-color: #333;
+    color: #fff;
+    border-color: #444;
 }
 
 .dark-mode #task-list li:hover {
     background-color: #444;
 }
-body,
-.card,
-input,
-button {
-    transition: background-color 0.3s ease, color 0.3s ease;
+
+.dark-mode .btn-outline-light {
+    color: white;
+    border-color: white;
+}
+
+body:not(.dark-mode) .btn-outline-light {
+    color: #333;
+    border-color: #999;
+}
+/* === Dark Mode Button - fixed in top-left === */
+.toggle-mode-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    color: #f0b400;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-mode-btn:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.05);
+}
+
+/* === Jasny tryb - kolory tekstu i inputów === */
+body:not(.dark-mode) {
+    color: #2b2b2b;
+}
+
+body:not(.dark-mode) input,
+body:not(.dark-mode) .list-group-item {
+    background-color: #ffffff;
+    color: #212529;
+    font-weight: 500;
+}
+
+body:not(.dark-mode) h1,
+body:not(.dark-mode) h3,
+body:not(.dark-mode) h4,
+body:not(.dark-mode) p {
+    color: #333333;
+}
+
+body:not(.dark-mode) .card {
+    background-color: rgba(255, 255, 255, 0.97);
+    color: #2c2c2c;
+}
+
+body:not(.dark-mode) .btn-outline-light {
+    color: #333;
+    border-color: #aaa;
+}
+body:not(.dark-mode) h1 {
+    background: linear-gradient(90deg, #ff416c, #c3260a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+.dark-mode h1 {
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+body:not(.dark-mode) p {
+    color: #555;
 }
