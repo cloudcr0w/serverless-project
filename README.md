@@ -1,5 +1,5 @@
 
-# 🚀 Serverless Task Manager – Fully Serverless, Fully Automated
+# ⚙️ Serverless Task Manager – Production-Ready Template for DevOps & Platform Teams
 
 A lightweight, production-ready task manager app built using 100% AWS managed services.  
 Designed for scalability, automation, and zero server maintenance.
@@ -11,6 +11,8 @@ Designed for scalability, automation, and zero server maintenance.
 
 ## 🏗 Architecture Overview
 
+![Serverless Architecture](./diagram.png)
+
 | Layer        | Technology                                   |
 |--------------|----------------------------------------------|
 | **Frontend** | HTML/CSS/JS (vanilla), hosted on Amazon S3   |
@@ -19,7 +21,18 @@ Designed for scalability, automation, and zero server maintenance.
 | **CI/CD**    | GitHub Actions + Terraform                   |
 | **Security** | IAM roles, CORS handling, HTTPS, encryption  |
 
+
 ---
+## 💻 Developer Experience & CI/CD
+
+This app is designed as a starter template for cloud-native teams:
+
+- **Zero setup required** – `terraform apply` spins up everything
+- **Git-based CI/CD** – just push to `main`, and the app is deployed
+- **Fast local development** – frontend can be served locally while API is live on AWS
+- **Logs in CloudWatch**, monitoring ready, secure out of the box
+
+Use this project to quickly prototype, train new DevOps engineers, or bootstrap internal tools.
 
 ## 🔑 Key Features
 
@@ -72,14 +85,32 @@ curl https://<your-api-id>.execute-api.us-east-1.amazonaws.com/dev/tasks
 
 ---
 
-## 🎯 Roadmap / Ideas for Growth
+## 📈 Roadmap – DevOps & Platform Expansion
 
-- [ ] Add unit tests and integration tests for Lambda  
-- [ ] Add user authentication (Cognito/Auth0)  
-- [ ] Auto-alerting with SNS or PagerDuty  
+- [ ] Add unit & integration tests for Lambda functions
+- [ ] Add alerting (SNS, Slack, PagerDuty)
+- [ ] Add rollback support via versioned Lambda deployment
+- [ ] Add metrics dashboard (CloudWatch, Grafana, etc.)
 - [ ] Replace vanilla JS with React/Vue (optional)
 
----
+Bonus:
+- [ ] Package as a GitHub template repo
+- [ ] Add environment support (dev/staging/prod via workspaces)
+
+
+## 🧪 Tech Stack Summary
+
+| Layer       | Service / Tool                  |
+|-------------|----------------------------------|
+| Frontend    | HTML/CSS/JS on Amazon S3        |
+| API         | AWS Lambda (Python)             |
+| API Gateway | HTTP + CORS + HTTPS             |
+| Database    | Amazon DynamoDB                 |
+| Infra as Code | Terraform                      |
+| CI/CD       | GitHub Actions                  |
+| Logging     | Amazon CloudWatch               |
+| Security    | IAM, encryption, scoped roles   |
+
 
 ## 👨‍💻 About the Author
 
