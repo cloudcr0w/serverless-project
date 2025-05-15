@@ -24,7 +24,9 @@ def lambda_handler(event, context):
             "headers": {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Content-Type": "application/json",
+                "X-Content-Type-Options": "nosniff"
             },
             "body": json.dumps({"message": "CORS preflight response"})
         }
@@ -83,7 +85,11 @@ def response(status_code, body_dict):
         "statusCode": status_code,
         "headers": {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "X-Content-Type-Options": "nosniff"
         },
         "body": json.dumps(body_dict)
     }
+
