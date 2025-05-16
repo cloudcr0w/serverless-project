@@ -5,6 +5,7 @@
 terraform/lambda.zip
 terraform/modules/lambda/lambda.zip
 terraform/terraform.tfvars
+terraform/modules/slack_forwarder/lambda/slack_alert_forwarder.zip
 
 # Ignore temporary files
 response.json
