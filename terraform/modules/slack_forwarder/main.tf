@@ -3,9 +3,9 @@ resource "aws_iam_role" "lambda_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
+      Effect    = "Allow",
       Principal = { Service = "lambda.amazonaws.com" },
-      Action = "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }]
   })
 }
@@ -19,6 +19,7 @@ resource "aws_lambda_function" "slack_forwarder" {
   function_name = "slack-alert-forwarder"
   s3_bucket     = "adamwrona-serverless-frontend"
   s3_key        = "lambda/slack_alert_forwarder.zip"
+  publish       = false
   handler       = "slack_alert_forwarder.lambda_handler"
   runtime       = "python3.10"
   role          = aws_iam_role.lambda_role.arn
@@ -38,8 +39,8 @@ resource "aws_lambda_permission" "allow_sns" {
   source_arn    = var.sns_topic_arn
 }
 
-resource "aws_sns_topic_subscription" "sns_to_lambda" {
-  topic_arn = var.sns_topic_arn
-  protocol  = "lambda"
-  endpoint  = aws_lambda_function.slack_forwarder.arn
-}
+# resource "aws_sns_topic_subscription" "sns_to_lambda" {
+#   topic_arn = var.sns_topic_arn
+#   protocol  = "lambda"
+#   endpoint  = aws_lambda_function.slack_forwarder.arn
+# }
