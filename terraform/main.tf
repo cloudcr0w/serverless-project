@@ -44,7 +44,8 @@ module "alerting" {
 
 module "slack_forwarder" {
   source            = "./modules/slack_forwarder"
+  lambda_role_arn   = module.iam.lambda_role_arn
+  lambda_role_name  = module.iam.lambda_role_name
   sns_topic_arn     = module.alerting.sns_topic_arn
-  slack_webhook_url = "https://hooks.slack.com/services/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"
-
+  slack_webhook_url = var.slack_webhook_url
 }
