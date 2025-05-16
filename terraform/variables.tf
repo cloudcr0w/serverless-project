@@ -1,4 +1,4 @@
-# variable "slack_webhook_url" {
-#   type        = string
-#   description = "Slack webhook for alerts"
-# }
+variable "slack_webhook_url" {
+  type        = string
+  description = "Slack webhook for alerts"
+}
