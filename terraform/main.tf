@@ -37,14 +37,14 @@ module "lambda" {
   api_execution_arn = module.apigateway.api_execution_arn
 }
 
-# module "alerting" {
-#   source               = "./modules/alerting"
-#   lambda_function_name = module.lambda.function_name
-# }
+module "alerting" {
+  source               = "./modules/alerting"
+  lambda_function_name = module.lambda.function_name
+}
 
-# module "slack_forwarder" {
-#   source            = "./modules/slack_forwarder"
-#   sns_topic_arn     = module.alerting.sns_topic_arn
-#   slack_webhook_url = "https://hooks.slack.com/services/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"
+module "slack_forwarder" {
+  source            = "./modules/slack_forwarder"
+  sns_topic_arn     = module.alerting.sns_topic_arn
+  slack_webhook_url = "https://hooks.slack.com/services/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"
 
-# }
+}
