@@ -17,14 +17,11 @@ resource "aws_iam_role_policy_attachment" "lambda_logging" {
 
 resource "aws_lambda_function" "slack_forwarder" {
   function_name = "slack-alert-forwarder"
-  filename      = "${path.module}/lambda/slack_alert_forwarder.zip"
+  s3_bucket     = "adamwrona-serverless-frontend"
+  s3_key        = "lambda/slack_alert_forwarder.zip"
   handler       = "slack_alert_forwarder.lambda_handler"
   runtime       = "python3.10"
   role          = aws_iam_role.lambda_role.arn
-#   source_code_hash = filebase64sha256("${path.module}/lambda/slack_alert_forwarder.zip")
-    lifecycle {
-        ignore_changes = [source_code_hash]
-    }
 
   environment {
     variables = {
