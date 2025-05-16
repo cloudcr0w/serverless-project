@@ -4,7 +4,7 @@
 .terraform/
 terraform/lambda.zip
 terraform/modules/lambda/lambda.zip
-
+terraform/terraform.tfvars
 
 # Ignore temporary files
 response.json
