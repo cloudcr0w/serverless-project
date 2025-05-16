@@ -40,5 +40,5 @@ module "lambda" {
 module "alerting" {
   source               = "./modules/alerting"
   slack_webhook_url    = var.slack_webhook_url
-  lambda_function_name = module.lambda.function_name  
+  lambda_function_name = module.lambda.function_name
 }
