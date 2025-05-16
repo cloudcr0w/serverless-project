@@ -63,6 +63,10 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: terraform
+        env:
+          TF_LOG: DEBUG
+          TF_LOG_PATH: terraform-debug.log
+          timeout-minutes: 5
 
       - name: Apply Terraform Changes
         run: terraform apply -auto-approve
