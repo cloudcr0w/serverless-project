@@ -54,7 +54,17 @@ jobs:
         run: |
           zip modules/lambda/lambda.zip lambda_function.py
         working-directory: terraform
-      
+
+      - name: Zip Slack Alert Forwarder Lambda
+        run: |
+          zip -j modules/slack_forwarder/lambda/slack_alert_forwarder.zip modules/slack_forwarder/lambda/slack_alert_forwarder.py
+        working-directory: terraform
+
+      - name: Upload Slack ZIP to S3
+        run: |
+          aws s3 cp modules/slack_forwarder/lambda/slack_alert_forwarder.zip s3://adamwrona-serverless-frontend/lambda/slack_alert_forwarder.zip
+        working-directory: terraform
+
 
       - name: Validate Terraform
         run: terraform validate
