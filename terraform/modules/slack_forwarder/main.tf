@@ -24,11 +24,16 @@ resource "aws_lambda_function" "slack_forwarder" {
   runtime       = "python3.10"
   role          = aws_iam_role.lambda_role.arn
 
+    lifecycle {
+    ignore_changes = [source_code_hash]
+  }
+  
   environment {
     variables = {
       SLACK_WEBHOOK_URL = var.slack_webhook_url
     }
   }
+
 }
 
 resource "aws_lambda_permission" "allow_sns" {
