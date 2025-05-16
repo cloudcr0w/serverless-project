@@ -71,15 +71,15 @@ jobs:
         working-directory: terraform
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan -var="slack_webhook_url=${{ secrets.SLACK_WEBHOOK_URL }}"
         working-directory: terraform
         env:
           TF_LOG: DEBUG
           TF_LOG_PATH: terraform-debug.log
-          timeout-minutes: 5
+
 
       - name: Apply Terraform Changes
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var="slack_webhook_url=${{ secrets.SLACK_WEBHOOK_URL }}"
         working-directory: terraform
 
   deploy-frontend:
