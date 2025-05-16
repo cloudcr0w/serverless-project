@@ -10,10 +10,13 @@ logger.setLevel(logging.INFO)
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table("serverless-tasks")
 
+
 def lambda_handler(event, context):
     logger.info("Received event: %s", json.dumps(event))
 
-    method = event.get("httpMethod", event.get("requestContext", {}).get("http", {}).get("method"))
+    method = event.get(
+        "httpMethod", event.get("requestContext", {}).get("http", {}).get("method")
+    )
 
     if not method:
         return response(400, {"error": "Invalid request structure"})
@@ -26,11 +29,10 @@ def lambda_handler(event, context):
                 "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Content-Type": "application/json",
-                "X-Content-Type-Options": "nosniff"
+                "X-Content-Type-Options": "nosniff",
             },
-            "body": json.dumps({"message": "CORS preflight response"})
+            "body": json.dumps({"message": "CORS preflight response"}),
         }
-
     if method == "POST":
         return create_task(event)
     elif method == "GET":
@@ -43,11 +45,16 @@ def lambda_handler(event, context):
 def create_task(event):
     try:
         body = json.loads(event["body"])
+
+        # 💥 Forced error for CloudWatch Alarm test
+        if body.get("title") == "FAIL":
+            raise Exception("💥 Simulated failure for CloudWatch Alarm test")
+
         task_id = str(uuid.uuid4())
         task = {
             "task_id": task_id,
             "title": body["title"],
-            "status": body.get("status", "pending")
+            "status": body.get("status", "pending"),
         }
 
         table.put_item(Item=task)
@@ -57,6 +64,7 @@ def create_task(event):
     except Exception as e:
         logger.error("Error creating task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to create task"})
+
 
 def get_tasks():
     try:
@@ -69,6 +77,7 @@ def get_tasks():
         logger.error("Error fetching tasks: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to fetch tasks"})
 
+
 def delete_task(event):
     try:
         task_id = event["pathParameters"]["task_id"]
@@ -80,6 +89,7 @@ def delete_task(event):
         logger.error("Error deleting task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to delete task"})
 
+
 def response(status_code, body_dict):
     return {
         "statusCode": status_code,
@@ -88,8 +98,7 @@ def response(status_code, body_dict):
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type",
-            "X-Content-Type-Options": "nosniff"
+            "X-Content-Type-Options": "nosniff",
         },
-        "body": json.dumps(body_dict)
+        "body": json.dumps(body_dict),
     }
-
