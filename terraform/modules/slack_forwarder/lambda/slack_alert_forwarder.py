@@ -6,6 +6,7 @@ http = urllib3.PoolManager()
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
 
 def lambda_handler(event, context):
+    print("🔍 Received event:", json.dumps(event))
     for record in event["Records"]:
         msg = record["Sns"]["Message"]
         payload = {

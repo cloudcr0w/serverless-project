@@ -31,7 +31,7 @@ resource "aws_lambda_function" "slack_forwarder" {
   s3_key        = "lambda/slack_alert_forwarder.zip"
   publish       = false
   handler       = "slack_alert_forwarder.lambda_handler"
-  runtime       = "python3.10"
+  runtime       = "python3.13"
   role          = var.lambda_role_arn
 
   lifecycle {
@@ -43,6 +43,11 @@ resource "aws_lambda_function" "slack_forwarder" {
       SLACK_WEBHOOK_URL = var.slack_webhook_url
     }
   }
+}
+resource "aws_sns_topic_subscription" "sns_to_lambda" {
+  topic_arn = var.sns_topic_arn
+  protocol  = "lambda"
+  endpoint  = aws_lambda_function.slack_forwarder.arn
 }
 
 resource "aws_lambda_permission" "allow_sns" {
