@@ -2,12 +2,6 @@ resource "aws_sns_topic" "lambda_alerts" {
   name = "serverless-task-alerts"
 }
 
-# resource "aws_sns_topic_subscription" "slack_webhook" {
-#   topic_arn = aws_sns_topic.lambda_alerts.arn
-#   protocol = "https"
-#   endpoint = var.slack_webhook_url
-# }
-
 resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
     alarm_name          = "LambdaErrors-ServerlessTask"
   comparison_operator = "GreaterThanThreshold"
