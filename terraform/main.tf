@@ -36,3 +36,9 @@ module "lambda" {
   lambda_role_arn   = module.iam.lambda_role_arn
   api_execution_arn = module.apigateway.api_execution_arn
 }
+
+module "alerting" {
+  source               = "./modules/alerting"
+  slack_webhook_url    = var.slack_webhook_url
+  lambda_function_name = module.lambda.function_name  
+}
