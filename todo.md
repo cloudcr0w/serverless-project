@@ -51,7 +51,8 @@ title = FAIL triggers exception
 - name: Build Lambda ZIP
   run: zip lambda.zip lambda_function.py
   ```
-  🧭 Notes
+
+###  🧭 Notes
 slack_forwarder and alerting modules are currently commented out
 
 terraform apply only affects backend (safe)
