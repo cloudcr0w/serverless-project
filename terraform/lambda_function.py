@@ -43,13 +43,12 @@ def lambda_handler(event, context):
         return response(400, {"error": "Invalid request method"})
 
 def create_task(event):
+    body = json.loads(event["body"])
+
+    if body.get("title") == "FAIL":
+        raise Exception("💥 Simulated failure for CloudWatch Alarm test")
+
     try:
-        body = json.loads(event["body"])
-
-        # 💥 Forced error for CloudWatch Alarm test
-        if body.get("title") == "FAIL":
-            raise Exception("💥 Simulated failure for CloudWatch Alarm test")
-
         task_id = str(uuid.uuid4())
         task = {
             "task_id": task_id,
