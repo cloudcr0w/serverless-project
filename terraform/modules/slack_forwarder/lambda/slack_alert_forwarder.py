@@ -12,5 +12,12 @@ def lambda_handler(event, context):
             "text": f"🚨 *SNS Alert received!*\n```{msg}```"
         }
         encoded_msg = json.dumps(payload).encode("utf-8")
-        resp = http.request("POST", SLACK_WEBHOOK_URL, body=encoded_msg, headers={"Content-Type": "application/json"})
-        print(f"Slack response: {resp.status}")
+        resp = http.request(
+            "POST",
+            SLACK_WEBHOOK_URL,
+            body=encoded_msg,
+            headers={"Content-Type": "application/json"},
+            timeout=10.0 
+)
+
+    print(f"Slack response: {resp.status}")

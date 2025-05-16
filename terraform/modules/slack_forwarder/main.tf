@@ -21,7 +21,10 @@ resource "aws_lambda_function" "slack_forwarder" {
   handler       = "slack_alert_forwarder.lambda_handler"
   runtime       = "python3.10"
   role          = aws_iam_role.lambda_role.arn
-  source_code_hash = filebase64sha256("${path.module}/lambda/slack_alert_forwarder.zip")
+#   source_code_hash = filebase64sha256("${path.module}/lambda/slack_alert_forwarder.zip")
+    lifecycle {
+        ignore_changes = [source_code_hash]
+    }
 
   environment {
     variables = {
