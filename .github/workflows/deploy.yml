@@ -57,8 +57,10 @@ jobs:
 
       - name: Zip Slack Alert Forwarder Lambda
         run: |
-          zip -j modules/slack_forwarder/lambda/slack_alert_forwarder.zip modules/slack_forwarder/lambda/slack_alert_forwarder.py
+          cd modules/slack_forwarder/lambda
+           zip slack_alert_forwarder.zip slack_alert_forwarder.py
         working-directory: terraform
+
 
       - name: Upload Slack ZIP to S3
         run: |
