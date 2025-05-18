@@ -1,158 +1,109 @@
 const API_GATEWAY_URL = "https://g0o9oadr06.execute-api.us-east-1.amazonaws.com/dev";
 
-// Fetch the list of tasks when the page loads
-document.addEventListener("DOMContentLoaded", fetchTasks);
+// Fetch tasks on load
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("darkModeToggle");
+    if (toggleBtn) {
+        const darkModeEnabled = localStorage.getItem("darkMode") === "enabled";
+        document.body.classList.toggle("dark-mode", darkModeEnabled);
+        toggleBtn.textContent = darkModeEnabled ? "☀️" : "🌙";
+        toggleBtn.addEventListener("click", toggleDarkMode);
+    }
+    fetchTasks();
 
-// Function to display tasks
+    // Set footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+});
+
+function toggleDarkMode() {
+    const isDark = document.body.classList.toggle("dark-mode");
+    document.getElementById("darkModeToggle").textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+
+    const githubLink = document.querySelector("#footer a");
+    if (githubLink) githubLink.style.color = isDark ? "#ffc107" : "";
+}
+
+async function fetchTasks() {
+    try {
+        const res = await fetch(`${API_GATEWAY_URL}/tasks`);
+        const tasks = await res.json();
+        if (!Array.isArray(tasks)) throw new Error("API returned non-array");
+        renderTasks(tasks);
+    } catch (err) {
+        console.error("Fetch error:", err);
+        document.getElementById("task-list").innerHTML = "<li>Error loading tasks</li>";
+    }
+}
+
 function renderTasks(tasks) {
     const taskList = document.getElementById("task-list");
-    const taskCounter = document.getElementById("task-counter");
-    taskCounter.textContent = `Tasks: ${tasks.length}`;
-
-    taskList.innerHTML = ""; // Clear the list before adding new elements
+    taskList.innerHTML = "";
+    document.getElementById("task-counter").textContent = `Tasks: ${tasks.length}`;
 
     if (tasks.length === 0) {
         taskList.innerHTML = "<li>No tasks available</li>";
         return;
     }
 
-    tasks.forEach(task => {
-        const li = document.createElement("li");
-        li.id = task.task_id;
-        li.classList.add("task");
-        li.innerHTML = `
-            <span>${task.title}</span>
-            <button class="btn btn-danger btn-sm rounded-circle shadow-sm" onclick="deleteTask('${task.task_id}')">🗑️</button>
-        `;
-        taskList.appendChild(li);
-    });
+    tasks.forEach(task => addTaskToDOM(task));
 }
-
-
-
-// Function to delete a task
-async function deleteTask(taskId) {
-    const taskElement = document.getElementById(taskId);
-    if (taskElement) {
-        taskElement.classList.add('fade-out');
-        setTimeout(async () => {
-            try {
-                const response = await fetch(`${API_GATEWAY_URL}/tasks/${taskId}`, {
-                    method: "DELETE"
-                });
-        
-                if (!response.ok) {
-                    throw new Error("Failed to delete task");
-                }
-        
-                fetchTasks(); // Refresh after deletion
-            } catch (error) {
-                console.error("Error deleting task:", error);
-            }
-        }, 300); // Wait for fade-out animation
-    }
-}
-
-// Function to show alert messages
-function showAlert(message, type) {
-    const alertContainer = document.getElementById("alert-container");
-    alertContainer.innerHTML = `
-        <div class="alert alert-${type} fade-in" role="alert">
-            ${message}
-        </div>
-    `;
-    setTimeout(() => alertContainer.innerHTML = "", 3000); // Auto-hide after 3s
-}
-
-// Modify createTask function to use alerts
-async function createTask() {
-    const taskTitle = document.getElementById("task-title").value.trim();
-
-    if (taskTitle === "") {
-        showAlert("Task title cannot be empty!", "danger");
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_GATEWAY_URL}/tasks`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title: taskTitle })
-        });
-
-        if (!response.ok) throw new Error("Failed to create task");
-
-        document.getElementById("task-title").value = "";
-        fetchTasks();
-
-        showAlert("Task added successfully!", "success");        
-    } catch (error) {
-        showAlert("Error creating task!", "danger");
-    }
-}
-
-
-//error loading
-async function fetchTasks() {
-    try {
-        const response = await fetch(`${API_GATEWAY_URL}/tasks`);
-        const tasks = await response.json();
-
-        if (!Array.isArray(tasks)) {
-            throw new Error("API response is not an array");
-        }
-
-        renderTasks(tasks);
-    } catch (error) {
-        console.error("Error fetching tasks:", error);
-        document.getElementById("task-list").innerHTML = "<li>Error loading tasks</li>";
-    }
-}
-
-function toggleDarkMode() {
-    const body = document.body;
-    const isDark = body.classList.toggle('dark-mode');
-    const toggleBtn = document.getElementById('darkModeToggle');
-
-    toggleBtn.textContent = isDark ? '☀️' : '🌙';
-    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const toggleBtn = document.getElementById("darkModeToggle");
-
-    if (toggleBtn) {
-        const darkModeEnabled = localStorage.getItem("darkMode") === "enabled";
-        if (darkModeEnabled) {
-            document.body.classList.add("dark-mode");
-            toggleBtn.textContent = "☀️";
-        } else {
-            toggleBtn.textContent = "🌙";
-        }
-
-        toggleBtn.addEventListener("click", toggleDarkMode);
-    }
-
-    fetchTasks();
-});
-
 
 function addTaskToDOM(task) {
-    const taskList = document.getElementById("task-list");
     const li = document.createElement("li");
     li.id = task.task_id;
-    li.classList.add("task", "fade-in");
+    li.className = "task fade-in";
     li.innerHTML = `
         <span>${task.title}</span>
         <button class="btn btn-danger btn-sm rounded-circle shadow-sm" onclick="deleteTask('${task.task_id}')">🗑️</button>
     `;
-    taskList.appendChild(li);
-
+    document.getElementById("task-list").appendChild(li);
     updateTaskCounter();
 }
+
 function updateTaskCounter() {
-    const taskList = document.getElementById("task-list");
-    const taskCounter = document.getElementById("task-counter");
-    const tasks = taskList.querySelectorAll("li.task");
-    taskCounter.textContent = `Tasks: ${tasks.length}`;
+    const taskCount = document.querySelectorAll("#task-list .task").length;
+    document.getElementById("task-counter").textContent = `Tasks: ${taskCount}`;
+}
+
+function showAlert(message, type) {
+    const alertBox = document.getElementById("alert-container");
+    alertBox.innerHTML = `<div class="alert alert-${type} fade-in" role="alert">${message}</div>`;
+    setTimeout(() => alertBox.innerHTML = "", 3000);
+}
+
+async function createTask() {
+    const titleInput = document.getElementById("task-title");
+    const title = titleInput.value.trim();
+    if (!title) return showAlert("Task title cannot be empty!", "danger");
+
+    try {
+        const res = await fetch(`${API_GATEWAY_URL}/tasks`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title })
+        });
+        if (!res.ok) throw new Error("Failed to create");
+        titleInput.value = "";
+        showAlert("Task added successfully!", "success");
+        fetchTasks();
+    } catch {
+        showAlert("Error creating task!", "danger");
+    }
+}
+
+async function deleteTask(taskId) {
+    const taskEl = document.getElementById(taskId);
+    if (taskEl) {
+        taskEl.classList.add("fade-out");
+        setTimeout(async () => {
+            try {
+                const res = await fetch(`${API_GATEWAY_URL}/tasks/${taskId}`, { method: "DELETE" });
+                if (!res.ok) throw new Error();
+                fetchTasks();
+            } catch {
+                showAlert("Error deleting task!", "danger");
+            }
+        }, 300);
+    }
 }
