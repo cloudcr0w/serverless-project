@@ -210,6 +210,11 @@ h4.text-secondary {
 .dark-mode footer a {
     color: #ffc107 !important;
 }
+body.dark-mode h3.text-primary {
+    color: #b3d4ff;
+    -webkit-text-fill-color: initial;
+    background: none;
+}
 
 /* === Footer === */
 footer {
