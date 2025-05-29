@@ -1,3 +1,5 @@
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=cloudcr0w.sentiment-analyzer-devops)
+
 # ⚙️ Serverless Task Manager – Production-Ready Template for DevOps & Platform Teams
 
 A lightweight, production-ready task manager built using 100% AWS managed services.  
