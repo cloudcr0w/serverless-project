@@ -10,12 +10,13 @@
 - [x] Lambda ZIPs built and uploaded automatically via GitHub Actions  
 - [x] ZIPs ignored via `.gitignore` — clean repo  
 - [x] Modules `slack_forwarder` and `alerting` fully managed by Terraform  
+- [x] Formatted Slack Message with added emojis
 
 ---
 
 ## 🔁 NEXT STEPS
 
-### 1. 🎨 Improve Slack Alert Message Formatting
+### 1. 🎨 Improve Slack Alert Message Formatting ( in progress )
 
 Update `slack_alert_forwarder.py` to parse SNS messages and format them like:
 
