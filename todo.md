@@ -29,11 +29,12 @@ Optional: include function name, severity level emoji, region, timestamp, etc.
 
 ### 2. 🧪 Add Unit Tests for Lambda (backend)
 
-Create a `test_lambda_function.py` file to cover:
+✅ `test_lambda_function.py` created with coverage for:
 
-- [ ] Valid `POST` request with `title`  
-- [ ] Missing `title` → should return 400  
-- [ ] Title = `FAIL` → simulate backend crash / trigger error alarm
+- [x] Valid `POST` request with `title`  
+- [x] Missing `title` → should return 400  
+- [x] Title = `FAIL` → simulate backend crash / trigger error alarm
+
 
 
 ### 3. ⚙️ Optional: Add Local Build Script
