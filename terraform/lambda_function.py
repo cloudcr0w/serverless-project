@@ -1,3 +1,7 @@
+# Lambda function to handle task creation via POST request.
+# Responds with 400 if 'title' is missing.
+# If title is 'FAIL', simulates an error (for alert testing).
+
 import json
 import boto3
 import uuid
