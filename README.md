@@ -85,6 +85,15 @@ aws s3 sync . s3://adamwrona-serverless-frontend --delete
 curl https://<your-api-id>.execute-api.us-east-1.amazonaws.com/dev/tasks
 ```
 
+## 🚀 How to Run Locally
+
+```bash
+cd terraform
+pytest tests/test_lambda_function.py
+./build.sh
+terraform plan
+```
+
 ### 🔁 CI/CD Workflow
 
 ✅ Triggered on every push to main
