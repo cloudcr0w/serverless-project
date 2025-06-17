@@ -1,21 +1,24 @@
 .
-├── .github
-│   └── workflows
-│       └── deploy.yml
-├── .gitignore
 ├── README.md
 ├── app.js
+├── diagram.png
+├── favicon.ico
 ├── index.html
-├── response.json
+├── node_modules
 ├── styles.css
 ├── terraform
-│   ├── .terraform.lock.hcl
+│   ├── build.sh
 │   ├── lambda.zip
 │   ├── lambda_function.py
 │   ├── main.tf
 │   ├── modules
+│   │   ├── alerting
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── apigateway
 │   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
 │   │   │   ├── providers.tf
 │   │   │   └── variables.tf
 │   │   ├── dynamodb
@@ -28,18 +31,28 @@
 │   │   │   ├── providers.tf
 │   │   │   └── variables.tf
 │   │   ├── lambda
+│   │   │   ├── lambda.zip
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── s3
+│   │   │   ├── main.tf
 │   │   │   ├── providers.tf
 │   │   │   └── variables.tf
-│   │   └── s3
+│   │   └── slack_forwarder
+│   │       ├── lambda
+│   │       │   ├── slack_alert_forwarder.py
+│   │       │   └── slack_alert_forwarder.zip
 │   │       ├── main.tf
-│   │       ├── providers.tf
+│   │       ├── outputs.tf
 │   │       └── variables.tf
-│   ├── response.json
-│   ├── terraform.tfstate
-│   ├── terraform.tfstate.backup
-│   └── tfplan
+│   ├── requirements-dev.txt
+│   ├── terraform.tfvars
+│   ├── tests
+│   │   └── test_lambda_function.py
+│   ├── tfplan
+│   └── variables.tf
+├── todo.md
 └── tree.txt
 
-9 directories, 33 files
+13 directories, 43 files
