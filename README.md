@@ -97,6 +97,12 @@ curl https://<your-api-id>.execute-api.us-east-1.amazonaws.com/dev/tasks
 
 ✅ Logs viewable in GitHub Actions & CloudWatch
 
+## 🛠️ Development Notes
+
+- Run tests locally using `pytest` from `terraform/tests`
+- Use `build.sh` to create and upload Lambda ZIP manually
+- All infrastructure is managed via Terraform, including alerting
+
 
 ### 👨‍💻 About the Author
 Created by Adam Wrona as part of his DevOps & Cloud Engineering journey 🚀
