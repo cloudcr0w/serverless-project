@@ -1,6 +1,7 @@
 import json
 import pytest
 import lambda_function
+from unittest.mock import patch
 
 class FakeContext:
     def __init__(self):
@@ -12,8 +13,11 @@ def make_event(body):
         "httpMethod": "POST"
     }
 
+@patch("lambda_function.dynamodb")
+def test_valid_post(mock_dynamodb):
+    mock_table = mock_dynamodb.Table.return_value
+    mock_table.put_item.return_value = {"ResponseMetadata": {"HTTPStatusCode": 200}}
 
-def test_valid_post():
     event = make_event({"title": "Buy milk"})
     response = lambda_function.lambda_handler(event, FakeContext())
     assert response["statusCode"] == 201
