@@ -39,15 +39,13 @@ jobs:
           cd terraform
           pip install -r requirements-dev.txt
 
-      - name: Run pytest
-        run: |
+       - name: Run pytest
+         env:
+          AWS_REGION: us-east-1
+         run: |
           cd terraform
           PYTHONPATH=. pytest tests/
-        env:
-          AWS_REGION: us-east-1
 
-
-          
   terraform:
     name: Validate & Deploy Terraform
     needs: [lint, test-backend]
