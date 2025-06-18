@@ -1,19 +1,14 @@
-# Lambda function to handle task creation via POST request.
-# Responds with 400 if 'title' is missing.
-# If title is 'FAIL', simulates an error (for alert testing).
-
 import json
 import boto3
 import uuid
 import logging
 
-# Logger setup
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-dynamodb = boto3.resource("dynamodb")
-table = dynamodb.Table("serverless-tasks")
-
+def get_table():
+    dynamodb = boto3.resource("dynamodb")
+    return dynamodb.Table("serverless-tasks")
 
 def lambda_handler(event, context):
     logger.info("Received event: %s", json.dumps(event))
@@ -63,7 +58,7 @@ def create_task(event):
             "status": body.get("status", "pending"),
         }
 
-        table.put_item(Item=task)
+        get_table().put_item(Item=task)
         logger.info("Task created: %s", json.dumps(task))
 
         return response(201, {"message": "Task created", "task": task})
@@ -71,10 +66,9 @@ def create_task(event):
         logger.error("Error creating task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to create task"})
 
-
 def get_tasks():
     try:
-        response_scan = table.scan()
+        response_scan = get_table().scan()
         tasks = response_scan.get("Items", [])
         logger.info("Fetched %d tasks", len(tasks))
 
@@ -83,18 +77,16 @@ def get_tasks():
         logger.error("Error fetching tasks: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to fetch tasks"})
 
-
 def delete_task(event):
     try:
         task_id = event["pathParameters"]["task_id"]
-        table.delete_item(Key={"task_id": task_id})
+        get_table().delete_item(Key={"task_id": task_id})
         logger.info("Deleted task: %s", task_id)
 
         return response(200, {"message": f"Task {task_id} deleted"})
     except Exception as e:
         logger.error("Error deleting task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to delete task"})
-
 
 def response(status_code, body_dict):
     return {
