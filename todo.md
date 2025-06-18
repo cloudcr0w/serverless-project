@@ -11,6 +11,7 @@
 - [x] ZIPs ignored via `.gitignore` — clean repo  
 - [x] Modules `slack_forwarder` and `alerting` fully managed by Terraform  
 - [x] Formatted Slack Message with added emojis
+- [x] Unit tests run automatically via GitHub Actions (pytest)
 
 ---
 
@@ -50,19 +51,13 @@ aws s3 cp lambda.zip s3://adamwrona-serverless-frontend/lambda/
 Optional: Add .env and auto-detect bucket name for multi-env setup.
 
 ### 4. 📉 Add Observability: Metrics & Dashboards
- Create CloudWatch dashboard for backend
 
- Track:
+✅ Created CloudWatch dashboard for backend
 
-Invocations
+- [x] Tracks Lambda Invocations
+- [ ] Add Duration, Throttles, Errors
+- [ ] Optional: Grafana integration
 
-Duration
-
-Throttles
-
-Errors
-
- Optional: Add Grafana integration
 
 ### 5. 🔁 Add Rollback Support for Lambda (Optional)
  Enable publish = true for versioned Lambda deploys
