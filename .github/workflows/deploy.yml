@@ -26,6 +26,8 @@ jobs:
   test-backend:
     name: Run Lambda unit tests
     runs-on: ubuntu-latest
+    env: 
+      AWS_REGION: us-east-1
     steps:
       - uses: actions/checkout@v4
 
