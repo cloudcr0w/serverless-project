@@ -49,6 +49,9 @@ def lambda_handler(event, context):
 def create_task(event):
     body = json.loads(event["body"])
 
+    if "title" not in body:
+        return response(400, {"error": "Missing title"})
+
     if body.get("title") == "FAIL":
         raise Exception("💥 Simulated failure for CloudWatch Alarm test")
 

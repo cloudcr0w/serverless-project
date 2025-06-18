@@ -1,4 +1,5 @@
 import json
+import pytest
 import lambda_function
 
 class FakeContext:
@@ -7,14 +8,18 @@ class FakeContext:
 
 def make_event(body):
     return {
-        "body": json.dumps(body)
+        "body": json.dumps(body),
+        "httpMethod": "POST"
     }
+
 
 def test_valid_post():
     event = make_event({"title": "Buy milk"})
     response = lambda_function.lambda_handler(event, FakeContext())
-    assert response["statusCode"] == 200
-    assert "id" in json.loads(response["body"])
+    assert response["statusCode"] == 201
+    task = json.loads(response["body"]).get("task", {})
+    assert "task_id" in task
+    assert task["title"] == "Buy milk"
 
 def test_missing_title():
     event = make_event({})
@@ -24,6 +29,6 @@ def test_missing_title():
 
 def test_fail_title_triggers_error():
     event = make_event({"title": "FAIL"})
-    response = lambda_function.lambda_handler(event, FakeContext())
-    assert response["statusCode"] == 500
-    assert "error" in json.loads(response["body"])
+    with pytest.raises(Exception) as e:
+        lambda_function.lambda_handler(event, FakeContext())
+    assert "Simulated failure" in str(e.value)
