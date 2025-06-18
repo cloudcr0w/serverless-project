@@ -43,7 +43,8 @@ jobs:
         run: |
           cd terraform
           PYTHONPATH=. pytest tests/
-
+        env:
+          AWS_REGION: us-east-1
 
 
           
