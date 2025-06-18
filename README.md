@@ -3,11 +3,12 @@
 # ⚙️ Serverless Task Manager – Production-Ready Template for DevOps & Platform Teams
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
-![Terraform](https://img.shields.io/badge/Terraform-1.5+-623CE4?logo=terraform)
+![Terraform](https://img.shields.io/badge/Terraform-1.5%2B-623CE4?logo=terraform)
 ![AWS](https://img.shields.io/badge/AWS-Lambda-orange?logo=amazon-aws)
 ![CI/CD](https://img.shields.io/badge/GitHub_Actions-Automated-blue?logo=github-actions)
 ![Status](https://img.shields.io/badge/Build-passing-brightgreen?logo=checkmarx)
 ![Slack_Alerts](https://img.shields.io/badge/Slack-Alerting-4A154B?logo=slack)
+
 
 A lightweight, production-ready task manager built using 100% AWS managed services.  
 Designed for scalability, automation, and zero server maintenance.
