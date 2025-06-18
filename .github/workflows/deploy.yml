@@ -39,10 +39,10 @@ jobs:
           cd terraform
           pip install -r requirements-dev.txt
 
-       - name: Run pytest
-         env:
+      - name: Run pytest
+        env:
           AWS_REGION: us-east-1
-         run: |
+        run: |
           cd terraform
           PYTHONPATH=. pytest tests/
 
@@ -82,15 +82,13 @@ jobs:
       - name: Zip Slack Alert Forwarder Lambda
         run: |
           cd modules/slack_forwarder/lambda
-           zip slack_alert_forwarder.zip slack_alert_forwarder.py
+          zip slack_alert_forwarder.zip slack_alert_forwarder.py
         working-directory: terraform
-
 
       - name: Upload Slack ZIP to S3
         run: |
           aws s3 cp modules/slack_forwarder/lambda/slack_alert_forwarder.zip s3://adamwrona-serverless-frontend/lambda/slack_alert_forwarder.zip
         working-directory: terraform
-
 
       - name: Validate Terraform
         run: terraform validate
@@ -102,7 +100,6 @@ jobs:
         env:
           TF_LOG: DEBUG
           TF_LOG_PATH: terraform-debug.log
-
 
       - name: Apply Terraform Changes
         run: terraform apply -auto-approve -var="slack_webhook_url=${{ secrets.SLACK_WEBHOOK_URL }}"
@@ -155,5 +152,5 @@ jobs:
           sleep 5 
           curl -X GET https://uij5hsagih.execute-api.us-east-1.amazonaws.com/dev/tasks || {
           echo "❌ API check failed!";
-           exit 1;
+          exit 1;
           }
