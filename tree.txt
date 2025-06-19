@@ -1,51 +1,36 @@
 .
+├── .github
+│   └── workflows
+│       └── deploy.yml
+├── .gitignore
 ├── README.md
+├── SECURITY.md
 ├── app.js
 ├── diagram.png
 ├── favicon.ico
 ├── index.html
-├── node_modules
 ├── styles.css
 ├── terraform
+│   ├── .pytest_cache
+│   │   ├── .gitignore
+│   │   ├── CACHEDIR.TAG
+│   │   ├── README.md
+│   │   └── v
+│   ├── .terraform.lock.hcl
+│   ├── __init__.py
 │   ├── build.sh
+│   ├── cloudwatch.tf
 │   ├── lambda.zip
 │   ├── lambda_function.py
 │   ├── main.tf
 │   ├── modules
 │   │   ├── alerting
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
 │   │   ├── apigateway
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   ├── providers.tf
-│   │   │   └── variables.tf
 │   │   ├── dynamodb
-│   │   │   ├── main.tf
-│   │   │   ├── providers.tf
-│   │   │   └── variables.tf
 │   │   ├── iam
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   ├── providers.tf
-│   │   │   └── variables.tf
 │   │   ├── lambda
-│   │   │   ├── lambda.zip
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   └── variables.tf
 │   │   ├── s3
-│   │   │   ├── main.tf
-│   │   │   ├── providers.tf
-│   │   │   └── variables.tf
 │   │   └── slack_forwarder
-│   │       ├── lambda
-│   │       │   ├── slack_alert_forwarder.py
-│   │       │   └── slack_alert_forwarder.zip
-│   │       ├── main.tf
-│   │       ├── outputs.tf
-│   │       └── variables.tf
 │   ├── requirements-dev.txt
 │   ├── terraform.tfvars
 │   ├── tests
@@ -55,4 +40,4 @@
 ├── todo.md
 └── tree.txt
 
-13 directories, 43 files
+15 directories, 26 files
