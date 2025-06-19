@@ -20,7 +20,7 @@ Designed for scalability, automation, and zero server maintenance.
 
 ## 🏗 Architecture Overview
 
-![Serverless Architecture](./diagram.png)
+![Serverless Architecture](./diagram-serverless.png)
 
 | Layer        | Technology                                   |
 |--------------|----------------------------------------------|
