@@ -4,43 +4,56 @@
 
 ## ✅ DONE
 
-- [x] Lambda backend works with simulated `FAIL` (CloudWatch Alarm → SNS → Slack)  
-- [x] Slack alerting verified — webhook works, message received  
-- [x] GitHub Actions & Terraform plan/apply confirmed functional  
-- [x] Lambda ZIPs built and uploaded automatically via GitHub Actions  
-- [x] ZIPs ignored via `.gitignore` — clean repo  
-- [x] Modules `slack_forwarder` and `alerting` fully managed by Terraform  
-- [x] Formatted Slack Message with added emojis
-- [x] Unit tests run automatically via GitHub Actions (pytest)
+- [x] Lambda backend works with simulated `FAIL` (`CloudWatch Alarm → SNS → Slack`)
+- [x] Slack alerting verified — webhook functional, messages received
+- [x] GitHub Actions: Terraform plan/apply + Lambda ZIP build & upload
+- [x] `.gitignore` updated — ZIPs ignored for clean repo
+- [x] Modules `slack_forwarder` & `alerting` fully managed by Terraform
+- [x] Formatted Slack messages with emojis
+- [x] Unit tests for Lambda (`test_lambda_function.py`) running via GitHub Actions:
+  - Valid `POST` with `title`
+  - Missing `title` → returns 400
+  - Title = `FAIL` → simulates crash
+- [x] Created CloudWatch Dashboard tracking:
+  - Lambda Invocations
+  - Duration
 
 ---
 
-## 🔁 NEXT STEPS
+## 🛠️ IN PROGRESS
 
-### 1. 🎨 Improve Slack Alert Message Formatting ( in progress )
+### 1. 🎨 Improve Slack Alert Formatting
 
-Update `slack_alert_forwarder.py` to parse SNS messages and format them like:
+Goal: Make alerts more readable and informative, e.g.:
 
 🚨 LambdaErrors-ServerlessBackend-Test entered ALARM state!
 Reason: Threshold Crossed: 1 datapoint was greater than the threshold (0.0).
 
 
-Optional: include function name, severity level emoji, region, timestamp, etc.
+**Extras:** function name, severity emoji, region, timestamp, etc.
 
+---
 
-### 2. 🧪 Add Unit Tests for Lambda (backend)
+## 🔁 NEXT STEPS
 
-✅ `test_lambda_function.py` created with coverage for:
+### 2. 📊 Add More CloudWatch Metrics
 
-- [x] Valid `POST` request with `title`  
-- [x] Missing `title` → should return 400  
-- [x] Title = `FAIL` → simulate backend crash / trigger error alarm
+- [ ] Add Lambda `Throttles`
+- [ ] Add `Errors`
+- [ ] (Optional) Grafana integration via CloudWatch datasource
 
+---
 
+### 3. 🧪 Expand Unit Testing
 
-### 3. ⚙️ Optional: Add Local Build Script
+- [ ] Add tests for `GET` and `DELETE` handlers
+- [ ] Add test coverage for CloudWatch alert handler (Slack forwarder)
 
-Although Lambda ZIP is built automatically in CI/CD, a manual helper is still useful:
+---
+
+### 4. 🔃 Add Manual Lambda Build Helper (Optional)
+
+Although GitHub Actions builds ZIPs, local build script can help:
 
 ```bash
 # build.sh
@@ -48,31 +61,18 @@ zip lambda.zip lambda_function.py
 aws s3 cp lambda.zip s3://adamwrona-serverless-frontend/lambda/
 ```
 
-Optional: Add .env and auto-detect bucket name for multi-env setup.
+Extras: .env support, auto bucket detection, multi-env paths
 
-### 4. 📉 Add Observability: Metrics & Dashboards
+### 5. 🛡️ Add Rollback Support for Lambda (Optional)
+ Enable publish = true for versioned deploys
 
-✅ Created CloudWatch dashboard for backend
+ Use aws_lambda_alias to control traffic routing
 
-- [x] Tracks Lambda Invocations
-- [ ] Add Duration, Throttles, Errors
-- [ ] Optional: Grafana integration
+ Create manual rollback path or Terraform toggle input
 
-
-### 5. 🔁 Add Rollback Support for Lambda (Optional)
- Enable publish = true for versioned Lambda deploys
-
- Use aws_lambda_alias to control stable traffic
-
- Add simple rollback mechanism (manual or Terraform input variable)
-
-
-
-🧭 Notes
+🧭 NOTES
 ✅ Slack alert Lambda is now fully Terraform-managed
 
-✅ No manual terraform import required anymore
+✅ No terraform import needed — everything IaC from scratch
 
-✅ slack_forwarder and alerting modules are active
-
-✅ terraform apply covers full stack: backend, infra, alerting
+✅ terraform apply deploys full stack: backend + observability + alerting
