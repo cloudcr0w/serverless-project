@@ -1,4 +1,3 @@
-
 resource "aws_cloudwatch_dashboard" "lambda_dashboard" {
   dashboard_name = "ServerlessBackend-Dashboard"
 
@@ -16,6 +15,19 @@ resource "aws_cloudwatch_dashboard" "lambda_dashboard" {
           stat   = "Sum",
           region = "us-east-1",
           title  = "Lambda Activity Overview"
+        }
+      },
+      {
+        type = "metric",
+        x    = 0, y = 6, width = 24, height = 6,
+        properties = {
+          metrics = [
+            ["AWS/Lambda", "Duration", "FunctionName", "serverless-backend"]
+          ],
+          period = 300,
+          stat   = "Average",
+          region = "us-east-1",
+          title  = "Lambda Duration (ms)"
         }
       }
     ]
