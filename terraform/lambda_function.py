@@ -47,9 +47,6 @@ def create_task(event):
     if "title" not in body or not isinstance(body["title"], str) or not body["title"].strip():
         return response(400, {"error": "Invalid or missing title"})
 
-    if "title" not in body:
-        return response(400, {"error": "Missing title"})
-
     if body.get("title") == "FAIL":
         raise Exception("💥 Simulated failure for CloudWatch Alarm test")
 
