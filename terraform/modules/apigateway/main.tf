@@ -14,9 +14,9 @@ resource "aws_apigatewayv2_api" "api_gateway" {
 }
 
 resource "aws_apigatewayv2_integration" "lambda_integration" {
-  api_id           = aws_apigatewayv2_api.api_gateway.id
-  integration_type = "AWS_PROXY"
-  integration_uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.lambda_function_arn}/invocations"
+  api_id                 = aws_apigatewayv2_api.api_gateway.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.lambda_function_arn}/invocations"
   payload_format_version = "2.0"
 }
 

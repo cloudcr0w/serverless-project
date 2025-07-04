@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "lambda_s3_access" {
   name        = "lambda-s3-access"
   description = "Allow Lambda to get ZIP from S3"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {

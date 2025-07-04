@@ -3,7 +3,7 @@ resource "aws_sns_topic" "lambda_alerts" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
-  alarm_name = "LambdaErrors-ServerlessBackend-Test"
+  alarm_name          = "LambdaErrors-ServerlessBackend-Test"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   metric_name         = "Errors"
