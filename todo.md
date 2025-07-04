@@ -38,9 +38,11 @@ Reason: Threshold Crossed: 1 datapoint was greater than the threshold (0.0).
 
 ### 2. 📊 Add More CloudWatch Metrics
 
+- [x] Added `Errors` (included in main widget)
+- [x] Added `Invocations` and `Duration` (dashboard ready)
 - [ ] Add Lambda `Throttles`
-- [ ] Add `Errors`
 - [ ] (Optional) Grafana integration via CloudWatch datasource
+
 
 ---
 
