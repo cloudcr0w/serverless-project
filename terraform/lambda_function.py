@@ -102,3 +102,4 @@ def response(status_code, body_dict):
         },
         "body": json.dumps(body_dict),
     }
+    
