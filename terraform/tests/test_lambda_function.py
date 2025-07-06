@@ -15,7 +15,6 @@ def make_event(body):
 
 @patch("lambda_function.boto3.resource")
 def test_valid_post(mock_resource):
-    # Mockowanie obiektu tabeli
     mock_table = MagicMock()
     mock_resource.return_value.Table.return_value = mock_table
     mock_table.put_item.return_value = {"ResponseMetadata": {"HTTPStatusCode": 200}}
