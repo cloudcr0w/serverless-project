@@ -26,3 +26,11 @@ def test_valid_post(mock_resource):
     task = json.loads(response["body"]).get("task", {})
     assert "task_id" in task
     assert task["title"] == "Buy milk"
+
+@patch("lambda_function.boto3.resource")
+@pytest.mark.parametrize("bad_title", [None, "", "   ", 123])
+def test_invalid_post_titles(mock_resource, bad_title):
+    event = make_event({"title": bad_title})
+    response = lambda_function.lambda_handler(event, FakeContext())
+    assert response["statusCode"] == 400
+    assert "error" in json.loads(response["body"])
