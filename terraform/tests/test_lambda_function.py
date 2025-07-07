@@ -28,6 +28,7 @@ def test_valid_post(mock_resource):
 
 @patch("lambda_function.boto3.resource")
 @pytest.mark.parametrize("bad_title", [None, "", "   ", 123])
+
 def test_invalid_post_titles(mock_resource, bad_title):
     event = make_event({"title": bad_title})
     response = lambda_function.lambda_handler(event, FakeContext())
