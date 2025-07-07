@@ -40,7 +40,7 @@ Reason: Threshold Crossed: 1 datapoint was greater than the threshold (0.0).
 
 - [x] Added `Errors` (included in main widget)
 - [x] Added `Invocations` and `Duration` (dashboard ready)
-- [ ] Add Lambda `Throttles`
+- [x] Add Lambda `Throttles`
 - [ ] (Optional) Grafana integration via CloudWatch datasource
 
 
@@ -48,14 +48,16 @@ Reason: Threshold Crossed: 1 datapoint was greater than the threshold (0.0).
 
 ### 3. 🧪 Expand Unit Testing
 
-- [ ] Add tests for `GET` and `DELETE` handlers
+- [x] Add test for `GET` handler
+- [ ] Add test for `DELETE` handler
 - [ ] Add test coverage for CloudWatch alert handler (Slack forwarder)
 
 ---
 
-### 4. 🔃 Add Manual Lambda Build Helper (Optional)
+### 4. 🔃 Add Manual Lambda Build Helper (DONE)
 
-Although GitHub Actions builds ZIPs, local build script can help:
+Added `build.sh` script with ZIP + S3 upload  
+Includes CLI checks for `zip` and `aws`
 
 ```bash
 # build.sh
@@ -71,6 +73,12 @@ Extras: .env support, auto bucket detection, multi-env paths
  Use aws_lambda_alias to control traffic routing
 
  Create manual rollback path or Terraform toggle input
+
+ ### 6. 📦 Use environment variables for config (Optional)
+
+- [ ] Read table name and region from environment variables instead of hardcoding
+- [ ] Add fallback or error if env is missing
+
 
 🧭 NOTES
 ✅ Slack alert Lambda is now fully Terraform-managed
