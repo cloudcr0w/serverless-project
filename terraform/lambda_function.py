@@ -1,14 +1,18 @@
+import os
 import json
 import boto3
 import uuid
 import logging
 
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 def get_table():
-    dynamodb = boto3.resource("dynamodb")
-    return dynamodb.Table("serverless-tasks")
+    table_name = os.environ.get("DYNAMODB_TABLE", "serverless-tasks")
+    region = os.environ.get("REGION", "us-east-1")
+    dynamodb = boto3.resource("dynamodb", region_name=region)
+    return dynamodb.Table(table_name)
 
 def lambda_handler(event, context):
     logger.info("Received event: %s", json.dumps(event))
