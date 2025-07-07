@@ -25,6 +25,18 @@ This document tracks key development steps, decisions, and technical improvement
   - Response codes
   - JSON structure
 
+
+## 🧪 Running Tests
+
+Tests are located in `terraform/tests/`, while `lambda_function.py` lives in `terraform/`.
+
+Use `make test` to run tests with the correct module path:
+
+```bash
+make test
+PYTHONPATH=terraform pytest terraform/tests/
+```
+
 ---
 
 ## 🛡 Input Validation Improvements
