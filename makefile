@@ -1,7 +1,7 @@
 .PHONY: test format lint
 
 test:
-	pytest terraform/tests
+	PYTHONPATH=terraform pytest terraform/tests
 
 format:
 	black terraform/
