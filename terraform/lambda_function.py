@@ -4,15 +4,24 @@ import boto3
 import uuid
 import logging
 
+COMMON_HEADERS = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "X-Content-Type-Options": "nosniff",
+}
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
 
 def get_table():
     table_name = os.environ.get("DYNAMODB_TABLE", "serverless-tasks")
     region = os.environ.get("REGION", "us-east-1")
     dynamodb = boto3.resource("dynamodb", region_name=region)
     return dynamodb.Table(table_name)
+
 
 def lambda_handler(event, context):
     logger.info("Received event: %s", json.dumps(event))
@@ -27,13 +36,7 @@ def lambda_handler(event, context):
     if method == "OPTIONS":
         return {
             "statusCode": 200,
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Content-Type": "application/json",
-                "X-Content-Type-Options": "nosniff",
-            },
+            "headers": COMMON_HEADERS,
             "body": json.dumps({"message": "CORS preflight response"}),
         }
     if method == "POST":
@@ -45,12 +48,17 @@ def lambda_handler(event, context):
     else:
         return response(400, {"error": "Invalid request method"})
 
+
 def create_task(event):
     body = json.loads(event["body"])
     if "body" not in event or not event["body"]:
         return response(400, {"error": "Empty request body"})
 
-    if "title" not in body or not isinstance(body["title"], str) or not body["title"].strip():
+    if (
+        "title" not in body
+        or not isinstance(body["title"], str)
+        or not body["title"].strip()
+    ):
         return response(400, {"error": "Invalid or missing title"})
 
     if body.get("title") == "FAIL":
@@ -72,6 +80,7 @@ def create_task(event):
         logger.error("Error creating task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to create task"})
 
+
 def get_tasks():
     try:
         response_scan = get_table().scan()
@@ -82,6 +91,7 @@ def get_tasks():
     except Exception as e:
         logger.error("Error fetching tasks: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to fetch tasks"})
+
 
 def delete_task(event):
     try:
@@ -94,16 +104,10 @@ def delete_task(event):
         logger.error("Error deleting task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to delete task"})
 
+
 def response(status_code, body_dict):
     return {
         "statusCode": status_code,
-        "headers": {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-            "X-Content-Type-Options": "nosniff",
-        },
+        "headers": COMMON_HEADERS,
         "body": json.dumps(body_dict),
     }
-    
