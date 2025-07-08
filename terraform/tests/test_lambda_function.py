@@ -34,3 +34,11 @@ def test_invalid_post_titles(mock_resource, bad_title):
     response = lambda_function.lambda_handler(event, FakeContext())
     assert response["statusCode"] == 400
     assert "error" in json.loads(response["body"])
+
+def test_options_request():
+    event = {
+        "httpMethod": "OPTIONS"
+    }
+    response = lambda_function.lambda_handler(event, None)
+    assert response["statusCode"] == 200
+    assert "Access-Control-Allow-Origin" in response["headers"]
