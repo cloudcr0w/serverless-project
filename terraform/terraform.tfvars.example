@@ -1,0 +1,3 @@
+bucket_name = "adamwrona-serverless-frontend"
+region      = "us-east-1"
+lambda_name = "serverless-backend"
