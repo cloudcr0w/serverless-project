@@ -1,4 +1,6 @@
-#!/bin/bash
+# build.sh - Lambda ZIP builder and uploader for Serverless Task Manager
+# Usage: ./build.sh
+# Requires: zip, AWS CLI, configured credentials
 
 # Sanity check
 command -v zip >/dev/null || { echo "❌ zip not found. Please install it."; exit 1; }
