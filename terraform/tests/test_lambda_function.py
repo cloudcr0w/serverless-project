@@ -42,3 +42,12 @@ def test_options_request():
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 200
     assert "Access-Control-Allow-Origin" in response["headers"]
+
+def test_post_without_body():
+    event = {
+        "httpMethod": "POST"
+    
+    }
+    response = lambda_function.lambda_handler(event, None)
+    assert response["statusCode"] == 400
+    assert "error" in json.loads(response["body"])
