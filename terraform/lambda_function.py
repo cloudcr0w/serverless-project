@@ -50,9 +50,10 @@ def lambda_handler(event, context):
 
 
 def create_task(event):
-    body = json.loads(event["body"])
     if "body" not in event or not event["body"]:
         return response(400, {"error": "Empty request body"})
+
+    body = json.loads(event["body"])
 
     if (
         "title" not in body
