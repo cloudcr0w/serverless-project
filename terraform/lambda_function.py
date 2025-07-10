@@ -17,10 +17,15 @@ logger.setLevel(logging.INFO)
 
 
 def get_table():
-    table_name = os.environ.get("DYNAMODB_TABLE", "serverless-tasks")
+    table_name = os.environ.get("DYNAMODB_TABLE")
+    if not table_name:
+        logger.warning("⚠️ DYNAMODB_TABLE not set, using default 'serverless-tasks'")
+        table_name = "serverless-tasks"
+
     region = os.environ.get("REGION", "us-east-1")
     dynamodb = boto3.resource("dynamodb", region_name=region)
     return dynamodb.Table(table_name)
+
 
 
 def lambda_handler(event, context):
