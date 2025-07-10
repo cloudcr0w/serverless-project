@@ -14,7 +14,9 @@ A lightweight, production-ready task manager built using 100% AWS managed servic
 Designed for scalability, automation, and zero server maintenance.
 
 🌐 **LIVE DEMO:**  
-👉 https://adamwrona-serverless-frontend.s3.amazonaws.com/index.html
+👉 https://d3i0w9qp2vl843.cloudfront.net
+
+🔒 Deployed securely via AWS CloudFront with OAI (Origin Access Identity)
 
 ---
 
@@ -22,13 +24,13 @@ Designed for scalability, automation, and zero server maintenance.
 
 ![Serverless Architecture](./diagram.png)
 
-| Layer        | Technology                                   |
-|--------------|----------------------------------------------|
-| **Frontend** | HTML/CSS/JS (vanilla), hosted on Amazon S3   |
-| **API**      | AWS Lambda (Python), exposed via API Gateway |
-| **Database** | Amazon DynamoDB                              |
-| **CI/CD**    | GitHub Actions + Terraform                   |
-| **Security** | IAM roles, CORS handling, HTTPS, encryption  |
+| Layer        | Technology                                                                       |
+|--------------|----------------------------------------------------------------------------------|
+| **Frontend** | Frontend | HTML/CSS/JS (vanilla), hosted on Amazon S3 via CloudFront (HTTPS)     |
+| **API**      | AWS Lambda (Python), exposed via API Gateway                                     |
+| **Database** | Amazon DynamoDB                                                                  |
+| **CI/CD**    | GitHub Actions + Terraform                                                       |
+| **Security** | IAM roles, CORS handling, HTTPS, encryption                                      |
 
 ---
 
@@ -77,7 +79,11 @@ terraform apply -auto-approve
 ### 3️⃣ Deploy Frontend
 
 ```bash
+cd frontend
 aws s3 sync . s3://adamwrona-serverless-frontend --delete
+
+# Then access it via: https://d3i0w9qp2vl843.cloudfront.net
+
 ```
 
 ### 4️⃣ Verify API Health
@@ -103,7 +109,7 @@ terraform plan
 
 ✅ AWS Lambda updated from source
 
-✅ Frontend deployed to S3
+✅ Frontend deployed to S3 (accessed via CloudFront)
 
 ✅ Logs viewable in GitHub Actions & CloudWatch
 
