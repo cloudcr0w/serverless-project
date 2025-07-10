@@ -51,3 +51,17 @@ def test_post_without_body():
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 400
     assert "error" in json.loads(response["body"])
+
+@patch("lambda_function.boto3.resource")
+def test_delete_task(mock_resource):
+    mock_table = MagicMock()
+    mock_resource.return_value.Table.return_value = mock_table
+    mock_table.delete_item.return_value = {"ResponseMetadata": {"HTTPStatusCode": 200}}
+
+    event = {
+        "httpMethod": "DELETE",
+        "pathParameters": {"task_id": "1234"}
+    }
+    response = lambda_function.lambda_handler(event, None)
+    assert response["statusCode"] == 200
+    assert "deleted" in json.loads(response["body"]).get("message", "")
