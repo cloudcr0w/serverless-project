@@ -4,7 +4,7 @@ resource "aws_cloudfront_origin_access_identity" "frontend_oai" {
 
 resource "aws_cloudfront_distribution" "frontend_cdn" {
   origin {
-    domain_name = aws_s3_bucket.frontend_bucket.bucket_regional_domain_name
+    domain_name = module.s3.bucket_domain
     origin_id   = "s3-frontend-origin"
 
     s3_origin_config {
@@ -49,19 +49,19 @@ resource "aws_cloudfront_distribution" "frontend_cdn" {
 }
 
 resource "aws_s3_bucket_policy" "frontend_secure_policy" {
-  bucket = aws_s3_bucket.frontend_bucket.id
+  bucket = module.s3.bucket_id
 
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Sid       = "AllowCloudFrontServicePrincipalReadOnly",
-        Effect    = "Allow",
+        Sid    = "AllowCloudFrontServicePrincipalReadOnly",
+        Effect = "Allow",
         Principal = {
           AWS = aws_cloudfront_origin_access_identity.frontend_oai.iam_arn
         },
-        Action    = ["s3:GetObject"],
-        Resource  = "${aws_s3_bucket.frontend_bucket.arn}/*"
+        Action   = ["s3:GetObject"],
+        Resource = "${module.s3.bucket_arn}/*"
       }
     ]
   })
