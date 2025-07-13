@@ -37,6 +37,7 @@ def lambda_handler(event, context):
 
     if not method:
         return response(400, {"error": "Invalid request structure"})
+    logger.info("Handling %s request", method)
 
     if method == "OPTIONS":
         return {
