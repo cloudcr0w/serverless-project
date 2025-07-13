@@ -8,15 +8,20 @@
 - [x] Slack alerting verified — webhook functional, messages received
 - [x] GitHub Actions: Terraform plan/apply + Lambda ZIP build & upload
 - [x] `.gitignore` updated — ZIPs ignored for clean repo
+- [x] `.dockerignore` added
 - [x] Modules `slack_forwarder` & `alerting` fully managed by Terraform
 - [x] Formatted Slack messages with emojis
 - [x] Unit tests for Lambda (`test_lambda_function.py`) running via GitHub Actions:
   - Valid `POST` with `title`
   - Missing `title` → returns 400
   - Title = `FAIL` → simulates crash
+  - `GET` handler tested
+  - `POST` invalid titles tested
 - [x] Created CloudWatch Dashboard tracking:
   - Lambda Invocations
   - Duration
+  - Errors
+- [x] `DYNAMODB_TABLE` and `REGION` read from environment variables with fallback
 
 ---
 
@@ -26,11 +31,15 @@
 
 Goal: Make alerts more readable and informative, e.g.:
 
+```bash
 🚨 LambdaErrors-ServerlessBackend-Test entered ALARM state!
-Reason: Threshold Crossed: 1 datapoint was greater than the threshold (0.0).
+Function: alert-forwarder
+Region: us-east-1
+Time: 2025-07-10 14:22 UTC
+```
 
 
-**Extras:** function name, severity emoji, region, timestamp, etc.
+Extras: severity emoji, API link, function name, etc.
 
 ---
 
@@ -38,51 +47,49 @@ Reason: Threshold Crossed: 1 datapoint was greater than the threshold (0.0).
 
 ### 2. 📊 Add More CloudWatch Metrics
 
-- [x] Added `Errors` (included in main widget)
-- [x] Added `Invocations` and `Duration` (dashboard ready)
-- [x] Add Lambda `Throttles`
+- [x] Add Lambda `Errors`
+- [x] Add `Invocations`, `Duration`
+- [x] Add `Throttles`
 - [ ] (Optional) Grafana integration via CloudWatch datasource
-
 
 ---
 
 ### 3. 🧪 Expand Unit Testing
 
-- [x] Add test for `GET` handler
-- [ ] Add test for `DELETE` handler
-- [ ] Add test coverage for CloudWatch alert handler (Slack forwarder)
+- [ ] Add test for `DELETE` handler (non-existent `task_id`)
+- [ ] Add test for missing body in `POST`
+- [ ] Add test coverage for `slack_forwarder` Lambda
 
 ---
 
-### 4. 🔃 Add Manual Lambda Build Helper (DONE)
+### 4. 🔃 Manual Lambda Build Helper
 
-Added `build.sh` script with ZIP + S3 upload  
-Includes CLI checks for `zip` and `aws`
+✅ Already done (`build.sh` added)
 
-```bash
-# build.sh
-zip lambda.zip lambda_function.py
-aws s3 cp lambda.zip s3://adamwrona-serverless-frontend/lambda/
-```
+Optional:
+- [ ] Add `.env` support
+- [ ] Auto-detect region / bucket
+- [ ] Use `make build` target
 
-Extras: .env support, auto bucket detection, multi-env paths
+---
 
-### 5. 🛡️ Add Rollback Support for Lambda (Optional)
- Enable publish = true for versioned deploys
+### 5. 🪵 Logging Improvements
 
- Use aws_lambda_alias to control traffic routing
+- [ ] Add `X-Request-ID` or UUID to logs per request
+- [ ] Standardize logs (method, path, etc.)
 
- Create manual rollback path or Terraform toggle input
+---
 
- ### 6. 📦 Use environment variables for config (Optional)
+### 6. 📁 Project Metadata
 
-- [ ] Read table name and region from environment variables instead of hardcoding
-- [ ] Add fallback or error if env is missing
+- [ ] Add `/health` endpoint (returns 200 OK)
+- [ ] Add `changelog.md` or extend `DEVLOG.md`
 
+---
 
-🧭 NOTES
-✅ Slack alert Lambda is now fully Terraform-managed
+## 🧭 NOTES
 
-✅ No terraform import needed — everything IaC from scratch
-
-✅ terraform apply deploys full stack: backend + observability + alerting
+- ✅ All deployed via Terraform
+- ✅ No terraform import needed
+- ✅ Works locally via `PYTHONPATH=terraform pytest`
+- ✅ CI/CD includes `make test format lint`
