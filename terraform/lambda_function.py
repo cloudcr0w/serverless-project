@@ -3,14 +3,7 @@ import json
 import boto3
 import uuid
 import logging
-
-COMMON_HEADERS = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "X-Content-Type-Options": "nosniff",
-}
+from utils import COMMON_HEADERS
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
