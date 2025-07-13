@@ -119,6 +119,14 @@ terraform plan
 - Use `build.sh` to create and upload Lambda ZIP manually
 - All infrastructure is managed via Terraform, including alerting
 
+## ❓ FAQ
+
+### Can I run this locally?
+Yes! Use `pytest` to run tests and `build.sh` to package your Lambda.
+
+### What happens if a task title is "FAIL"?
+It triggers a simulated crash to test the alerting pipeline via CloudWatch → SNS → Lambda → Slack.
+
 
 ### 👨‍💻 About the Author
 Created by Adam Wrona as part of his DevOps & Cloud Engineering journey 🚀
