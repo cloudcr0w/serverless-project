@@ -65,3 +65,21 @@ def test_delete_task(mock_resource):
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 200
     assert "deleted" in json.loads(response["body"]).get("message", "")
+    
+@patch("lambda_function.boto3.resource")
+def test_update_task_status(mock_resource):
+    mock_table = MagicMock()
+    mock_resource.return_value.Table.return_value = mock_table
+    mock_table.update_item.return_value = {"ResponseMetadata": {"HTTPStatusCode": 200}}
+
+    event = {
+        "httpMethod": "PUT",
+        "pathParameters": {"task_id": "abcd-1234"},
+        "body": json.dumps({"status": "done"})
+    }
+
+    response = lambda_function.lambda_handler(event, None)
+    assert response["statusCode"] == 200
+    body = json.loads(response["body"])
+    assert body["status"] == "done"
+    assert "updated" in body["message"]
