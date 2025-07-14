@@ -78,7 +78,7 @@ jobs:
 
       - name: Zip Lambda function
         run: |
-          zip modules/lambda/lambda.zip lambda_function.py
+          zip modules/lambda/lambda.zip lambda_function.py utils.py
         working-directory: terraform
 
       - name: Zip Slack Alert Forwarder Lambda
