@@ -42,3 +42,9 @@ resource "aws_apigatewayv2_stage" "api_stage" {
   name        = "dev"
   auto_deploy = true
 }
+
+resource "aws_apigatewayv2_route" "put_task_status_route" {
+  api_id = aws_apigatewayv2_api.api_gateway.id
+  route_key = "PUT /tasks/{task_id}"
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
