@@ -24,13 +24,14 @@ Designed for scalability, automation, and zero server maintenance.
 
 ![Serverless Architecture](./diagram.png)
 
-| Layer        | Technology                                                                       |
-|--------------|----------------------------------------------------------------------------------|
-| **Frontend** | Frontend | HTML/CSS/JS (vanilla), hosted on Amazon S3 via CloudFront (HTTPS)     |
-| **API**      | AWS Lambda (Python), exposed via API Gateway                                     |
-| **Database** | Amazon DynamoDB                                                                  |
-| **CI/CD**    | GitHub Actions + Terraform                                                       |
-| **Security** | IAM roles, CORS handling, HTTPS, encryption                                      |
+| Layer        | Technology                                                                             |
+|--------------|----------------------------------------------------------------------------------------|
+| **Frontend** | Frontend | HTML/CSS/JS (vanilla), hosted on Amazon S3 via CloudFront (HTTPS)           |
+| **API**      | AWS Lambda (Python), exposed via API Gateway                                           |
+| **Database** | Amazon DynamoDB                                                                        |
+| **CI/CD**    | GitHub Actions + Terraform                                                             |
+| **Security** | IAM roles, CORS with full HTTP method support (GET, POST, PUT, DELETE, OPTIONS), HTTPS |
+
 
 ---
 
@@ -54,7 +55,8 @@ Use it to prototype tools, train engineers, or bootstrap internal apps.
 ✅ End-to-end CI/CD with GitHub Actions  
 ✅ Secure by default (IAM, HTTPS, env vars)  
 ✅ Logging via CloudWatch  
-✅ ✅ Slack alerting via SNS → Lambda → Webhook (done)
+✅ Slack alerting via SNS → Lambda → Webhook (done)
+✅ CORS configured properly for all methods (including PUT) – production-ready frontend integration
 
 ---
 
