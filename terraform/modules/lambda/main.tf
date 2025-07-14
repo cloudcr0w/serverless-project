@@ -6,6 +6,12 @@ resource "aws_lambda_function" "backend_lambda" {
   runtime          = "python3.9"
   filename         = "${path.module}/lambda.zip"
   source_code_hash = filebase64sha256("${path.module}/lambda.zip")
+    environment {
+    variables = {
+      DYNAMODB_TABLE = var.dynamodb_table_name
+    }
+  }
+
 }
 
 resource "aws_lambda_permission" "allow_apigw_invoke" {
