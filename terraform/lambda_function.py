@@ -9,6 +9,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
+
 def get_table():
     table_name = os.environ.get("DYNAMODB_TABLE")
     if not table_name:
@@ -23,10 +24,12 @@ def get_table():
 
 def lambda_handler(event, context):
     logger.info("Received event: %s", json.dumps(event))
-
-    method = event.get(
-        "httpMethod", event.get("requestContext", {}).get("http", {}).get("method")
-    )
+ 
+    method = event.get("httpMethod")
+    if not method:
+        method = event.get("requestContext", {}).get("http", {}).get("method")
+        
+        logger.info("Detected HTTP method: %s", method)
 
     if not method:
         return response(400, {"error": "Invalid request structure"})
