@@ -5,3 +5,7 @@ variable "api_execution_arn" {
 variable "lambda_role_arn" {
   type = string
 }
+variable "dynamodb_table_name" {
+  description = "Name of the DynamoDB table used by Lambda"
+  type        = string
+}
