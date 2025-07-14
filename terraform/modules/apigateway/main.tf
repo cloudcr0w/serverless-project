@@ -4,7 +4,7 @@ resource "aws_apigatewayv2_api" "api_gateway" {
 
   cors_configuration {
     allow_origins = ["*"]
-    allow_methods = ["GET", "POST","PUT", "DELETE"]
+    allow_methods = ["GET", "POST", "PUT", "DELETE"]
     allow_headers = ["Content-Type"]
   }
 
@@ -44,7 +44,7 @@ resource "aws_apigatewayv2_stage" "api_stage" {
 }
 
 resource "aws_apigatewayv2_route" "put_task_status_route" {
-  api_id = aws_apigatewayv2_api.api_gateway.id
+  api_id    = aws_apigatewayv2_api.api_gateway.id
   route_key = "PUT /tasks/{task_id}"
-  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
