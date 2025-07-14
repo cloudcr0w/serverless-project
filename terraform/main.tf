@@ -32,9 +32,10 @@ module "apigateway" {
 }
 
 module "lambda" {
-  source            = "./modules/lambda"
-  lambda_role_arn   = module.iam.lambda_role_arn
-  api_execution_arn = module.apigateway.api_execution_arn
+  source               = "./modules/lambda"
+  lambda_role_arn      = aws_iam_role.lambda_exec.arn
+  api_execution_arn    = module.api.execution_arn
+  dynamodb_table_name  = aws_dynamodb_table.tasks.name
 }
 
 module "alerting" {
