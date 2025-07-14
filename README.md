@@ -51,11 +51,17 @@ Use it to prototype tools, train engineers, or bootstrap internal apps.
 ## 🔑 Key Features
 
 ✅ 100% serverless – no EC2, no containers  
+
 ✅ Infrastructure as Code (Terraform)  
+
 ✅ End-to-end CI/CD with GitHub Actions  
+
 ✅ Secure by default (IAM, HTTPS, env vars)  
+
 ✅ Logging via CloudWatch  
+
 ✅ Slack alerting via SNS → Lambda → Webhook (done)
+
 ✅ CORS configured properly for all methods (including PUT) – production-ready frontend integration
 
 ---
