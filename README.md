@@ -89,10 +89,32 @@ aws s3 sync . s3://adamwrona-serverless-frontend --delete
 ### 4️⃣ Verify API Health
 
 ```bash
-curl https://<your-api-id>.execute-api.us-east-1.amazonaws.com/dev/tasks
+curl https://g0o9oadr06.execute-api.us-east-1.amazonaws.com/dev/tasks/
 ```
 
-## 🚀 How to Run Locally
+🔁 Update Task Status
+You can update a task's status to "done" or "pending" using the following PUT request:
+
+```bash
+
+curl -X PUT "https://g0o9oadr06.execute-api.us-east-1.amazonaws.com/dev/tasks/<TASK_ID>" \
+  -H "Content-Type: application/json" \
+  -d '{"status": "done"}'0
+```
+✅ Accepted status values: pending, done
+❌ Invalid values will return a 400 error.
+
+Example response:
+
+json
+```bash
+{
+  "message": "Task 1234 updated",
+  "status": "done"
+}
+```
+
+### 🚀 How to Run Locally
 
 ```bash
 cd terraform
