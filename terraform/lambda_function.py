@@ -44,6 +44,8 @@ def lambda_handler(event, context):
         return get_tasks()
     elif method == "DELETE":
         return delete_task(event)
+    elif method == "PUT":
+        return update_task_status(event)
     else:
         return response(400, {"error": "Invalid request method"})
 
@@ -104,6 +106,33 @@ def delete_task(event):
         logger.error("Error deleting task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to delete task"})
 
+def update_task_status(event):
+    try:
+        path_params = event.get("pathParameters")
+        if not path_params or "task_id" not in path_params:
+            return response(400, {"error": "Missing task_id in path parameters"})
+
+        task_id = path_params["task_id"]
+        body = json.loads(event.get("body", "{}"))
+        new_status = body.get("status")
+
+        if new_status not in ["pending", "done"]:
+            return response(400, {"error": "Invalid status value"})
+
+        table = get_table()
+        table.update_item(
+            Key={"task_id": task_id},
+            UpdateExpression="SET #s = :status",
+            ExpressionAttributeNames={"#s": "status"},
+            ExpressionAttributeValues={":status": new_status},
+        )
+
+        logger.info(f"Updated task {task_id} with status {new_status}")
+        return response(200, {"message": f"Task {task_id} updated", "status": new_status})
+
+    except Exception as e:
+        logger.error("Error updating task status: %s", str(e), exc_info=True)
+        return response(500, {"error": "Failed to update task"})
 
 def response(status_code, body_dict):
     return {
