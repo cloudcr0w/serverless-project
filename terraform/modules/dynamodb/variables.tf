@@ -4,5 +4,5 @@ variable "table_name" {
 }
 output "dynamodb_table_arn" {
   description = "ARN of the created DynamoDB table"
-  value       = aws_dynamodb_table.tasks_table.arn
+  value       = aws_dynamodb_table.tasks.arn
 }
