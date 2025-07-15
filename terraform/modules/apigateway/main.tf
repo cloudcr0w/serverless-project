@@ -2,6 +2,7 @@ resource "aws_apigatewayv2_api" "api_gateway" {
   name          = "serverless-api"
   protocol_type = "HTTP"
 
+
   cors_configuration {
     allow_origins = ["*"]
     allow_methods = ["GET", "POST", "PUT", "DELETE"]
