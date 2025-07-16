@@ -5,10 +5,12 @@
 ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)
 ![Terraform](https://img.shields.io/badge/Terraform-1.5%2B-623CE4?logo=terraform)
 ![AWS](https://img.shields.io/badge/AWS-Lambda-orange?logo=amazon-aws)
+![DynamoDB](https://img.shields.io/badge/DB-DynamoDB-4053D6?logo=amazon-aws)
 ![CI/CD](https://img.shields.io/badge/GitHub_Actions-Automated-blue?logo=github-actions)
-![Status](https://img.shields.io/badge/Build-passing-brightgreen?logo=checkmarx)
-![Slack_Alerts](https://img.shields.io/badge/Slack-Alerting-4A154B?logo=slack)
-
+![Tests](https://img.shields.io/badge/Pytest-Covered-green?logo=pytest)
+![Slack](https://img.shields.io/badge/Slack-Alerting-4A154B?logo=slack)
+![CloudWatch](https://img.shields.io/badge/Observability-CloudWatch-informational?logo=amazon-aws)
+![Makefile](https://img.shields.io/badge/Makefile-Supported-0277BD?logo=gnu)
 
 A lightweight, production-ready task manager built using 100% AWS managed services.  
 Designed for scalability, automation, and zero server maintenance.
@@ -160,7 +162,7 @@ It triggers a simulated crash to test the alerting pipeline via CloudWatch → S
 
 
 ### 👨‍💻 About the Author
-Created by Adam Wrona as part of his DevOps & Cloud Engineering journey 🚀
+Created by Adam Wrona as part of my DevOps & Cloud Engineering journey 🚀
 I'm open to feedback, improvements and contributions — feel free to fork or reach out!
 
 ### 💡 Like this project?
