@@ -4,13 +4,27 @@ This document tracks key development steps, decisions, and technical improvement
 
 ---
 
-## ✅ Milestone: MVP Complete
+## ✅ Milestone: Full CI/CD Redeploy in us-east-1 & Infra Cleanup
 
-- Lambda API created with full CRUD support (POST, GET, DELETE)
-- Connected to DynamoDB for persistence
-- CORS handled for frontend integration
-- API exposed via API Gateway
-- Manual test of basic tasks: OK
+- Migrated full infrastructure to `us-east-1` to align with S3 backend region
+- Fixed `DynamoDB: Table already exists` error by cleaning up old state
+- Replaced broken IAM references (`lambda_role` → `lambda_exec`)
+- Standardized all Terraform modules: IAM, API Gateway, Lambda, S3, SNS
+- Confirmed full REST functionality:
+  - `GET`, `POST`, `PUT`, `DELETE` all working via API Gateway → Lambda → DynamoDB
+- Added `PUT` handler for toggling task completion (CORS updated accordingly)
+- Lambda ZIP now includes `utils.py` and is built automatically in GitHub Actions
+- CI/CD pipeline fully operational:
+  - ✅ Lint (`eslint`)
+  - ✅ Unit tests (`pytest`)
+  - ✅ Lambda build (ZIP + S3 upload)
+  - ✅ Terraform `plan` and `apply`
+  - ✅ Frontend auto-synced to S3
+- Verified alerting workflow works:
+  - `Lambda Error` → `SNS` → `Slack` (Webhook)
+- Observability via CloudWatch Dashboard (invocations, errors, throttles, duration)
+
+✅ This release is production-grade and showcases end-to-end DevOps skills across IaC, serverless, monitoring, testing, and CI/CD.
 
 ---
 
