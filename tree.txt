@@ -1,24 +1,23 @@
 .
-├── .github
-│   └── workflows
-│       └── deploy.yml
-├── .gitignore
+├── DEVLOG.md
 ├── README.md
 ├── SECURITY.md
 ├── app.js
+├── build.sh
 ├── diagram.png
 ├── favicon.ico
 ├── index.html
+├── makefile
+├── node_modules
 ├── styles.css
 ├── terraform
-│   ├── .pytest_cache
-│   │   ├── .gitignore
-│   │   ├── CACHEDIR.TAG
-│   │   ├── README.md
-│   │   └── v
-│   ├── .terraform.lock.hcl
 │   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── lambda_function.cpython-312.pyc
+│   │   └── utils.cpython-312.pyc
 │   ├── build.sh
+│   ├── cloudfront.tf
 │   ├── cloudwatch.tf
 │   ├── lambda.zip
 │   ├── lambda_function.py
@@ -31,13 +30,18 @@
 │   │   ├── lambda
 │   │   ├── s3
 │   │   └── slack_forwarder
+│   ├── outputs.tf
 │   ├── requirements-dev.txt
 │   ├── terraform.tfvars
+│   ├── terraform.tfvars.example
 │   ├── tests
+│   │   ├── __init__.py
+│   │   ├── __pycache__
 │   │   └── test_lambda_function.py
 │   ├── tfplan
+│   ├── utils.py
 │   └── variables.tf
 ├── todo.md
 └── tree.txt
 
-15 directories, 26 files
+14 directories, 31 files
