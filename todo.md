@@ -10,18 +10,16 @@
 - [x] `.gitignore` updated — ZIPs ignored for clean repo
 - [x] `.dockerignore` added
 - [x] Modules `slack_forwarder` & `alerting` fully managed by Terraform
-- [x] Formatted Slack messages with emojis
-- [x] Unit tests for Lambda (`test_lambda_function.py`) running via GitHub Actions:
-  - Valid `POST` with `title`
-  - Missing `title` → returns 400
-  - Title = `FAIL` → simulates crash
-  - `GET` handler tested
-  - `POST` invalid titles tested
-- [x] Created CloudWatch Dashboard tracking:
-  - Lambda Invocations
-  - Duration
-  - Errors
+- [x] Unit tests for Lambda (`test_lambda_function.py`) running via GitHub Actions
+- [x] CloudWatch Dashboard tracking: Invocations, Duration, Errors
 - [x] `DYNAMODB_TABLE` and `REGION` read from environment variables with fallback
+
+- [x] ✅ CI/CD deployment fully working in `us-east-1`
+- [x] ✅ Lambda ZIP contains `utils.py` and works in production
+- [x] ✅ Frontend creates tasks, updates status (`PUT`) and fetches (`GET`)
+- [x] ✅ Fixed Terraform IAM role plan diff (no more destroy + recreate)
+- [x] ✅ Slack alerting works after IAM refactor (`lambda_exec`)
+
 
 ---
 
