@@ -72,7 +72,7 @@ def create_task(event):
     try:
         task_id = str(uuid.uuid4())
         task = {
-            "id": task_id,
+            "task_id": task_id,
             "title": body["title"],
             "status": body.get("status", "pending"),
         }
@@ -85,18 +85,21 @@ def create_task(event):
         logger.error("Error creating task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to create task"})
 
-
 def get_tasks():
     try:
         response_scan = get_table().scan()
         tasks = response_scan.get("Items", [])
-        logger.info("Fetched %d tasks", len(tasks))
 
+        # 🛠️ Konwersja id → task_id dla spójności
+        for task in tasks:
+            if "id" in task and "task_id" not in task:
+                task["task_id"] = task.pop("id")
+
+        logger.info("Fetched %d tasks", len(tasks))
         return response(200, tasks)
     except Exception as e:
         logger.error("Error fetching tasks: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to fetch tasks"})
-
 
 def delete_task(event):
     try:
