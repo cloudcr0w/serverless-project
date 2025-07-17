@@ -1,19 +1,15 @@
 resource "aws_dynamodb_table" "tasks" {
-  name         = var.table_name
+  name         = "serverless-tasks"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
+  hash_key     = "task_id"
 
   attribute {
-    name = "id"
+    name = "task_id"
     type = "S"
   }
 
-
-  server_side_encryption {
-    enabled = true
+  tags = {
+    Environment = "dev"
+    Project     = "serverless-task-manager"
   }
-
-  # lifecycle {
-  #   prevent_destroy = true
-  # }
 }
