@@ -72,7 +72,7 @@ def create_task(event):
     try:
         task_id = str(uuid.uuid4())
         task = {
-            "task_id": task_id,
+            "id": task_id,
             "title": body["title"],
             "status": body.get("status", "pending"),
         }
