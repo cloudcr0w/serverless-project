@@ -59,7 +59,8 @@ resource "aws_lambda_permission" "allow_sns" {
 
 resource "null_resource" "build_zip" {
   provisioner "local-exec" {
-    command     = "zip lambda.zip slack_alert_forwarder.py"
+    command     = "cd lambda && zip ../lambda.zip slack_alert_forwarder.py"
     working_dir = path.module
   }
 }
+
