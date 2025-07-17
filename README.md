@@ -16,7 +16,7 @@ A lightweight, production-ready task manager built using 100% AWS managed servic
 Designed for scalability, automation, and zero server maintenance.
 
 🌐 **LIVE DEMO:**  
-👉 https://d3i0w9qp2vl843.cloudfront.net
+👉 https://d22fapw93bv9rh.cloudfront.net/
 
 🔒 Deployed securely via AWS CloudFront with OAI (Origin Access Identity)
 
@@ -92,7 +92,7 @@ terraform apply -auto-approve
 cd frontend
 aws s3 sync . s3://adamwrona-serverless-frontend --delete
 
-# Then access it via: https://d3i0w9qp2vl843.cloudfront.net
+# Then access it via: https://d22fapw93bv9rh.cloudfront.net/
 
 ```
 
