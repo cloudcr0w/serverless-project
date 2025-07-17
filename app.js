@@ -1,4 +1,4 @@
-const API_GATEWAY_URL = "https://g0o9oadr06.execute-api.us-east-1.amazonaws.com/dev";
+const API_GATEWAY_URL = "https://9tx8asvkzg.execute-api.us-east-1.amazonaws.com/dev";
 
 // Fetch tasks on load
 document.addEventListener("DOMContentLoaded", () => {
