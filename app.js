@@ -100,7 +100,9 @@ async function deleteTask(taskId) {
             try {
                 const res = await fetch(`${API_GATEWAY_URL}/tasks/${taskId}`, { method: "DELETE" });
                 if (!res.ok) throw new Error();
+                showAlert("Task deleted successfully!", "success");
                 fetchTasks();
+
             } catch {
                 showAlert("Error deleting task!", "danger");
             }
