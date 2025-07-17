@@ -23,7 +23,7 @@ def test_valid_post(mock_resource):
     response = lambda_function.lambda_handler(event, FakeContext())
     assert response["statusCode"] == 201
     task = json.loads(response["body"]).get("task", {})
-    assert "task_id" in task
+    assert "id" in task
     assert task["title"] == "Buy milk"
 
 @patch("lambda_function.boto3.resource")
@@ -60,7 +60,7 @@ def test_delete_task(mock_resource):
 
     event = {
         "httpMethod": "DELETE",
-        "pathParameters": {"task_id": "1234"}
+        "pathParameters": {"id": "1234"}
     }
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 200
@@ -74,7 +74,7 @@ def test_update_task_status(mock_resource):
 
     event = {
         "httpMethod": "PUT",
-        "pathParameters": {"task_id": "abcd-1234"},
+        "pathParameters": {"id": "abcd-1234"},
         "body": json.dumps({"status": "done"})
     }
 
