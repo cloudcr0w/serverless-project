@@ -1,9 +1,8 @@
 #!/bin/bash
 
 echo "📦 Building Lambda package..."
-zip lambda.zip lambda_function.py
+cd modules/slack_forwarder
+zip lambda.zip slack_alert_forwarder.py
+cd -
 
-echo "☁️ Uploading to S3..."
-aws s3 cp lambda.zip s3://adamwrona-serverless-frontend/lambda/
-
-echo "✅ Done."
+echo "✅ Lambda package ready locally."
