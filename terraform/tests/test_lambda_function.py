@@ -3,6 +3,7 @@ import json
 import pytest
 import lambda_function
 
+
 class FakeContext:
     def __init__(self):
         self.function_name = "test"
@@ -22,9 +23,13 @@ def test_valid_post(mock_resource):
     event = make_event({"title": "Buy milk"})
     response = lambda_function.lambda_handler(event, FakeContext())
     assert response["statusCode"] == 201
+
     task = json.loads(response["body"]).get("task", {})
-    assert "id" in task
-    assert task["title"] == "Buy milk"
+    assert "task_id" in task
+
+    import uuid
+    assert uuid.UUID(task["task_id"])
+
 
 @patch("lambda_function.boto3.resource")
 @pytest.mark.parametrize("bad_title", [None, "", "   ", 123])
