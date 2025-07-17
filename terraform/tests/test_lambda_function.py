@@ -60,7 +60,7 @@ def test_delete_task(mock_resource):
 
     event = {
         "httpMethod": "DELETE",
-        "pathParameters": {"id": "1234"}
+        "pathParameters": {"task_id": "1234"}
     }
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 200
@@ -74,7 +74,7 @@ def test_update_task_status(mock_resource):
 
     event = {
         "httpMethod": "PUT",
-        "pathParameters": {"id": "abcd-1234"},
+        "pathParameters": {"task_id": "abcd-1234"},
         "body": json.dumps({"status": "done"})
     }
 
