@@ -11,6 +11,9 @@ command -v zip >/dev/null || { echo "❌ zip not found. Please install it."; exi
 command -v aws >/dev/null || { echo "❌ AWS CLI not found."; exit 1; }
 [ -f "$LAMBDA_FILE" ] || { echo "❌ Lambda source file not found at $LAMBDA_FILE"; exit 1; }
 
+echo "🧪 Running tests..."
+PYTHONPATH=terraform pytest terraform/tests || exit 1
+
 # Build ZIP
 echo "📦 Zipping $LAMBDA_FILE..."
 zip "$ZIP_NAME" "$LAMBDA_FILE" > /dev/null
