@@ -1,25 +1,48 @@
 #!/bin/bash
 
-# build.sh from root directory of the project
+# 📦 build.sh - Build and upload Lambda ZIP package for Serverless Task Manager
+# Run from the root directory of the project
 
-LAMBDA_DIR="terraform//"
-ZIP_NAME="lambda.zip"
+set -e  # Stop on error
+
+START_TIME=$(date +%s)
+
+LAMBDA_DIR="terraform/"
 LAMBDA_FILE="$LAMBDA_DIR/lambda_function.py"
+ZIP_NAME="lambda.zip"
+ZIP_PATH="./$ZIP_NAME"
+S3_BUCKET="adamwrona-serverless-frontend"
+S3_KEY="lambda/lambda.zip"
 
-# Sanity checks
+# === Functions ===
+print_header() {
+  echo "--------------------------------------------------"
+  echo "📦 Serverless Lambda Build Script"
+  echo "--------------------------------------------------"
+}
+
+fail_if_missing() {
+  [ -f "$1" ] || { echo "❌ Required file not found: $1"; exit 1; }
+}
+
+# === Script ===
+print_header
+
 command -v zip >/dev/null || { echo "❌ zip not found. Please install it."; exit 1; }
 command -v aws >/dev/null || { echo "❌ AWS CLI not found."; exit 1; }
-[ -f "$LAMBDA_FILE" ] || { echo "❌ Lambda source file not found at $LAMBDA_FILE"; exit 1; }
 
-echo "🧪 Running tests..."
-PYTHONPATH=terraform pytest terraform/tests || exit 1
+fail_if_missing "$LAMBDA_FILE"
 
-# Build ZIP
-echo "📦 Zipping $LAMBDA_FILE..."
-zip "$ZIP_NAME" "$LAMBDA_FILE" > /dev/null
+echo "🧪 Running unit tests..."
+PYTHONPATH=terraform pytest terraform/tests || { echo "❌ Tests failed."; exit 1; }
 
-# Upload to S3
-echo "☁️ Uploading to S3..."
-aws s3 cp "$ZIP_NAME" s3://adamwrona-serverless-frontend/lambda/lambda.zip
+echo "📦 Zipping Lambda source..."
+zip "$ZIP_NAME" "$LAMBDA_FILE" > /dev/null || { echo "❌ Failed to create ZIP."; exit 1; }
 
-echo "✅ Done. Lambda ZIP uploaded."
+echo "☁️ Uploading $ZIP_NAME to s3://$S3_BUCKET/$S3_KEY ..."
+aws s3 cp "$ZIP_PATH" "s3://$S3_BUCKET/$S3_KEY" || { echo "❌ Upload failed."; exit 1; }
+
+END_TIME=$(date +%s)
+DURATION=$((END_TIME - START_TIME))
+
+echo "✅ Done in ${DURATION}s. Lambda ZIP uploaded successfully!"
