@@ -4,21 +4,21 @@
 
 ## ✅ DONE
 
-- [x] Lambda backend works with simulated `FAIL` (`CloudWatch Alarm → SNS → Slack`)
-- [x] Slack alerting verified — webhook functional, messages received
-- [x] GitHub Actions: Terraform plan/apply + Lambda ZIP build & upload
-- [x] `.gitignore` updated — ZIPs ignored for clean repo
-- [x] `.dockerignore` added
-- [x] Modules `slack_forwarder` & `alerting` fully managed by Terraform
-- [x] Unit tests for Lambda (`test_lambda_function.py`) running via GitHub Actions
-- [x] CloudWatch Dashboard tracking: Invocations, Duration, Errors
-- [x] `DYNAMODB_TABLE` and `REGION` read from environment variables with fallback
+- ✅ Lambda backend works with simulated `FAIL` (`CloudWatch Alarm → SNS → Slack`)
+- ✅ Slack alerting verified — webhook functional, messages received
+- ✅ GitHub Actions: Terraform plan/apply + Lambda ZIP build & upload
+- ✅ `.gitignore` updated — ZIPs ignored for clean repo
+- ✅ `.dockerignore` added
+- ✅ Modules `slack_forwarder` & `alerting` fully managed by Terraform
+- ✅ Unit tests for Lambda (`test_lambda_function.py`) running via GitHub Actions
+- ✅ CloudWatch Dashboard tracking: Invocations, Duration, Errors
+- ✅ `DYNAMODB_TABLE` and `REGION` read from environment variables with fallback
 
-- [x] ✅ CI/CD deployment fully working in `us-east-1`
-- [x] ✅ Lambda ZIP contains `utils.py` and works in production
-- [x] ✅ Frontend creates tasks, updates status (`PUT`) and fetches (`GET`)
-- [x] ✅ Fixed Terraform IAM role plan diff (no more destroy + recreate)
-- [x] ✅ Slack alerting works after IAM refactor (`lambda_exec`)
+- ✅ CI/CD deployment fully working in `us-east-1`
+- ✅ Lambda ZIP contains `utils.py` and works in production
+- ✅ Frontend creates tasks, updates status (`PUT`) and fetches (`GET`)
+- ✅ Fixed Terraform IAM role plan diff (no more destroy + recreate)
+- ✅ Slack alerting works after IAM refactor (`lambda_exec`)
 
 
 ---
@@ -27,7 +27,10 @@
 
 ### 1. 🎨 Improve Slack Alert Formatting
 
-Goal: Make alerts more readable and informative, e.g.:
+- [ ] Format message body with function name, region, time
+- [ ] Add severity emoji
+- [ ] Include CloudWatch link (if possible)
+Goal: Make alerts more readable and informative
 
 ```bash
 🚨 LambdaErrors-ServerlessBackend-Test entered ALARM state!
@@ -45,17 +48,17 @@ Extras: severity emoji, API link, function name, etc.
 
 ### 2. 📊 Add More CloudWatch Metrics
 
-- [x] Add Lambda `Errors`
-- [x] Add `Invocations`, `Duration`
-- [x] Add `Throttles`
+- ✅ Add Lambda `Errors`
+- ✅ Add `Invocations`, `Duration`
+- ✅ Add `Throttles`
 - [ ] (Optional) Grafana integration via CloudWatch datasource
 
 ---
 
 ### 3. 🧪 Expand Unit Testing
 
-- [ ] Add test for `DELETE` handler (non-existent `task_id`)
-- [ ] Add test for missing body in `POST`
+- [ ] Add test for `DELETE` handler (non-existent `task_id`) *(optional enhancement)*
+- ✅ Add test for missing body in `POST`
 - [ ] Add test coverage for `slack_forwarder` Lambda
 
 ---
@@ -74,14 +77,14 @@ Optional:
 ### 5. 🪵 Logging Improvements
 
 - [ ] Add `X-Request-ID` or UUID to logs per request
-- [ ] Standardize logs (method, path, etc.)
+- ✅ Standardize logs (method, path, etc.)
 
 ---
 
 ### 6. 📁 Project Metadata
 
 - [ ] Add `/health` endpoint (returns 200 OK)
-- [ ] Add `changelog.md` or extend `DEVLOG.md`
+-  ✅ Add  `DEVLOG.md`
 
 ---
 
@@ -91,3 +94,6 @@ Optional:
 - ✅ No terraform import needed
 - ✅ Works locally via `PYTHONPATH=terraform pytest`
 - ✅ CI/CD includes `make test format lint`
+
+
+updated 20/07/2025
