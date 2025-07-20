@@ -2,7 +2,7 @@
 
 ## 🔐 Reporting a Vulnerability
 
-If you find a security issue, please open a GitHub issue or contact the maintainer directly.
+If you find a security issue, please open a GitHub issue or contact to me.
 
 ## 🔒 Practices
 
