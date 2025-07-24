@@ -134,6 +134,16 @@ pytest tests/test_lambda_function.py
 terraform plan
 ```
 
+### 🐳 Run locally with Docker
+
+```bash
+docker build -t task-manager-api .
+docker run -p 5000:5000 task-manager-api
+```
+
+Then open http://localhost:5000/tasks
+
+
 ### 🔁 CI/CD Workflow
 
 ✅ Triggered on every push to main
