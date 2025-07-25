@@ -20,3 +20,11 @@ tfplan
 
 # Ignore venv directory
 .venv/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# IDE config folders
+.vscode/
+.idea/
