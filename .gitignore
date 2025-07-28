@@ -28,3 +28,6 @@ tfplan
 # IDE config folders
 .vscode/
 .idea/
+
+# secret in k8s
+k8s/secret.yaml
