@@ -1,7 +1,7 @@
 from unittest.mock import patch, MagicMock
 import json
 import pytest
-import lambda_function
+from terraform import lambda_function
 
 
 class FakeContext:
@@ -14,7 +14,7 @@ def make_event(body):
         "httpMethod": "POST"
     }
 
-@patch("lambda_function.boto3.resource")
+@patch("terraform.lambda_function.boto3.resource")
 def test_valid_post(mock_resource):
     mock_table = MagicMock()
     mock_resource.return_value.Table.return_value = mock_table
@@ -31,7 +31,7 @@ def test_valid_post(mock_resource):
     assert uuid.UUID(task["task_id"])
 
 
-@patch("lambda_function.boto3.resource")
+@patch("terraform.lambda_function.boto3.resource")
 @pytest.mark.parametrize("bad_title", [None, "", "   ", 123])
 
 def test_invalid_post_titles(mock_resource, bad_title):
@@ -57,7 +57,18 @@ def test_post_without_body():
     assert response["statusCode"] == 400
     assert "error" in json.loads(response["body"])
 
-@patch("lambda_function.boto3.resource")
+def test_healthcheck():
+    from terraform.lambda_function import lambda_handler
+    event = {
+        "httpMethod": "GET",
+        "path": "/health"
+    }
+    result = lambda_handler(event, None)
+    assert result["statusCode"] == 200
+    assert json.loads(result["body"])["status"] == "ok"
+
+
+@patch("terraform.lambda_function.boto3.resource")
 def test_delete_task(mock_resource):
     mock_table = MagicMock()
     mock_resource.return_value.Table.return_value = mock_table
@@ -71,7 +82,7 @@ def test_delete_task(mock_resource):
     assert response["statusCode"] == 200
     assert "deleted" in json.loads(response["body"]).get("message", "")
     
-@patch("lambda_function.boto3.resource")
+@patch("terraform.lambda_function.boto3.resource")
 def test_update_task_status(mock_resource):
     mock_table = MagicMock()
     mock_resource.return_value.Table.return_value = mock_table
