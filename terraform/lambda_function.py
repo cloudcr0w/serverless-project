@@ -3,11 +3,11 @@ import json
 import boto3
 import uuid
 import logging
-from utils import COMMON_HEADERS
+from terraform.utils import COMMON_HEADERS
+
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
 
 
 def get_table():
@@ -21,19 +21,27 @@ def get_table():
     return dynamodb.Table(table_name)
 
 
-
 def lambda_handler(event, context):
-    logger.info("Received event: %s", json.dumps(event))
- 
     method = event.get("httpMethod")
     if not method:
         method = event.get("requestContext", {}).get("http", {}).get("method")
-        
-        logger.info("Detected HTTP method: %s", method)
+
+    path = event.get("path", "/")
+
+    request_id = str(uuid.uuid4())
+    logger.info("[%s] %s %s received", request_id, method, path)
+
+    logger.info("Received event: %s", json.dumps(event))
+    logger.info("Handling %s request", method)
 
     if not method:
         return response(400, {"error": "Invalid request structure"})
-    logger.info("Handling %s request", method)
+
+    if method == 'GET' and path == '/health':
+        return {
+            "statusCode": 200,
+            "body": json.dumps({"status": "ok"})
+        }
 
     if method == "OPTIONS":
         return {
@@ -41,6 +49,7 @@ def lambda_handler(event, context):
             "headers": COMMON_HEADERS,
             "body": json.dumps({"message": "CORS preflight response"}),
         }
+
     if method == "POST":
         return create_task(event)
     elif method == "GET":
@@ -51,6 +60,7 @@ def lambda_handler(event, context):
         return update_task_status(event)
     else:
         return response(400, {"error": "Invalid request method"})
+
 
 
 def create_task(event):
