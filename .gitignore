@@ -34,3 +34,4 @@ k8s/secret.yaml
 
 # others
 minikube-linux-amd64
+.coverage
