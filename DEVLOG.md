@@ -86,6 +86,12 @@ PYTHONPATH=terraform pytest terraform/tests/
 - Terraform infra changes applied on push
 - Frontend manually synced to S3 for now
 
+## ✅ Automation
+
+- Added `Makefile` for `make test`, `make lint`, `make zip`
+- Coverage enabled with `pytest-cov`
+- Local test run: `make test`
+
 ---
 
 ## 🧠 Lessons Learned
