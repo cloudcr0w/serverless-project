@@ -10,6 +10,9 @@
 ![Terraform](https://img.shields.io/badge/Terraform-1.5%2B-623CE4?logo=terraform)
 ![AWS](https://img.shields.io/badge/AWS-Lambda-orange?logo=amazon-aws)
 ![DynamoDB](https://img.shields.io/badge/DB-DynamoDB-4053D6?logo=amazon-aws)
+![Docker](https://img.shields.io/badge/Containerized-Docker-2496ED?logo=docker)
+![Kubernetes](https://img.shields.io/badge/Orchestration-Kubernetes-326CE5?logo=kubernetes)
+![Flask](https://img.shields.io/badge/API-Flask-black?logo=flask)
 
 ### ⚙️ Tooling & Automation
 
@@ -19,6 +22,11 @@
 ![CloudWatch](https://img.shields.io/badge/Observability-CloudWatch-informational?logo=amazon-aws)
 ![Makefile](https://img.shields.io/badge/Makefile-Supported-0277BD?logo=gnu)
 
+### 📈 Status & Metrics
+
+![GitHub last commit](https://img.shields.io/github/last-commit/cloudcr0w/serverless-project?logo=github)
+![GitHub repo size](https://img.shields.io/github/repo-size/cloudcr0w/serverless-project)
+![GitHub issues](https://img.shields.io/github/issues/cloudcr0w/serverless-project)
 
 A lightweight, production-ready task manager built using 100% AWS managed services.  
 Designed for scalability, automation, and zero server maintenance.
