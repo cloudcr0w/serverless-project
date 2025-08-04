@@ -112,3 +112,13 @@ def test_delete_nonexistent_task(mock_resource):
     }
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 200
+
+def test_update_missing_task_id():
+    event = {
+        "httpMethod": "PUT",
+        "pathParameters": {},
+        "body": json.dumps({"status": "done"})
+    }
+    response = lambda_function.lambda_handler(event, None)
+    assert response["statusCode"] == 400
+    assert "task_id" in response["body"]
