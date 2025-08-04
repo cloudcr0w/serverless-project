@@ -99,3 +99,16 @@ def test_update_task_status(mock_resource):
     body = json.loads(response["body"])
     assert body["status"] == "done"
     assert "updated" in body["message"]
+
+@patch("terraform.lambda_function.boto3.resource")
+def test_delete_nonexistent_task(mock_resource):
+    mock_table = MagicMock()
+    mock_resource.return_value.Table.return_value = mock_table
+    mock_table.delete_item.return_value = {"ResponseMetadata": {"HTTPStatusCode": 200}}
+
+    event = {
+        "httpMethod": "DELETE",
+        "pathParameters": {"task_id": "nonexistent-id"}
+    }
+    response = lambda_function.lambda_handler(event, None)
+    assert response["statusCode"] == 200
