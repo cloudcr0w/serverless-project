@@ -5,3 +5,5 @@ COMMON_HEADERS = {
     "Access-Control-Allow-Headers": "Content-Type",
     "X-Content-Type-Options": "nosniff",
 }
+def is_valid_title(title):
+    return isinstance(title, str) and title.strip()
