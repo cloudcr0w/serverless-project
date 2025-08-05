@@ -70,12 +70,11 @@ def create_task(event):
 
     body = json.loads(event["body"])
 
-    if (
-        "title" not in body
-        or not isinstance(body["title"], str)
-        or not body["title"].strip()
-    ):
+    from terraform.utils import is_valid_title  
+
+    if not is_valid_title(body.get("title")):
         return response(400, {"error": "Invalid or missing title"})
+
 
     if body.get("title") == "FAIL":
         raise Exception("💥 Simulated failure for CloudWatch Alarm test")
