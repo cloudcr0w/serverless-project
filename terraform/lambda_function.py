@@ -59,7 +59,8 @@ def lambda_handler(event, context):
     elif method == "PUT":
         return update_task_status(event)
     else:
-        return response(400, {"error": "Invalid request method"})
+        return response(400, {"error": "Invalid request method"}, request_id)
+
 
 
 
@@ -150,9 +151,14 @@ def update_task_status(event):
         logger.error("Error updating task status: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to update task"})
 
-def response(status_code, body_dict):
+def response(status_code, body_dict, request_id=None):
+    headers = COMMON_HEADERS.copy()
+    if request_id:
+        headers["X-Request-ID"] = request_id
+
     return {
         "statusCode": status_code,
-        "headers": COMMON_HEADERS,
+        "headers": headers,
         "body": json.dumps(body_dict),
     }
+
