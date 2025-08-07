@@ -4,6 +4,12 @@ This folder contains basic setup for:
 - Prometheus (metrics collection)
 - Grafana (visualization)
 
+## Node Exporter
+
+To enable system metrics, Node Exporter is included.
+
+Accessible at: http://localhost:9100/metrics
+
 ## Usage
 
 ```bash
