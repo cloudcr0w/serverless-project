@@ -3,8 +3,7 @@ import json
 import boto3
 import uuid
 import logging
-from terraform.utils import COMMON_HEADERS
-
+from terraform.utils import COMMON_HEADERS, is_valid_status, is_valid_title
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -62,29 +61,29 @@ def lambda_handler(event, context):
         return response(400, {"error": "Invalid request method"}, request_id)
 
 
-
-
 def create_task(event):
     if "body" not in event or not event["body"]:
         return response(400, {"error": "Empty request body"})
 
     body = json.loads(event["body"])
 
-    from terraform.utils import is_valid_title  
-
-    if not is_valid_title(body.get("title")):
+    title = body.get("title")
+    if not is_valid_title(title):
         return response(400, {"error": "Invalid or missing title"})
 
+    new_status = body.get("status", "pending")
+    if not is_valid_status(new_status):
+        return response(400, {"error": "Invalid status value"})
 
-    if body.get("title") == "FAIL":
+    if title == "FAIL":
         raise Exception("💥 Simulated failure for CloudWatch Alarm test")
 
     try:
         task_id = str(uuid.uuid4())
         task = {
             "task_id": task_id,
-            "title": body["title"],
-            "status": body.get("status", "pending"),
+            "title": title,
+            "status": new_status,
         }
 
         get_table().put_item(Item=task)
@@ -95,12 +94,13 @@ def create_task(event):
         logger.error("Error creating task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to create task"})
 
+
 def get_tasks():
     try:
         response_scan = get_table().scan()
         tasks = response_scan.get("Items", [])
 
-        # 🛠️ Konwersja id → task_id dla spójności
+
         for task in tasks:
             if "id" in task and "task_id" not in task:
                 task["task_id"] = task.pop("id")
@@ -110,6 +110,7 @@ def get_tasks():
     except Exception as e:
         logger.error("Error fetching tasks: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to fetch tasks"})
+
 
 def delete_task(event):
     try:
@@ -122,6 +123,7 @@ def delete_task(event):
         logger.error("Error deleting task: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to delete task"})
 
+
 def update_task_status(event):
     try:
         path_params = event.get("pathParameters")
@@ -132,7 +134,7 @@ def update_task_status(event):
         body = json.loads(event.get("body", "{}"))
         new_status = body.get("status")
 
-        if new_status not in ["pending", "done"]:
+        if not is_valid_status(new_status):
             return response(400, {"error": "Invalid status value"})
 
         table = get_table()
@@ -150,6 +152,7 @@ def update_task_status(event):
         logger.error("Error updating task status: %s", str(e), exc_info=True)
         return response(500, {"error": "Failed to update task"})
 
+
 def response(status_code, body_dict, request_id=None):
     headers = COMMON_HEADERS.copy()
     if request_id:
@@ -160,4 +163,3 @@ def response(status_code, body_dict, request_id=None):
         "headers": headers,
         "body": json.dumps(body_dict),
     }
-

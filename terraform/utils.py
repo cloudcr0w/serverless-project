@@ -6,4 +6,10 @@ COMMON_HEADERS = {
     "X-Content-Type-Options": "nosniff",
 }
 def is_valid_title(title):
-    return isinstance(title, str) and title.strip()
+    if isinstance(title, str) and title.strip():
+        return True
+    return False
+
+
+def is_valid_status(value: str) -> bool:
+    return value in {"pending", "done"}
