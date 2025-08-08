@@ -48,6 +48,13 @@ def lambda_handler(event, context):
             "headers": COMMON_HEADERS,
             "body": json.dumps({"message": "CORS preflight response"}),
         }
+        
+    if method == 'GET' and path == '/metrics':
+        return {
+            "statusCode": 200,
+            "body": "lambda_invocations_total 42\nlambda_errors_total 1"
+    }
+
 
     if method == "POST":
         return create_task(event)
