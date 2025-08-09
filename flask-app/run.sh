@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+FLASK_APP=app.py flask run --port=8080
