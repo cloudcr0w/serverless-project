@@ -104,10 +104,10 @@ def create_task(event):
 
 def get_tasks():
     try:
+        logger.info("Fetching all tasks from DynamoDB")  # 👈 tutaj
         response_scan = get_table().scan()
         tasks = response_scan.get("Items", [])
-
-
+        
         for task in tasks:
             if "id" in task and "task_id" not in task:
                 task["task_id"] = task.pop("id")
