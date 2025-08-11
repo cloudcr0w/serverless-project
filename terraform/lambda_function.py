@@ -170,3 +170,4 @@ def response(status_code, body_dict, request_id=None):
         "headers": headers,
         "body": json.dumps(body_dict),
     }
+# TODO: Consider refactoring filtering logic
