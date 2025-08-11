@@ -1,7 +1,6 @@
 import os
 import json
 import boto3
-import uuid
 import logging
 from terraform.utils import COMMON_HEADERS, is_valid_status, is_valid_title
 
