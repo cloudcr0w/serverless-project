@@ -122,3 +122,26 @@ def test_update_missing_task_id():
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 400
     assert "task_id" in response["body"]
+
+@patch("terraform.lambda_function.boto3.resource")
+def test_get_tasks(mock_resource):
+    mock_table = MagicMock()
+    mock_resource.return_value.Table.return_value = mock_table
+    mock_table.scan.return_value = {
+        "Items": [
+            {"task_id": "1", "title": "Task A", "status": "pending"},
+            {"task_id": "2", "title": "Task B", "status": "done"},
+        ]
+    }
+
+    event = {
+        "httpMethod": "GET"
+    }
+    response = lambda_function.lambda_handler(event, None)
+
+    assert response["statusCode"] == 200
+    tasks = json.loads(response["body"])
+    assert isinstance(tasks, list)
+    assert len(tasks) == 2
+    assert tasks[0]["title"] == "Task A"
+    assert tasks[1]["status"] == "done"
