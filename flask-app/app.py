@@ -16,3 +16,7 @@ def get_tasks():
         {"task_id": "2", "title": "Walk dog", "status": "completed"}
     ]
     return jsonify(tasks), 200
+
+@app.route("/health")
+def health_check():
+    return jsonify({"status": "ok"}), 200
