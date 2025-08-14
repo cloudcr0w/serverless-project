@@ -13,3 +13,7 @@ def get_tasks():
         {"task_id": "2", "title": "Walk dog", "status": "completed"}
     ]
     return jsonify(tasks), 200
+
+@api.route("/version")
+def version():
+    return jsonify({"version": "1.0.0"}), 200
