@@ -3,6 +3,7 @@ import json
 import boto3
 import logging
 from terraform.utils import COMMON_HEADERS, is_valid_status, is_valid_title
+import uuid
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)

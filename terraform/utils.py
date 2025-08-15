@@ -12,7 +12,7 @@ def is_valid_title(title):
 
 
 def is_valid_status(value: str) -> bool:
-    return isinstance(status, str) and status in ["pending", "in progress", "completed"]
+    return isinstance(value, str) and value in ["pending", "in progress", "completed"]
 
 
 

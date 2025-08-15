@@ -1,5 +1,7 @@
 import pytest
 from terraform.utils import is_valid_title
+from utils import is_valid_status
+
 
 @pytest.mark.parametrize("title,expected", [
     ("Buy milk", True),

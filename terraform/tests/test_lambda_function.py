@@ -2,6 +2,7 @@ from unittest.mock import patch, MagicMock
 import json
 import pytest
 from terraform import lambda_function
+import uuid
 
 
 class FakeContext:
@@ -91,13 +92,13 @@ def test_update_task_status(mock_resource):
     event = {
         "httpMethod": "PUT",
         "pathParameters": {"task_id": "abcd-1234"},
-        "body": json.dumps({"status": "done"})
+        "body": json.dumps({"status": "completed"})
     }
 
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 200
     body = json.loads(response["body"])
-    assert body["status"] == "done"
+    assert body["status"] == "completed"
     assert "updated" in body["message"]
 
 @patch("terraform.lambda_function.boto3.resource")
@@ -117,7 +118,7 @@ def test_update_missing_task_id():
     event = {
         "httpMethod": "PUT",
         "pathParameters": {},
-        "body": json.dumps({"status": "done"})
+        "body": json.dumps({"status": "completed"})
     }
     response = lambda_function.lambda_handler(event, None)
     assert response["statusCode"] == 400
@@ -130,7 +131,7 @@ def test_get_tasks(mock_resource):
     mock_table.scan.return_value = {
         "Items": [
             {"task_id": "1", "title": "Task A", "status": "pending"},
-            {"task_id": "2", "title": "Task B", "status": "done"},
+            {"task_id": "2", "title": "Task B", "status": "completed"},
         ]
     }
 
@@ -144,4 +145,4 @@ def test_get_tasks(mock_resource):
     assert isinstance(tasks, list)
     assert len(tasks) == 2
     assert tasks[0]["title"] == "Task A"
-    assert tasks[1]["status"] == "done"
+    assert tasks[1]["status"] == "completed"
