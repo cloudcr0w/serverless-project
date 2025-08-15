@@ -13,3 +13,5 @@ RUN chmod +x entrypoint.sh
 EXPOSE 5000
 
 ENTRYPOINT ["./entrypoint.sh"]
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s CMD curl --fail http://localhost:5000/health || exit 1
