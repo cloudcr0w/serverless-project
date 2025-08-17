@@ -88,6 +88,16 @@ Optional:
 
 ---
 
+### 7. 🔐 Security & Secrets
+
+- [ ] Rotate Slack webhook secret regularly
+- [ ] Add support for AWS Secrets Manager (instead of plain env vars)
+
+### 8. 🧹 Repo Cleanup
+
+- [ ] Remove old test ZIPs from repo history
+- [ ] Consolidate Docker instructions in `docs/`
+
 ## 🧭 NOTES
 
 - ✅ All deployed via Terraform
