@@ -20,3 +20,6 @@ Content-Type: application/json
 
 ### Delete task
 DELETE http://localhost:5000/tasks/{{task_id}}
+
+### Healthcheck
+GET http://localhost:5000/health
