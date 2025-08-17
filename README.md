@@ -40,7 +40,7 @@ Designed for scalability, automation, and zero server maintenance.
 
 ## 🏗 Architecture Overview
 
-![Serverless Architecture](./serverless_task.png)
+![Serverless Architecture](./serverless.png)
 
 | Layer        | Technology                                                                             |
 |--------------|----------------------------------------------------------------------------------------|
