@@ -2,8 +2,21 @@ import os
 import json
 import boto3
 import logging
-from terraform.utils import COMMON_HEADERS, is_valid_status, is_valid_title
+# from terraform.utils import COMMON_HEADERS, is_valid_status, is_valid_title
 import uuid
+
+COMMON_HEADERS = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "OPTIONS,GET,POST,PUT,DELETE",
+    "Access-Control-Allow-Headers": "Content-Type"
+}
+
+def is_valid_status(status):
+    return status in ["pending", "completed"]
+
+def is_valid_title(title):
+    return title is not None and len(title.strip()) > 0
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
