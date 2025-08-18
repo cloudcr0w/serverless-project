@@ -16,7 +16,7 @@ def is_valid_status(status):
     return status in ["pending", "completed"]
 
 def is_valid_title(title):
-    return title is not None and len(title.strip()) > 0
+    return isinstance(title, str) and len(title.strip()) > 0
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
