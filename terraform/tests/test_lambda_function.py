@@ -146,3 +146,14 @@ def test_get_tasks(mock_resource):
     assert len(tasks) == 2
     assert tasks[0]["title"] == "Task A"
     assert tasks[1]["status"] == "completed"
+
+def test_delete_nonexistent_task(monkeypatch):
+    class FakeTable:
+        def delete_item(self, Key): return {"ResponseMetadata": {"HTTPStatusCode": 200}}
+    monkeypatch.setattr(lambda_function, "get_table", lambda: FakeTable())
+
+    event = {"httpMethod": "DELETE", "path": "/tasks/xyz", "pathParameters": {"task_id": "xyz"}}
+    res = lambda_function.lambda_handler(event, None)
+    body = json.loads(res["body"])
+    assert res["statusCode"] == 200
+    assert "deleted" in body.get("message","").lower()
