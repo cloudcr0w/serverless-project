@@ -60,6 +60,7 @@ Extras: severity emoji, API link, function name, etc.
 - [ ] Add test for `DELETE` handler (non-existent `task_id`) *(optional enhancement)*
 - ✅ Add test for missing body in `POST`
 - [ ] Add test coverage for `slack_forwarder` Lambda
+- ✅ Validate non-string titles (tests passed)
 
 ---
 
