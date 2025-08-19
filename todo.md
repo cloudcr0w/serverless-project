@@ -84,8 +84,8 @@ Optional:
 
 ### 6. 📁 Project Metadata
 
-- [ ] Add `/health` endpoint (returns 200 OK)
--  ✅ Add  `DEVLOG.md`
+- ✅ Add `/health` endpoint (returns 200 OK)
+- ✅ Add  `DEVLOG.md`
 
 ---
 
