@@ -1,5 +1,5 @@
 import pytest
-from terraform.utils import is_valid_title
+from utils import is_valid_title
 from utils import is_valid_status
 
 
