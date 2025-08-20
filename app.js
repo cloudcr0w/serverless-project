@@ -70,7 +70,7 @@ function showAlert(message, type) {
     alertBox.innerHTML = `<div class="alert alert-${type} fade-in" role="alert">${message}</div>`;
     setTimeout(() => alertBox.innerHTML = "", 3000);
 }
-
+// eslint-disable-next-line no-unused-vars
 async function createTask() {
     const titleInput = document.getElementById("task-title");
     const title = titleInput.value.trim();
@@ -90,7 +90,7 @@ async function createTask() {
         showAlert("Error creating task!", "danger");
     }
 }
-
+// eslint-disable-next-line no-unused-vars
 async function deleteTask(taskId) {
     const taskEl = document.getElementById(taskId);
     if (taskEl) {
