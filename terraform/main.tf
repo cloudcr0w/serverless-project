@@ -25,11 +25,18 @@ module "iam" {
   source             = "./modules/iam"
   dynamodb_table_arn = module.dynamodb.dynamodb_table_arn
 }
-
 module "apigateway" {
   source              = "./modules/apigateway"
+  region              = "us-east-1"
   lambda_function_arn = module.lambda.lambda_function_arn
 }
+
+
+
+# module "apigateway" {
+#   source              = "./modules/apigateway"
+#   
+# }
 
 module "lambda" {
   source              = "./modules/lambda"
@@ -49,4 +56,11 @@ module "slack_forwarder" {
   lambda_role_name  = module.iam.lambda_role_name
   sns_topic_arn     = module.alerting.sns_topic_arn
   slack_webhook_url = var.slack_webhook_url
+}
+resource "aws_lambda_permission" "allow_apigw" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = module.lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${module.apigateway.execution_arn}/*/*"
 }
