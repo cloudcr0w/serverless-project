@@ -1,7 +1,6 @@
-# Kto ja jestem (ID konta)
+
 data "aws_caller_identity" "current" {}
 
-# Jaki region z providera AWS
 data "aws_region" "current" {}
 
 terraform {
@@ -38,12 +37,6 @@ module "apigateway" {
 }
 
 
-
-# module "apigateway" {
-#   source              = "./modules/apigateway"
-#   
-# }
-
 module "lambda" {
   source              = "./modules/lambda"
   lambda_role_arn     = module.iam.lambda_role_arn
@@ -63,13 +56,7 @@ module "slack_forwarder" {
   sns_topic_arn     = module.alerting.sns_topic_arn
   slack_webhook_url = var.slack_webhook_url
 }
-# resource "aws_lambda_permission" "allow_apigw" {
-#   statement_id  = "AllowAPIGatewayInvoke"
-#   action        = "lambda:InvokeFunction"
-#   function_name = module.lambda.function_name
-#   principal     = "apigateway.amazonaws.com"
-#   source_arn    = "${module.apigateway.execution_arn}/*/*"
-# }
+
 resource "aws_lambda_permission" "allow_apigw" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
