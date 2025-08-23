@@ -15,7 +15,7 @@ resource "aws_lambda_function" "backend_lambda" {
 }
 
 resource "aws_lambda_permission" "allow_apigw_invoke" {
-  statement_id  = "AllowAPIGatewayInvoke"
+  statement_id  = "AllowAPIGatewayInvoke-${var.stage}"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.backend_lambda.function_name
   principal     = "apigateway.amazonaws.com"

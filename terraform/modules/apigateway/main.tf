@@ -1,5 +1,5 @@
 resource "aws_apigatewayv2_api" "api_gateway" {
-  name          = "serverless-api"
+  name          = "serverless-api-${var.stage}"
   protocol_type = "HTTP"
 
 
@@ -8,10 +8,6 @@ resource "aws_apigatewayv2_api" "api_gateway" {
     allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     allow_headers = ["Content-Type"]
   }
-
-  # lifecycle {
-  #   prevent_destroy = true
-  # }
 }
 
 resource "aws_apigatewayv2_route" "health" {
