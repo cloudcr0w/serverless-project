@@ -14,3 +14,7 @@ output "api_id" {
 output "invoke_url" {
   value = aws_apigatewayv2_stage.api_stage.invoke_url
 }
+output "healthcheck_url" {
+  value = "${aws_apigatewayv2_api.api_gateway.api_endpoint}/health"
+}
+
