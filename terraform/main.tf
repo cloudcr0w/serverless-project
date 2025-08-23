@@ -34,6 +34,7 @@ module "apigateway" {
   source              = "./modules/apigateway"
   region              = "us-east-1"
   lambda_function_arn = module.lambda.lambda_function_arn
+  stage               = var.stage
 }
 
 
@@ -42,6 +43,8 @@ module "lambda" {
   lambda_role_arn     = module.iam.lambda_role_arn
   api_execution_arn   = module.apigateway.execution_arn
   dynamodb_table_name = module.dynamodb.dynamodb_table_name
+  stage = var.stage
+
 }
 
 module "alerting" {
