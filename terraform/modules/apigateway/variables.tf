@@ -10,3 +10,7 @@ variable "stage" {
   type        = string
   description = "Deployment stage (e.g. dev, prod)"
 }
+variable "tags" {
+  type        = map(string)
+  description = "Common tags for AWS resources"
+}
