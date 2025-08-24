@@ -21,5 +21,5 @@ resource "aws_lambda_permission" "allow_apigw_invoke" {
   function_name = aws_lambda_function.backend_lambda.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${var.api_execution_arn}/*/*"
-  
+
 }
