@@ -1,6 +1,7 @@
 resource "aws_apigatewayv2_api" "api_gateway" {
   name          = "serverless-api-${var.stage}"
   protocol_type = "HTTP"
+  tags          = var.tags
 
 
   cors_configuration {
