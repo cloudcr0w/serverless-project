@@ -29,6 +29,7 @@ module "dynamodb" {
 module "iam" {
   source             = "./modules/iam"
   dynamodb_table_arn = module.dynamodb.dynamodb_table_arn
+  tags             = var.tags
 }
 module "apigateway" {
   source              = "./modules/apigateway"
