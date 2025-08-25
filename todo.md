@@ -51,7 +51,7 @@ Extras: severity emoji, API link, function name, etc.
 - ✅ Add Lambda `Errors`
 - ✅ Add `Invocations`, `Duration`
 - ✅ Add `Throttles`
-- [ ] (Optional) Grafana integration via CloudWatch datasource
+- [ ] (Optional) Grafana integration via CloudWatch datasource (in progress)
 
 ---
 
@@ -71,7 +71,7 @@ Extras: severity emoji, API link, function name, etc.
 Optional:
 - [ ] Add `.env` support
 - [ ] Auto-detect region / bucket
-- [ ] Use `make build` target
+- ✅ Use `make build` target
 
 ---
 
@@ -96,7 +96,7 @@ Optional:
 
 ### 8. 🧹 Repo Cleanup
 
-- [ ] Remove old test ZIPs from repo history
+- ✅ Remove old test ZIPs from repo history
 - [ ] Consolidate Docker instructions in `docs/`
 
 ## 🧭 NOTES
@@ -107,4 +107,4 @@ Optional:
 - ✅ CI/CD includes `make test format lint`
 
 
-updated 20/07/2025
+updated 25/08/2025
