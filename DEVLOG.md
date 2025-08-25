@@ -1,6 +1,6 @@
 # 🛠 DEVLOG – Serverless Task Manager
 
-This document tracks key development steps, decisions, and technical improvements made throughout the project.
+This document tracks key development steps, decisions, and technical improvements made throughout the project. It will be developed until I said so ;-)
 
 ---
 
