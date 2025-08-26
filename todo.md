@@ -27,8 +27,8 @@
 
 ### 1. 🎨 Improve Slack Alert Formatting
 
-- [ ] Format message body with function name, region, time
-- [ ] Add severity emoji
+- ✅ Format message body with function name, region, time
+- ✅ Add severity emoji
 - [ ] Include CloudWatch link (if possible)
 Goal: Make alerts more readable and informative
 
