@@ -26,12 +26,13 @@ resource "aws_iam_role_policy_attachment" "lambda_logging" {
 }
 
 resource "aws_lambda_function" "slack_forwarder" {
-  function_name = "slack-alert-forwarder"
-  filename      = "${path.module}/lambda.zip"
-  handler       = "slack_alert_forwarder.lambda_handler"
-  runtime       = "python3.13"
-  role          = var.lambda_role_arn
-  depends_on    = [null_resource.build_zip]
+  function_name    = "slack-alert-forwarder"
+  filename         = "${path.module}/lambda/slack_alert_forwarder.zip"
+  source_code_hash = filebase64sha256("${path.module}/lambda/slack_alert_forwarder.zip")
+  handler          = "slack_alert_forwarder.lambda_handler"
+  runtime          = "python3.13"
+  role             = var.lambda_role_arn
+  depends_on       = [null_resource.build_zip]
 
   lifecycle {
     ignore_changes = [source_code_hash]
