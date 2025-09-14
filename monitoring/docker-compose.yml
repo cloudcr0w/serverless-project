@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   prometheus:
     image: prom/prometheus
@@ -12,8 +11,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./provisioning/datasources:/etc/grafana/provisioning/datasources
-      - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./../monitoring/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./../monitoring/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
