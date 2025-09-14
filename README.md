@@ -83,6 +83,20 @@ Use it to prototype tools, train engineers, or bootstrap internal apps.
 ✅ CORS configured properly for all methods (including PUT) – production-ready frontend integration
 
 ---
+## 📊 Monitoring & Observability
+
+Added as part of DevOps best practices - full stack for application and infrastructure monitoring:
+
+- Prometheus - collects metrics (e.g. CPU, RAM, network, storage)
+
+- Node Exporter - host system metrics
+
+- Grafana - visualisation of metrics and dashboards
+
+Example dashboard (Node Exporter Full):
+
+![Grafana Dashboard](docs/grafana_dashboard.png)
+
 
 ## 🛠 Deployment Guide
 
