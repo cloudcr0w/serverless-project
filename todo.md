@@ -93,12 +93,20 @@ Optional:
 
 - ✅ Slack webhook managed in AWS Secrets Manager (instead of plain env vars)
 - [ ] Rotate Slack webhook secret regularly
+- [ ] Review IAM policies for least privilege (narrow down SecretsManager and Lambda execution rights)
+
 
 
 ### 8. 🧹 Repo Cleanup
 
 - ✅ Remove old test ZIPs from repo history
 - [ ] Consolidate Docker instructions in `docs/`
+
+### 9. 📊 Monitoring & Observability
+
+- ✅ Prometheus + Node Exporter running locally with Grafana
+- [ ] Add CloudWatch exporter to Prometheus for AWS Lambda metrics
+- [ ] Create Grafana dashboard for Lambda performance (duration, errors, throttles)
 
 ## 🧭 NOTES
 
@@ -108,4 +116,4 @@ Optional:
 - ✅ CI/CD includes `make test format lint`
 
 
-updated 25/08/2025
+updated 15/09/2025
