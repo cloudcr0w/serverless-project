@@ -56,11 +56,12 @@ module "alerting" {
 }
 
 module "slack_forwarder" {
-  source            = "./modules/slack_forwarder"
-  lambda_role_arn   = module.iam.lambda_role_arn
-  lambda_role_name  = module.iam.lambda_role_name
-  sns_topic_arn     = module.alerting.sns_topic_arn
-  slack_webhook_url = var.slack_webhook_url
+  source                = "./modules/slack_forwarder"
+  lambda_role_arn       = module.iam.lambda_role_arn
+  lambda_role_name      = module.iam.lambda_role_name
+  sns_topic_arn         = module.alerting.sns_topic_arn
+  slack_webhook_url     = var.slack_webhook_url
+  lambda_exec_role_name = module.iam.lambda_exec_role_name
 }
 
 resource "aws_lambda_permission" "allow_apigw" {
@@ -71,3 +72,4 @@ resource "aws_lambda_permission" "allow_apigw" {
 
   source_arn = "arn:aws:execute-api:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${module.apigateway.api_id}/*/*"
 }
+
