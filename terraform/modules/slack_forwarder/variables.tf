@@ -18,3 +18,6 @@ variable "sns_topic_arn" {
   description = "ARN of SNS topic that triggers the Lambda"
   type        = string
 }
+variable "lambda_exec_role_name" {
+  type = string
+}
