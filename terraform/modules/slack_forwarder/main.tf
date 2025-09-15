@@ -64,4 +64,24 @@ resource "null_resource" "build_zip" {
     working_dir = path.module
   }
 }
+resource "aws_iam_policy" "secretsmanager_access" {
+  name        = "slack-forwarder-secretsmanager-access"
+  description = "Allow Lambda to read Slack webhook secret"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue"
+        ]
+        Resource = aws_secretsmanager_secret.slack_webhook.arn
+      }
+    ]
+  })
+}
 
+resource "aws_iam_role_policy_attachment" "lambda_secretsmanager_access" {
+  role       = var.lambda_exec_role_name
+  policy_arn = aws_iam_policy.secretsmanager_access.arn
+}
