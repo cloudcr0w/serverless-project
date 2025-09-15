@@ -91,8 +91,9 @@ Optional:
 
 ### 7. 🔐 Security & Secrets
 
+- ✅ Slack webhook managed in AWS Secrets Manager (instead of plain env vars)
 - [ ] Rotate Slack webhook secret regularly
-- [ ] Add support for AWS Secrets Manager (instead of plain env vars)
+
 
 ### 8. 🧹 Repo Cleanup
 
