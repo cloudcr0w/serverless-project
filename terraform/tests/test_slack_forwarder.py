@@ -1,7 +1,15 @@
 import json
 import pytest
 from unittest.mock import patch, MagicMock
+import sys
+import os
+
+# Add path to the Lambda folder
+sys.path.append(os.path.join(os.path.dirname(__file__), "../modules/slack_forwarder/lambda"))
+
 import slack_alert_forwarder as saf
+
+
 
 
 def test_get_slack_webhook_missing_secret(monkeypatch):
