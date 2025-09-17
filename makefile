@@ -1,7 +1,7 @@
-.PHONY: test format lint plan deploy
+.PHONY: test format lint plan deploy coverage monitoring-up monitoring-down validate fmt
 
 test:
-	PYTHONPATH=terraform pytest terraform/tests
+	PYTHONPATH=terraform pytest terraform/tests -v
 
 format:
 	black terraform/
@@ -18,3 +18,16 @@ deploy:
 
 coverage:
 	PYTHONPATH=. pytest --cov=terraform.lambda_function --cov-report=term-missing
+
+# New targets
+monitoring-up:
+	cd monitoring && docker compose up -d
+
+monitoring-down:
+	cd monitoring && docker compose down
+
+validate:
+	cd terraform && terraform validate
+
+fmt:
+	terraform fmt -recursive
