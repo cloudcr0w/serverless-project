@@ -36,3 +36,12 @@ k8s/secret.yaml
 minikube-linux-amd64
 .coverage
 node_modules/
+
+# Pytest cache
+.pytest_cache/
+
+# Docker build cache
+*.tar
+
+# Log files
+*.log
