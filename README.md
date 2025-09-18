@@ -92,6 +92,7 @@ Added as part of DevOps best practices - full stack for application and infrastr
 - Node Exporter - host system metrics
 
 - Grafana - visualisation of metrics and dashboards
+Setup guide: [Monitoring Setup](/docs/monitoring.md)
 
 Example dashboard (Node Exporter Full):
 
