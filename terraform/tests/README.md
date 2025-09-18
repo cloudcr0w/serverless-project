@@ -1,16 +1,43 @@
-# Terraform Test Suite
+## 🧪 Tests – Serverless Task Manager
 
-This directory contains tests for Terraform-managed AWS Lambda functions.
+This project includes unit tests for the Lambda backend and the Slack forwarder.
+![Tests Result](test.png)
+## Running Tests
 
-## Structure
-
-- `test_lambda_function.py`: Tests basic behavior and output of the Lambda.
-- `__init__.py`: Makes this folder a Python module.
-
-## Usage
-
-Run all tests:
+From repo root:
 
 ```bash
 make test
 ```
+
+Or manually:
+```bash
+PYTHONPATH=terraform pytest terraform/tests -v
+```
+
+### Coverage
+
+Run with coverage:
+```bash
+make coverage
+```
+or:
+```bash
+PYTHONPATH=terraform pytest --cov=terraform --cov-report=term-missing
+```
+
+## What is Tested?
+
+- lambda_function.py
+
+- Valid and invalid POST requests
+
+- Title validation (non-empty string)
+
+- Response codes and JSON structure
+
+- slack_alert_forwarder.py
+
+- Missing secret in AWS Secrets Manager
+
+- Happy path with mocked boto3 + urllib3
