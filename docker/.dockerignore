@@ -1,4 +1,22 @@
-terraform/tests/
+# Python cache
 __pycache__/
 *.pyc
-flask-app/test_*.py
+*.pyo
+
+# Pytest cache
+.pytest_cache/
+
+# Virtual environments
+.venv/
+
+# Terraform local state
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
