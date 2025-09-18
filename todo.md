@@ -39,7 +39,6 @@ Region: us-east-1
 Time: 2025-07-10 14:22 UTC
 ```
 
-
 Extras: severity emoji, API link, function name, etc.
 
 ---
@@ -95,12 +94,14 @@ Optional:
 - [ ] Rotate Slack webhook secret regularly
 - [ ] Review IAM policies for least privilege (narrow down SecretsManager and Lambda execution rights)
 
-
+---
 
 ### 8. 🧹 Repo Cleanup
 
 - ✅ Remove old test ZIPs from repo history
 - [ ] Consolidate Docker instructions in `docs/`
+
+---
 
 ### 9. 📊 Monitoring & Observability
 
@@ -116,4 +117,4 @@ Optional:
 - ✅ CI/CD includes `make test format lint`
 
 
-updated 15/09/2025
+updated 18/09/2025
