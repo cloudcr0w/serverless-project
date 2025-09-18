@@ -1,15 +1,16 @@
-# SECURITY.md
+# 🔐 Security Policy
 
-## 🔐 Reporting a Vulnerability
+## Secrets Management
+- Slack webhook URL is stored in **AWS Secrets Manager**, not in plain environment variables.
+- Lambda IAM role has **least privilege** access → read-only permission for this secret.
+- Future plan: enable **automatic secret rotation**.
 
-If you find a security issue, please open a GitHub issue or contact to me.
+## Infrastructure
+- All resources are provisioned via **Terraform** (Infrastructure as Code).
+- IAM policies are modular and follow **principle of least privilege**.
 
-## 🔒 Practices
-
-- IAM policies follow least privilege
-- Lambda errors trigger alerting
-- Slack alerts secured via webhook secrets
-
+## Reporting Issues
+If you discover a security vulnerability in this project, please open an issue or contact me directly.
 
 ## Contact
 - Email: adamwronowy@gmail.com
