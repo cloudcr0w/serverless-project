@@ -1,4 +1,4 @@
-.PHONY: test format lint plan deploy coverage monitoring-up monitoring-down validate fmt
+.PHONY: test format lint plan deploy coverage monitoring-up monitoring-down validate fmt plan-out apply-out clean
 
 test:
 	PYTHONPATH=terraform pytest terraform/tests -v
@@ -11,6 +11,12 @@ lint:
 
 plan:
 	cd terraform && terraform plan
+
+plan-out:
+	cd terraform && terraform plan -out=tfplan
+
+apply-out:
+	cd terraform && terraform apply tfplan
 
 deploy:
 	./build.sh
@@ -31,3 +37,7 @@ validate:
 
 fmt:
 	terraform fmt -recursive
+
+clean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	rm -rf .pytest_cache *.pyc *.pyo
