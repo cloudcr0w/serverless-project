@@ -1,6 +1,13 @@
 # 🛠 DEVLOG – Serverless Task Manager
 
-This document tracks key development steps, decisions, and technical improvements made throughout the project. It will be developed until I said so ;-)
+This document tracks key development steps, decisions, and technical improvements made throughout the project. It will be developed until I say so ;-)
+
+---
+
+## 🎯 Current Focus
+
+Strengthening the alerting pipeline (Slack via **AWS Secrets Manager**) and expanding observability with **Grafana dashboards**.  
+Also practicing unit testing discipline to keep code reliable and production-ready.
 
 ---
 
@@ -21,8 +28,9 @@ This document tracks key development steps, decisions, and technical improvement
   - ✅ Terraform `plan` and `apply`
   - ✅ Frontend auto-synced to S3
 - Verified alerting workflow works:
-  - `Lambda Error` → `SNS` → `Slack` (Webhook)
+  - `Lambda Error` → `SNS` → `Slack` (Webhook via Secrets Manager)
 - Observability via CloudWatch Dashboard (invocations, errors, throttles, duration)
+- Experimenting with **Prometheus + Grafana** (via Docker Compose) for extended monitoring.
 
 ✅ This release is production-grade and showcases end-to-end DevOps skills across IaC, serverless, monitoring, testing, and CI/CD.
 
@@ -33,12 +41,12 @@ This document tracks key development steps, decisions, and technical improvement
 - Created `test_lambda_function.py` with:
   - ✅ Positive test for valid `POST`
   - ✅ Negative tests for invalid `title` values (None, empty, number)
+- Added tests for `slack_forwarder`:
+  - ✅ Missing secret case
+  - ✅ Happy path with mocked boto3 + urllib3
 - Used `@patch` for mocking DynamoDB table (no real AWS calls)
-- Test coverage includes:
-  - Data validation
-  - Response codes
-  - JSON structure
-
+- **Coverage ~70%** of backend logic
+- Tests run automatically in CI/CD pipeline on every push
 
 ## 🧪 Running Tests
 
@@ -53,15 +61,16 @@ PYTHONPATH=terraform pytest terraform/tests/
 
 ---
 
-## 🛡 Input Validation Improvements
+## 🛡 Security & Secrets
 
-- Added checks for missing or empty request body
-- Validated that `title` is a non-empty string
-- Replaced redundant checks with a single clean condition
+- Slack webhook secret managed via **AWS Secrets Manager** (Terraform IaC)
+- IAM policies follow the **principle of least privilege**:
+  - Lambda → read-only access to Secrets Manager
+- Next step: rotate secrets regularly (automation planned)
 
 ---
 
-## 📊 CloudWatch Observability
+## 📊 CloudWatch & Grafana Observability
 
 - CloudWatch Dashboard created via Terraform
 - Added widgets:
@@ -69,6 +78,9 @@ PYTHONPATH=terraform pytest terraform/tests/
   - ✅ Duration
   - ✅ Errors
   - ✅ Throttles (NEW)
+- Local observability stack (Prometheus + Grafana):
+  - Pre-provisioned Prometheus datasource
+  - Node Exporter Full dashboard (ID: 1860)
 
 ---
 
@@ -88,7 +100,7 @@ PYTHONPATH=terraform pytest terraform/tests/
 
 ## ✅ Automation
 
-- Added `Makefile` for `make test`, `make lint`, `make zip`
+- Added `Makefile` for `make test`, `make lint`, `make zip`, `make monitoring-up`
 - Coverage enabled with `pytest-cov`
 - Local test run: `make test`
 
@@ -99,6 +111,18 @@ PYTHONPATH=terraform pytest terraform/tests/
 - ✅ Mocking AWS in unit tests is essential to avoid costs and speed up dev
 - ✅ Handling edge cases early helps prevent 500 errors later
 - ✅ Keeping IaC modular (Terraform modules) makes iteration faster
+- ✅ Writing IaC first forces cleaner architecture decisions
+- ✅ Adding request IDs to logs makes debugging way easier than expected
+
+---
+
+## 🗺 Roadmap / Next Steps
+
+- Rotate Slack webhook secret automatically
+- Add more unit tests for `slack_forwarder`
+- Expand Grafana dashboards (Node Exporter → Lambda metrics)
+- Explore EKS deployment for API component
+- Add integration tests for end-to-end flow
 
 ---
 
