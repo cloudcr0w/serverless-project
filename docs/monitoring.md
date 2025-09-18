@@ -77,9 +77,9 @@ rate(node_network_receive_bytes_total[5m])
 
 ```
 
-Troubleshooting
+## 🛠 Troubleshooting
 
-Check Grafana sees provisioned files:
+### Grafana provisioning not working?
 
 ```bash
 docker ps  # find grafana container name, e.g., monitoring-grafana-1
@@ -90,5 +90,25 @@ docker exec -it <grafana> ls /etc/grafana/provisioning/dashboards
 Look for provisioning logs:
 ```bash
 docker logs <grafana> | grep -i provision
+```
+
+### Prometheus shows targets as DOWN?
+
+Verify containers are running:
+```bash
+docker ps
+```
+
+Restart monitoring stack:
+```bash
+make monitoring-down
+make monitoring-up
+```
+
+### Node Exporter metrics missing?
+
+Ensure the service is exposed on port 9100:
+```bash
+curl http://localhost:9100/metrics
 ```
 
