@@ -70,19 +70,16 @@ PYTHONPATH=terraform pytest terraform/tests/
 
 ---
 
-## 📊 CloudWatch & Grafana Observability
+## 📊 Monitoring Stack (Prometheus + Grafana + CloudWatch)
 
-- CloudWatch Dashboard created via Terraform
-- Added widgets:
-  - ✅ Invocations
-  - ✅ Duration
-  - ✅ Errors
-  - ✅ Throttles (NEW)
-- Local observability stack (Prometheus + Grafana):
-  - Pre-provisioned Prometheus datasource
-  - Node Exporter Full dashboard (ID: 1860)
+- ✅ Added `cloudwatch-exporter` with AWS credentials mounted for Lambda metrics
+- ✅ Prometheus config updated with scrape targets for `node_exporter` and `cloudwatch-exporter`
+- ✅ Grafana connected with Prometheus as datasource
+- ✅ Basic dashboard running (Node Exporter + AWS Lambda metrics)
 
----
+This monitoring setup is still in early stages but shows how local observability can be extended
+with AWS CloudWatch and Prometheus exporters.
+
 
 ## 🧹 Infrastructure Cleanup
 
