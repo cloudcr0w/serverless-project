@@ -9,13 +9,6 @@ metrics:
     range_seconds: 300
 
   - aws_namespace: AWS/Lambda
-    aws_metric_name: Errors
-    aws_dimensions: [FunctionName]
-    aws_statistics: [Sum]
-    period: 60
-    range_seconds: 300
-
-  - aws_namespace: AWS/Lambda
     aws_metric_name: Duration
     aws_dimensions: [FunctionName]
     aws_statistics: [Average]
@@ -25,6 +18,34 @@ metrics:
   - aws_namespace: AWS/Lambda
     aws_metric_name: Throttles
     aws_dimensions: [FunctionName]
+    aws_statistics: [Sum]
+    period: 60
+    range_seconds: 300
+
+  - aws_namespace: AWS/ApiGateway
+    aws_metric_name: 4xx
+    aws_dimensions: [ApiId, Stage]
+    aws_statistics: [Sum]
+    period: 60
+    range_seconds: 300
+
+  - aws_namespace: AWS/ApiGateway
+    aws_metric_name: 5xx
+    aws_dimensions: [ApiId, Stage]
+    aws_statistics: [Sum]
+    period: 60
+    range_seconds: 300
+
+  - aws_namespace: AWS/ApiGateway
+    aws_metric_name: Latency
+    aws_dimensions: [ApiId, Stage]
+    aws_statistics: [Average]
+    period: 60
+    range_seconds: 300
+
+  - aws_namespace: AWS/ApiGateway
+    aws_metric_name: Count
+    aws_dimensions: [ApiId, Stage]
     aws_statistics: [Sum]
     period: 60
     range_seconds: 300
