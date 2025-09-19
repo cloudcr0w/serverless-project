@@ -38,5 +38,5 @@ services:
       - ${HOME}/.aws/credentials:/root/.aws/credentials:ro
     environment:
       - AWS_REGION=us-east-1
-    # Run with custom config file
-    command: --config.file=/config/config.yml
+    # # Run with custom config file
+    # command: ["--config.file=/config/config.yml"]
