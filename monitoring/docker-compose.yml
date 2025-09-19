@@ -27,7 +27,7 @@ services:
     # Exposes host-level metrics (CPU, RAM, Disk, Network)
 
   cloudwatch-exporter:
-    image: prom/cloudwatch-exporter
+    image: prom/cloudwatch-exporter:latest
     container_name: cloudwatch-exporter
     ports:
       - "9106:9106"
