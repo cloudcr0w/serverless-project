@@ -5,18 +5,26 @@ metrics:
     aws_metric_name: Invocations
     aws_dimensions: [FunctionName]
     aws_statistics: [Sum]
+    period: 60
+    range_seconds: 300
 
   - aws_namespace: AWS/Lambda
     aws_metric_name: Errors
     aws_dimensions: [FunctionName]
     aws_statistics: [Sum]
+    period: 60
+    range_seconds: 300
 
   - aws_namespace: AWS/Lambda
     aws_metric_name: Duration
     aws_dimensions: [FunctionName]
     aws_statistics: [Average]
+    period: 60
+    range_seconds: 300
 
   - aws_namespace: AWS/Lambda
     aws_metric_name: Throttles
     aws_dimensions: [FunctionName]
     aws_statistics: [Sum]
+    period: 60
+    range_seconds: 300
