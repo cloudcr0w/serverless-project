@@ -21,3 +21,16 @@ services:
     image: prom/node-exporter
     ports:
       - "9100:9100"
+
+  cloudwatch-exporter:
+    image: prom/cloudwatch-exporter
+    container_name: cloudwatch-exporter
+    ports:
+      - "9106:9106"
+    volumes:
+      - ./cloudwatch.yml:/config/config.yml:ro
+      - ${HOME}/.aws/credentials:/root/.aws/credentials:ro
+    environment:
+      - AWS_REGION=us-east-1
+    command: /config/config.yml
+
