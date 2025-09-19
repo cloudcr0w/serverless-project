@@ -45,3 +45,7 @@ node_modules/
 
 # Log files
 *.log
+
+# Monitoring logs and temp files
+monitoring/*.log
+monitoring/tmp/
