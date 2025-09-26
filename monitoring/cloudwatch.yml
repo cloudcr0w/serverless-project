@@ -11,7 +11,7 @@ metrics:
   - aws_namespace: AWS/Lambda
     aws_metric_name: Duration
     aws_dimensions: [FunctionName]
-    aws_statistics: [Average]
+    aws_statistics: [Average, Sum]
     period: 60
     range_seconds: 300
 
