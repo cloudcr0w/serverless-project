@@ -4,27 +4,26 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      # Prometheus config (scrape jobs)
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
     ports:
       - "3000:3000"
     volumes:
-      # Provision Prometheus datasource automatically
       - ./../monitoring/provisioning/datasources:/etc/grafana/provisioning/datasources
-      # Preload dashboards (Node Exporter + future AWS Lambda)
       - ./../monitoring/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
 
   node_exporter:
     image: prom/node-exporter
     ports:
       - "9100:9100"
-    # Exposes host-level metrics (CPU, RAM, Disk, Network)
+    restart: unless-stopped
 
   cloudwatch-exporter:
     image: prom/cloudwatch-exporter:latest
@@ -32,11 +31,8 @@ services:
     ports:
       - "9106:9106"
     volumes:
-      # CloudWatch Exporter config (which AWS metrics to scrape)
       - ./cloudwatch.yml:/config/config.yml:ro
-      # AWS credentials (must exist in ~/.aws/credentials)
       - ${HOME}/.aws/credentials:/root/.aws/credentials:ro
     environment:
       - AWS_REGION=us-east-1
-    # # Run with custom config file
-    # command: ["--config.file=/config/config.yml"]
+    restart: unless-stopped
