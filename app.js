@@ -33,6 +33,7 @@ async function fetchTasks() {
     } catch (err) {
         console.error("Fetch error:", err);
         document.getElementById("task-list").innerHTML = "<li>Error loading tasks</li>";
+        document.getElementById("task-list").innerHTML = "<li>Error loading tasks. Retrying...</li>";
     }
 }
 
