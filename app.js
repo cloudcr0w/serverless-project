@@ -91,6 +91,7 @@ async function createTask() {
         fetchTasks();
     } catch {
         showAlert("Error creating task!", "danger");
+        titleInput.value = "";
     }
 }
 // eslint-disable-next-line no-unused-vars
