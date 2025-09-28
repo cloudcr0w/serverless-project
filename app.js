@@ -30,6 +30,7 @@ async function fetchTasks() {
         const tasks = await res.json();
         if (!Array.isArray(tasks)) throw new Error("API returned non-array");
         renderTasks(tasks);
+        console.log(`Fetched ${tasks.length} tasks successfully`);
     } catch (err) {
         console.error("Fetch error:", err);
         document.getElementById("task-list").innerHTML = "<li>Error loading tasks</li>";
