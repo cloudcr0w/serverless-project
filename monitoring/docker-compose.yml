@@ -11,6 +11,8 @@ services:
     image: grafana/grafana
     ports:
       - "3000:3000"
+    depends_on:
+      - prometheus
     volumes:
       - ./../monitoring/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./../monitoring/provisioning/dashboards:/etc/grafana/provisioning/dashboards
