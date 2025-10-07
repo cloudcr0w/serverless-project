@@ -187,6 +187,18 @@ Then open http://localhost:5000/tasks
 
 ✅ Logs viewable in GitHub Actions & CloudWatch
 
+## 💸 FinOps Considerations
+
+This project uses AWS Free Tier services wherever possible:
+
+- **Lambda** → 1M requests/month free, 400,000 GB-seconds compute time.  
+- **API Gateway** → 1M REST API calls/month free.  
+- **DynamoDB** → 25 GB storage + 25 RCUs/WCUs free.  
+- **S3** → 5 GB storage + 20,000 GET + 2,000 PUT free.  
+
+⚠️ In production, API Gateway and DynamoDB costs can scale quickly with traffic.  
+Monitoring usage with **AWS Budgets** is recommended to avoid surprises.
+
 ## 🛠️ Development Notes
 
 - Run tests locally using `pytest` from `terraform/tests`
