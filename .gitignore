@@ -49,3 +49,6 @@ node_modules/
 # Monitoring logs and temp files
 monitoring/*.log
 monitoring/tmp/
+
+# Ignore Grafana dashboard exports
+dashboard.json
